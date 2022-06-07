@@ -1,0 +1,107 @@
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page">
+  <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+    <div class="container-fluid">
+      <div class="subheader-main">
+        <h3 class="subheader-title" translate> roles.Roles </h3>
+      </div>
+      <div class="subheader-toolbar" *ngIf="roleCreate">
+        <div class="subheader-wrapper">
+          <a href="javascript:void(0)" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal"
+            translate>
+            <i class="la la-plus"></i> roles.Add New Role </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-header d-flex justify-content-between" *ngIf="roleCreate">
+            <div class="iq-header-title">
+              <h4 class="card-title" translate> roles.Roles </h4>
+            </div>
+          </div>
+          <div class="iq-card-body">
+            <div class="row">
+              <div class="col-12">
+                <div id="accordion">
+                  <form>
+                    <div class="card" *ngFor="let data of permissionData; let i=index;" style="margin-bottom: 5px;">
+                      <div class="card-header" id="heading{{i}}">
+                        <h5 class="mb-0">
+                          <button type="button"
+                            class="w-100 text-left btn btn-link collapsed d-flex align-items-center justify-content-between userRole"
+                            data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true"
+                            [attr.aria-controls]="'collapse'+i" name="{{data.name}}_{{i}}"
+                            (click)="permissionId(data.id)">
+                            {{data.name}}
+                            <i class="fas"></i>
+                          </button>
+                          <input type="text" value="{{data.id}}" class="d-none" id="roleID">
+                        </h5>
+                      </div>
+                      <div id="collapse{{i}}" class="collapse" [attr.aria-labelledby]="'heading'+i"
+                        data-parent="#accordion">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-4 mb-3" *ngFor="let item of data.permission; let i=index">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="{{data.name}}{{i}}" id="{{data.name}}_{{item.id}}_{{i}}"
+                                  class="custom-control-input" [(ngModel)]="item.check"
+                                  [ngModelOptions]="{standalone: true}" [value]="item.value"
+                                  (change)="onCheckboxChange(item.id,item.check)">
+                                <label for="{{data.name}}_{{item.id}}_{{i}}"
+                                  class="custom-control-label">{{item.name}}</label>
+                              </div>
+                            </div>
+                            <div class="col-12 text-right">
+                              <button type="submit" class="btn btn-primary" *ngIf="roleEdit == true" (click)="updateRole(data.permission)" translate><i class="fas fa"></i> roles.Save Permission </button>
+
+                                <button type="submit" class="btn btn-danger" *ngIf="roleEdit == false"  translate>
+                                  <i class="fas fa"></i> roles.You are not Authorised to edit this role </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Role</h5>
+          <button type="button" class="close" data-dismiss="modal" id="ClosecreateModal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="rolesForm" (ngSubmit)="roleSubmit()">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" value="" formControlName="name">
+              <div *ngIf="isSubmitted&&form.name.errors" class="text-danger">
+                <p class="mb-0" *ngIf="form.name.errors.required">Please Enter Name.</p>
+              </div>
+            </div>
+            <button type="button" type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

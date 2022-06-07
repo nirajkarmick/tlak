@@ -1,0 +1,579 @@
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page">
+  <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+    <div class="container-fluid">
+      <div class="subheader-main">
+        <h3 class="subheader-title" translate>departure-table.Departure </h3>
+        <div class="subheader-breadcrumbs">
+          <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+            class="ri-home-7-line"></i></a>
+          <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>
+            departure-table.Departure List</a>
+        </div>
+      </div>
+      <div class="subheader-toolbar" *ngIf="departureCreate">
+        <div class="subheader-wrapper">
+          <a href="javascript:void(0)" [routerLink]="['/departure-create']" class="btn btn-warning" translate><i
+            class="la la-plus"></i>departure-table.Create New Departure</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-header d-flex justify-content-between">
+            <div class="iq-header-title">
+              <h4 class="card-title" translate>departure-table.Departure List</h4>
+            </div>
+            <div class="d-flex">
+              <form [formGroup]="searchDate">
+                <div class="form-inline position-relative mr-2">
+                  <div class="form-group pt-2 m-0">
+                    <h6 class="mb-0" translate>departure-table.Filter by Date</h6>
+                  </div>&nbsp;&nbsp;
+                  <div class="input-group">
+                    <mat-date-range-input [rangePicker]="picker" (click)="picker.open()"
+                                          class="form-control p-0 pl-2">
+                      <input formControlName="fd" matStartDate placeholder="Start date" #dateRangeStart>
+                      <input formControlName="ed" matEndDate placeholder="End date" #dateRangeEnd
+                             (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                    <div class="d-none"></div>
+                  </div>
+                </div>
+              </form>
+              <div class="form-inline">
+                <div class="form-group pt-2 m-0">
+                  <h6 class="mb-0" translate>departure-table.Filter by Status</h6>
+                </div>&nbsp;&nbsp;
+                <select id="filter" class="form-control" [(ngModel)]="filter_status">
+                  <option value="" translate>departure-table.Select</option>
+                  <option value="active" translate>departure-table.Active</option>
+                  <option value="inactive" translate>departure-table.Inactive</option>
+                  <option value="disabled" translate>departure-table.Disable</option>
+                  <!-- <option value="complete" translate>departure-table.Complete</option> -->
+                </select>
+              </div>
+              <form class="form-inline float-right">
+                <div class="form-group pt-1 margin-0">
+                  <h6 class="mb-0" translate>departure-table.Search by: <span class="d-block" translate>departure-table.Departure name</span></h6>
+                </div>
+                <div class="form-group mx-sm-3 ">
+                  <input name="search" type="search" class="form-control" id="inputPassword2" [(ngModel)]="keyword" placeholder="Search...">
+                </div>
+                <button type="button" class="btn btn-theme" (click)="depSearch()" translate>departure-table.Search</button>
+              </form>
+            </div>
+          </div>
+          <div class="iq-card-body departure-table">
+            <div class="table-responsive">
+              <table class="table table-hover " id="example2">
+                <thead>
+                <tr>
+                  <th translate>departure-table.Departure Name</th>
+                  <th translate>departure-table.Traveller Passcode</th>
+                  <th translate>departure-table.Manager Passcode</th>
+                  <th translate>departure-table.Tour Date</th>
+                  <th translate>departure-table.Dep. Process Status</th>
+                  <th translate>departure-table.Action</th>
+                  <th translate>departure-table.Activation Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let dep of departureList">
+                  <td title="Test Departure" class="table-td-ellipsis">{{dep.pname}}</td>
+                  <td>{{dep.passcode}}</td>
+                  <td>{{dep.manager_passcode}}</td>
+                  <td>{{dep.start_date | date:'d MMM'}} - {{dep.end_date | date:'d MMM, y'}}
+                    <span class="d-block text-success">({{dep.total_nights}}N/{{dep.total_days}}D)</span>
+                  </td>
+                  <td *ngIf="departureEdit == true">
+                    <button type="button" class="btn btn-outline-success btn-sm" title="{{dep.complete}} Complete" *ngIf="dep.complete" [routerLink]="['/departure-edit']" [queryParams]="{ 'package_id': dep.id}">
+                      <span class="badge badge-success">{{dep.complete}}</span> Com
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm ml-1" title="{{dep.pending}} Pending" *ngIf="dep.pending" [routerLink]="['/departure-edit']" [queryParams]="{ 'package_id': dep.id}">
+                      <span class="badge badge-danger">{{dep.pending}}</span> Pen
+                    </button>
+                  </td>
+                  <td *ngIf="departureEdit == false">
+                    <button type="button" class="btn btn-outline-success btn-sm" title="{{dep.complete}} Complete" *ngIf="dep.complete">
+                      <span class="badge badge-success">{{dep.complete}}</span> Com
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm ml-1" title="{{dep.pending}} Pending" *ngIf="dep.pending">
+                      <span class="badge badge-danger">{{dep.pending}}</span> Pen
+                    </button>
+                  </td>
+                  <td *ngIf="departureEdit == true">
+                    <a href="javascript:void(0);" class=" copy-departure" title="Copy Departure" data-toggle="modal" data-target="#exampleModal" (click)="copyDep(dep.id,dep.start_date,dep.end_date,dep.pname,dep.company_id,dep.agent_name)">
+                      <i class="las la-copy f2x"></i>
+                    </a>
+                    <a class="" href="javascript:void(0);" [routerLink]="['/departure-edit']" [queryParams]="{ 'package_id': dep.id}" title="Edit Details">
+                      <i class="las la-edit f2x"></i>
+                    </a>
+                    <a class="text-success" href="javascript:void(0);" title="Activate" *ngIf="dep.status===0 || dep.status===3" (click)="depActivate(dep.id)">
+                      <i class="las la-check f2x"></i>
+                    </a>
+                    <!--<a class="text-gray" href="javascript:void(0);" title="Inactive" *ngIf="dep.status" (click)="InActivate(dep.id)">
+                      <i class="las la-ban f2x"></i>
+                    </a>-->
+                    <a class="text-danger" href="javascript:void(0);" title="Disable" *ngIf="dep.status===2 && checkdate(dep.start_date)==false" id="disabled" (click)="disabled(dep.id)">
+                      <i class="las la-window-close f2x"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#notificationModal"
+                       (click)="notificationSent(dep.id)"><i class="fas fa-bell"></i></a>
+                    <div class="dropdown d-inline-block" *ngIf="dep.pfd_data && dep.pfd_data.length > 0">
+                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <i class="las la-file-pdf f2x"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right table-dropdown downloadPDFDW" aria-disabled="true">
+                        <span *ngFor="let pdf of dep.pfd_data">
+                          <a class="copy-departure dropdown-item" href="{{dep.pfd_urls}}{{pdf.file_name}}" target="_blank">
+                            <i class="las la-file-download"></i> {{pdf.file_name}}
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td *ngIf="departureEdit == false">
+                    <a href="javascript:void(0);" class=" copy-departure" title="Copy Departure" data-toggle="modal" data-target="#exampleModal" (click)="copyDep(dep.id,dep.start_date,dep.end_date,dep.pname,dep.company_id,dep.agent_name)">
+                      <i class="las la-copy f2x"></i>
+                    </a>
+                    <a class="" href="javascript:void(0);" title="Edit Details">
+                      <i class="las la-edit f2x"></i>
+                    </a>
+                    <a class="text-success" href="javascript:void(0);" title="Activate" *ngIf="dep.status===0 || dep.status===3" (click)="depActivate(dep.id)">
+                      <i class="las la-check f2x"></i>
+                    </a>
+                    <a class="text-danger" href="javascript:void(0);" title="Disable" *ngIf="dep.status===2 && checkdate(dep.start_date)==false" id="disabled" (click)="disabled(dep.id)">
+                      <i class="las la-window-close f2x"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#notificationModal" (click)="notificationSent(dep.id)"><i class="fas fa-bell"></i></a>
+                    <div class="dropdown d-inline-block" *ngIf="dep.pfd_data && dep.pfd_data.length > 0">
+                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <i class="las la-file-pdf f2x"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right table-dropdown downloadPDFDW" aria-disabled="true">
+                        <span *ngFor="let pdf of dep.pfd_data">
+                          <a class="copy-departure dropdown-item" href="{{dep.pfd_urls}}{{pdf.file_name}}" target="_blank">
+                            <i class="las la-file-download"></i> {{pdf.file_name}}
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="">
+                    <span class="badge badge-pill badge-success" *ngIf="dep.status == 2  && dep.is_live === 'no'" translate>departure-table.Active</span>
+                    <span class="badge badge-pill badge-secondary" *ngIf="dep.status == 0" translate>departure-table.Inactive</span>
+                    <span class="badge badge-pill badge-danger" *ngIf="dep.status === 3" translate>departure-table.Disabled</span>
+                    <span class="badge badge-pill badge-success" *ngIf="dep.status === 2 && dep.is_live  === 'yes'" translate>departure-table.Live</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="abcx  float-right" *ngIf="totalData>20 && departureList && departureList.length > 0">
+                <p>Total:{{totalData}}</p>
+                <ul class="pagination" role="navigation">
+                  <li class="page-item " aria-disabled="true" aria-label="« Previous" *ngIf="current_page>1">
+                    <a class="page-link" aria-hidden="true" href="javascript:void(0);" (click)="goToFirst()">‹‹</a>
+                  </li>
+                  <li class="page-item " aria-disabled="true" aria-label="« Previous" *ngIf="current_page>1">
+                    <a class="page-link" aria-hidden="true" href="javascript:void(0);" (click)="goToPrev()">‹</a>
+                  </li>
+                  <li class="page-item" *ngFor="let pg of paginationArray">
+                    <span class="page-link" [ngClass]="{'active': pg.page_no==current_page,'not_active': pg.page_no==current_page}" (click)="gotToPage(pg.page_no)">
+                    {{pg.page_no}}</span>
+                  </li>
+                  <li class="page-item" *ngIf="current_page!=total_page">
+                    <a class="page-link" href="javascript:void(0);" rel="next"
+                       aria-label="Next »" (click)="goToNext()">›</a>
+                  </li>
+                  <li class="page-item" *ngIf="current_page!=total_page">
+                    <a class="page-link" href="javascript:void(0);" rel="next"
+                       aria-label="Next »" (click)="goToLast()">››</a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" translate>departure-table.Copy Departure</h5>
+        <button type="button" class="close" id="closeCopymodal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="copydepartureForm" class="itinerary-setup m-t-20" (ngSubmit)="copyDeparture()">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-12">
+                  <div class="headings">
+                    <h5 translate>departure-table.Enter Tour Package/ Departure Name</h5>
+                  </div>
+                  <hr>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label translate>departure-table.Enter the name of the Departure or Tour Package<sup>*</sup></label>
+                    <input name="pname" id="pname" formControlName="pname" class="form-control" type="text"
+                           placeholder="">
+                    <div *ngIf="isSubmitted&&form.pname.errors" class="text-danger">
+                      <p class="mb-0" *ngIf="form.pname.errors.required" translate>departure-table.Please enter Tour Package Name.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5" id="agentName">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="headings">
+                    <h5 translate>departure-table.Company Name OR Agent Name</h5>
+                    <button type="button" class="btn btn-light btn-sm btn-icon" data-toggle="popover"
+                            data-placement="left" data-container="body"
+                            data-content="Name of the company entered here will be displayed as the ‘Tour Operator’ on TLAK app"
+                            data-original-title="" title=""><i class="fas fa-question-circle" aria-hidden="true"></i></button>
+                  </div>
+                  <hr>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label translate>departure-table.Company/Agent/Tour Operator’s name</label>
+                    <input name="agent_name" id="agent_name" class="form-control"
+                           formControlName="agent_name">
+                    <div *ngIf="isSubmitted&&form.agent_name.errors" class="text-danger">
+                      <p class="mb-0" *ngIf="form.agent_name.errors.required" translate>departure-table.Please enter Company/Agent/Tour Operator’s name.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7" id="passcodeField">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="headings">
+                    <h5 translate>departure-table.Passcode</h5>
+                    <button type="button" class="btn btn-light btn-sm btn-icon" data-toggle="popover"
+                            data-placement="left" data-container="body"
+                            data-content="Tour Operator Team gets a few extra features like Admin status in Chat and so on. So, be extra cautious while sharing the Operator Team’s Passcode."
+                            data-original-title="" title="">
+                      <i class="fas fa-question-circle" aria-hidden="true"></i></button>
+                  </div>
+                  <hr>
+                </div>
+                <div class="col-md-4" id="tenetID">
+                  <div class="form-group">
+                    <label translate>departure-table.Company ID<sup>*</sup></label>
+                    <input id="tenant_code" class="form-control read-only-input" type="text" placeholder=" "
+                           value="{{company_id}}" disabled="disabled">
+                  </div>
+                </div>
+                <div class="col-md-4" id="travellerPass">
+                  <div class="form-group">
+                    <label translate>departure-table.Traveler’s Passcode<sup>*</sup></label>
+                    <input id="passcode" name="passcode" class="form-control" formControlName="passcode" type="text" #box>
+                    <p class="mb-0 d-flex align-items-center justify-content-between" id="tpasscode">
+                      <small><strong><span>{{comp_id}}-</span>
+                        <!--<span id="travellerpasscode-show">{{passcode}}</span>--></strong>
+                      </small>
+                      <i class="fas fa-copy" (click)="copyPass()"></i>
+                    </p>
+                    <div *ngIf="isSubmitted&&form.passcode.errors" class="text-danger">
+                      <p class="mb-0" *ngIf="form.passcode.errors.required" translate>departure-table.Please enter Passcode.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4" id="managerPass">
+                  <div class="form-group">
+                    <label translate>departure-table.Operator Passcode<sup>*</sup></label>
+                    <input id="manager_passcode" name="manager_passcode" class="form-control" (keyup)="keyFunc()" formControlName="manager_passcode"
+                           type="text" #box>
+                    <p class="mb-0 d-flex align-items-center justify-content-between" id="mpasscode">
+                      <small><strong><span id="manager_pass">{{comp_id}}-</span><!--<span
+                        id="managerpasscode-show">{{manager_passcode}}</span>--></strong></small>
+                      <i class="fas fa-copy" (click)="mcopyPass()"></i>
+                    </p>
+                    <div *ngIf="isSubmitted&&form.manager_passcode.errors" class="text-danger">
+                      <p class="mb-0" *ngIf="form.manager_passcode.errors.required" translate>departure-table.Please enter operator Passcode.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="headings">
+                <h5 translate>departure-table.Date - Time And Total Users</h5>
+                <button type="button" class="btn btn-light btn-sm btn-icon" data-toggle="popover"
+                        data-placement="left" data-container="body"
+                        data-content="Do not consider the ‘local’ location as the Day 1 of the Departure. Example: A departure starts for New York, USA from New Delhi, India. Now, considering the flight duration and transit time, the actual Day 1 will start at least 24 to 36 hours after the traveler leaves his/her home in New Delhi."
+                        data-original-title="" title=""><i class="fas fa-question-circle" aria-hidden="true"></i></button>
+              </div>
+              <hr>
+            </div>
+
+            <div class="col-md-3 position-relative">
+              <div class="form-group date">
+                <label translate>departure-table.Departure Dates <sup>*</sup></label>
+                <div class="input-group">
+                  <mat-date-range-input [rangePicker]="picker1" (click)="picker1.open()"
+                                        class="form-control p-0 pl-2" [min]="minDate">
+                    <input formControlName="s_date" matStartDate placeholder="Start date" #dateRangeStartCpy>
+                    <input formControlName="e_date" matEndDate placeholder="End date" #dateRangeEndCpy
+                           (dateChange)="dateRangeChangeCopy(dateRangeStartCpy, dateRangeEndCpy)">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker1></mat-date-range-picker>
+                  <div class="d-none"></div>
+                </div>
+                <div *ngIf="isSubmitted&&form.s_date.errors && form.s_date.errors" class="text-danger">
+                  <p class="mb-0" *ngIf="form.s_date.errors.required && form.s_date.errors.required" translate>
+                    departure-table.Please enter departure dates.</p>
+                </div>
+              </div>
+              <span id="firstDate_error" class="text-danger"></span>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group timepicker">
+                <label translate>departure-table.Start Time <sup></sup></label>
+                <div class="input-group">
+                  <input type="time" class="form-control" value="{{selectedTime}}"
+                         formControlName="start_time" [(ngModel)]="selectedTime" (click)="open()"/>
+                </div>
+                <div *ngIf="isSubmitted&&form.start_time.errors" class="text-danger">
+                  <p class="mb-0" *ngIf="form.start_time.errors.required" translate>departure-table.Time req.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mt-4">
+                <label for="days" class="sr-only" translate>departure-table.Total days and nights</label>
+                <input type="text" id="days" class="form-control number_of_days d-none"
+                       formControlName="total_days" [(ngModel)]="daysBetweenDates">
+                <input type="text" id="night" class="form-control number_of_days read-only-input d-none"
+                       formControlName="total_nights" [(ngModel)]="numberOfNights">
+                <div class="form-control number_of_days read-only-input" translate>departure-table.Total <span
+                  id="snight">{{numberOfNights}}</span> departure-table.nights and <span
+                  id="sday">{{daysBetweenDates}}</span> departure-table.days
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label translate>departure-table.No. of users <sup>*</sup></label>
+                <input id="total_users" name="total_users" class="form-control" type="number" placeholder=" "
+                       value="" formControlName="total_users" onkeypress="return digitKeyOnly(event)">
+                <div *ngIf="isSubmitted&&form.total_users.errors" class="text-danger">
+                  <p class="mb-0" *ngIf="form.total_users.errors.required" translate>departure-table.User required</p>
+                  <p *ngIf="form.total_users.errors.pattern" translate>departure-table.Enter only number.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <button class="btn btn-theme m-t-20" type="submit" translate><i class="fas fa-save"></i>
+                departure-table.Copy Departure
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Notifications</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closenotificationModal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#noti_tab1" role="tab" aria-controls="nav-home" aria-selected="true">
+              <i class="fas fa-clock"></i> Scheduled Notifications</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#noti_tab3" role="tab" aria-controls="nav-contact" aria-selected="false">
+              <i class="fas fa-tags"></i> Instant Notifications</a>
+          </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="noti_tab1" role="tabpanel" aria-labelledby="nav-home-tab">
+            <form [formGroup]="scheduledNotification" (ngSubmit)="scheduled_Noti()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <textarea name="" rows="6" class="form-control" placeholder="Notification Text" formControlName="notification_text"></textarea>
+                    <div *ngIf="isSubmitted3&&form1.notification_text.errors" class="text-danger">
+                      <p class="mb-0" *ngIf="form1.notification_text.errors.required" translate>
+                        Please add notification message</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <select name="" class="input-group-text" (change)="selectDay($event)" formControlName="itineary_day">
+                              <option>Select Day</option>
+                              <option value="+7">+7</option>
+                              <option value="+6">+6</option>
+                              <option value="+5">+5</option>
+                              <option value="+4">+4</option>
+                              <option value="+3">+3</option>
+                              <option value="+2">+2</option>
+                              <option value="+1">+1</option>
+                              <option value="{{day}}" *ngFor="let day of totalDaysArr;">{{day}}</option>
+                              <option value="-1">-1</option>
+                              <option value="-2">-2</option>
+                              <option value="-3">-3</option>
+                              <option value="-4">-4</option>
+                              <option value="-5">-5</option>
+                              <option value="-6">-6</option>
+                              <option value="-7">-7</option>
+                            </select>
+                          </div>
+                          <div *ngIf="isSubmitted3&&form1.itineary_day.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form1.itineary_day.errors.required" translate>
+                              Please select day</p>
+                          </div>
+                          <input type="text" class="form-control" value="{{dayDate | date: 'dd MMM yyyy'}}" [readOnly]="true">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <input type="text" class="form-control" value="{{selectedTime}}" formControlName="time" [(ngModel)]="selectedTime" (click)="open()" placeholder="Choose Time"/>
+                        <div *ngIf="isSubmitted3&&form1.time.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form1.time.errors.required" translate>
+                            Please select Time</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control read-only-input" disabled="disabled" value="{{dayDate | date: 'dd MMM yyyy'}} | {{selectedTime}}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-0">
+                    <div class="d-flex align-items-center">
+                      <div class="from-group choosebannerselect mr-3"><label for="img_file" translate>Choose banner</label>
+                        <input type="file" name="banner-img" id="img_file" (change)="filename($event)" class="banner-img">
+                      </div>
+                      <div class="choosebannerShow">
+                        <img onerror="this.src='assets/images/no-img.jpg';" id="filePath" [src]="filePath" class="img_url" alt="your image">
+                      </div>
+                      <div *ngIf="isSubmitted3&&form1.banner_image.errors" class="text-danger">
+                        <p class="mb-0" *ngIf="form1.banner_image.errors.required" translate>Please upload image.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 text-right">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> Add Notification</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="noti_tab3" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <form [formGroup]="instantNotification" (ngSubmit)="instant_Noti()">
+              <div class="row align-items-center">
+                <div class="col-md-6">
+                  <textarea name="" rows="6" class="form-control" placeholder="Notification Text" formControlName="ins_notification_text"></textarea>
+                  <div *ngIf="isSubmitted4&&form2.ins_notification_text.errors" class="text-danger">
+                    <p class="mb-0" *ngIf="form2.ins_notification_text.errors.required" translate>
+                      Please add notification message</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-0">
+                    <div class="d-flex align-items-center">
+                      <div class="from-group choosebannerselect mr-3"><label for="img_file" translate>Choose banner</label>
+                        <input type="file" name="banner-img" id="img_file1" (change)="filename1($event)" class="banner-img">
+                      </div>
+                      <div class="choosebannerShow">
+                        <img onerror="this.src='assets/images/no-img.jpg';" id="filePath1" [src]="filePath" class="img_url" alt="your image">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 text-right">
+                  <button type="submit" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> Add Instant Notification</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" style="margin:0 auto;" id="crop_model" tabindex="-1" role="dialog" aria-hidden="false">
+  <div class="modal-dialog modal-lg" style="max-width: 650px">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 10px; max-height: 650px;overflow: auto;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close_crop()">&times;
+        </button>
+        <div class="form-group-attached">
+          <div class="row">
+            <div class="col-md-12">
+              <image-cropper
+                [imageChangedEvent]="imageName"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="3 / 2"
+                [resizeToWidth]="1080"
+                [cropperMinWidth]="720"
+                [onlyScaleDown]="true"
+                [roundCropper]="false"
+                [alignImage]="'left'"
+                [style.display]="showCropper ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady($event)"
+                (loadImageFailed)="loadImageFailed()"
+              ></image-cropper>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mt-1 text-right">
+              <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="done_cropping()" translate>
+                settings.Done Cropping
+              </button>
+              <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal" (click)="close_crop()" translate> settings.Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page">
+  <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+    <div class="container-fluid">
+      <div class="subheader-main">
+        <h3 class="subheader-title">Billing</h3>
+        <div class="subheader-breadcrumbs">
+          <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+            class="ri-home-7-line"></i></a>
+          <!--<span class="subheader-breadcrumbs-separator"></span>-->
+          <a href="javascript:void(0);"
+             class="subheader-breadcrumbs-link subheader-breadcrumbs-separator">Departure </a>
+          <!--<span class="subheader-breadcrumbs-separator"></span>-->
+          <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator">
+            Departure Billing</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-header d-flex justify-content-between">
+            <div class="iq-header-title w-100 d-flex align-items-center justify-content-between">
+              <h4 class="card-title">Billing</h4>
+              <h4 class="mb-0"><small class="text-amber">Total Balance Credit</small> {{balanceCredit}}</h4>
+            </div>
+          </div>
+          <div class="iq-card-body departure-billing">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="mb-4">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div class="media align-items-center">
+                          <div class="iq-bg-primary rounded icon-date" data-wow-delay="0.2s">
+                            <div class="date-meta">
+                              <h3 class="date">{{dep_details.start_date | date: 'd'}}</h3>
+                              <p class="mb-0">{{dep_details.start_date | date: 'MMM'}}</p>
+                              <div class="icon-dot bg-primary"></div>
+                            </div>
+                          </div>
+                          <div class="media-body ml-3">
+                            <h4 class="mb-0">{{dep_details.pname}}</h4>
+                            <span>{{dep_details.departure_type}}</span>
+                            <p class="m-0">{{dep_details.total_nights}}N/{{dep_details.total_days}}D</p>
+                          </div>
+                        </div>
+                        <h4 class="text-primary m-0">
+                          <small class="d-block text-dark">Total travellers</small>
+                          <span class="d-flex align-items-center justify-content-center mt-2">{{total_traveler}}
+                            <i class="ri-user-2-fill pl-2"></i>
+                          </span>
+                        </h4>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <div class="col-lg-12 col-md-12 p-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <h5 class="mb-1 text-primary">This departure will cost</h5>
+                          <span class="h4 text-cyan mb-0 counter d-inline-block text-center"><span>{{totalCredit}}</span> <small class="text-dark d-block font-size-12">Credits</small></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 d-flex align-items-center">
+                <div class="w-100 "  *ngIf="balanceCredit >= totalCredit">
+                  <h4 class="mb-2">Do You want to proceed?</h4>
+                  <p>Please type <strong class="text-primary textCopy">Activate</strong> <a href="javascript:void(0);" (click)="textCopy()"><i class="fas fa-copy ml-2"></i></a></p>
+                  <form action="" [formGroup]="activateDep" (ngSubmit)="submitAct()">
+                    <div class="input-group w-75">
+                      <input type="text" class="form-control" placeholder="Type here..." formControlName="activation_text" name="activate" id="activate">
+                      <div *ngIf="isSubmitted&&form.activation_text.errors" class="text-danger">
+                        <p class="mb-0" *ngIf="form.activation_text.errors.required">Please write Activate.</p>
+                      </div>
+                      <input type="text" value="{{totalCredit}}" class="d-none" formControlName="total_credit">
+                      <button class="btn btn-theme" type="submit">Submit</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="w-100" *ngIf="balanceCredit < totalCredit">
+                  <h4 class="mb-2">Your Credit is low Please Recharge</h4>
+                  <button class="btn btn-theme" routerLink="/add-credit">Recharge Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

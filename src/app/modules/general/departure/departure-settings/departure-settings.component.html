@@ -1,0 +1,65 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate> departure-setting.Departure Settings </h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> departure-setting.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> departure-setting.Departure Settings</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height min-vh-50">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> departure-setting.Country Guide Settings</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="customCheck1" (change)="checkUncheckAll()" [(ngModel)]="masterSelected">
+                          <label class="custom-control-label" for="customCheck1" translate> departure-setting.Check All</label>
+                        </div>
+                      </div>
+                      <hr class="mt-0">
+                    </div>
+                    <div class="col-md-3" *ngFor="let i=index;let incl of countryList">
+                      <div class="form-group">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                          <input type="checkbox" class="custom-control-input" id="customCheck_{{i}}" [(ngModel)]="incl.isSelected" (change)="countryChecked(incl)">
+                          <label class="custom-control-label" for="customCheck_{{i}}">{{incl.country_name}}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <button class="btn btn-theme" translate (click)="saveSettings()"><i class="fas fa-save"></i > departure-setting.Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

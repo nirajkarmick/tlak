@@ -1,0 +1,430 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate> notification.p1</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                      class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>
+                      notification.p2 </a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>
+                      notification.p3 </a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i
+                      class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          notification.p4 </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                          class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p translate> notification.p5 </p>
+                        <div class="NotificationMsgTab">
+                          <nav>
+                            <div class="nav nav-tabs nav-fill mb-1" id="nav-tab" role="tablist">
+                              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#noti_tab1" role="tab" aria-controls="nav-home" aria-selected="true" translate>
+                                <i class="fas fa-clock"></i> notification.p6 </a>
+                              <!--<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#noti_tab2" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                <i class="fas fa-map-marked"></i> Location Based Notifications</a>-->
+                              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#noti_tab3" role="tab" aria-controls="nav-contact" aria-selected="false" translate>
+                                <i class="fas fa-tags"></i> notification.p7 </a>
+                            </div>
+                          </nav>
+                          <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="noti_tab1" role="tabpanel">
+                              <h4 class="text-cyan mb-2" translate>  notification.p8 </h4>
+                              <p translate> notification.p9 </p>
+                              <ul class="list-unstyled">
+                                <li translate> notification.p10 </li>
+                                <li translate> notification.p11 </li>
+                                <li translate> notification.p12 </li>
+                                <li translate> notification.p13 </li>
+                                <li translate> notification.p14 </li>
+                                <li translate> notification.p15 </li>
+                                <li translate> notification.p16</li>
+                              </ul>
+                              <p translate> notification.p17 </p>
+                              <p><strong translate> notification.p18 </strong>
+                                <span translate> notification.p20</span></p>
+                            </div>
+                            <!--<div class="tab-pane fade" id="noti_tab2" role="tabpanel">
+                              <h5 class="text-cyan mb-2"><u>Location Based Notifications</u></h5>
+                              <p>As the traveler reaches a destination, you want to send out an alert or welcome message too. Follow these steps:</p>
+                              <ul class="list-unstyled">
+                                <li>Select the Day of the tour</li>
+                                <li>Select location from the drop-down list.</li>
+                                <li>Write the message you want the traveler to receive (example: “Welcome to Geneva, the city of Lakes. Be ready for an exciting tour with us!”</li>
+                                <li>Add the notification to get it listed for delivery.</li>
+                              </ul>
+                            </div>-->
+                            <div class="tab-pane fade" id="noti_tab3" role="tabpanel">
+                              <h5 class="text-cyan mb-2"><u translate> notification.p21</u></h5>
+                              <p translate> notification.p22 </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mypopovermodal">
+            <div class="col-md-6">
+              <div class="iq-card iq-accordion-block">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> notification.p23 </h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <form [formGroup]="scheduledNotification" (ngSubmit)="scheduled_Noti()">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <label translate> notification.p24 </label>
+                          <select name="" class="form-control" (change)="selectDay($event)" formControlName="itineary_day">
+                            <option translate> notification.p24 </option>
+                            <option value="+7">+7</option>
+                            <option value="+6">+6</option>
+                            <option value="+5">+5</option>
+                            <option value="+4">+4</option>
+                            <option value="+3">+3</option>
+                            <option value="+2">+2</option>
+                            <option value="+1">+1</option>
+                            <option value="{{day}}" *ngFor="let day of totalDaysArr;">{{day}}</option>
+                            <option value="-1">-1</option>
+                            <option value="-2">-2</option>
+                            <option value="-3">-3</option>
+                            <option value="-4">-4</option>
+                            <option value="-5">-5</option>
+                            <option value="-6">-6</option>
+                            <option value="-7">-7</option>
+                          </select>
+                          <div *ngIf="isSubmitted&&form.itineary_day.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.itineary_day.errors.required" translate>notification.p24</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label translate>notification.p26</label>
+                          <input type="text" class="form-control" value="{{sdt}}" [readOnly]="true" >
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label translate>notification.p27</label>
+                          <input type="text" class="form-control" value="{{selectedTime}}" 
+                          formControlName="time" [(ngModel)]="selectedTime" (click)="open()" 
+                          placeholder="Choose Time"/>
+                          <div *ngIf="isSubmitted&&form.time.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.time.errors.required" translate>
+                              notification.p26</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label translate>notification.p29</label>
+                          <input type="text" class="form-control read-only-input" disabled="disabled" value="{{dayDate}} | {{selectedTime}}" >
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label translate>notification.p30</label>
+                          <textarea name="" rows="6" class="form-control" placeholder="Notification Text" formControlName="notification_text"></textarea>
+                          <div *ngIf="isSubmitted&&form.notification_text.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.notification_text.errors.required" translate>
+                              notification.p31</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group mb-0">
+                          <label translate> notification.p32 </label>
+                          <div class="d-flex align-items-center" >
+                            <div class="from-group choosebannerselect mr-3"><label for="img_file" translate > notification.p33 </label>
+                              <input type="file" name="banner-img" id="img_file" (change)="filename($event)" class="banner-img" >
+                            </div>
+                            <div class="choosebannerShow">
+                              <img onerror="this.src='assets/images/no-img.jpg';" id="filePath" [src]="filePath"  class="img_url" alt="your image">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary" translate><i class="ri-add-fill"></i> notification.p34 </button>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row mt-4">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h6 translate> notification.p35 </h6>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <table class="table table-hover ">
+                        <thead>
+                        <tr>
+                          <th translate> notification.p36 </th>
+                          <th translate> notification.p37 </th>
+                          <th translate> notification.p38 </th>
+                          <th translate> notification.p39 </th>
+                          <th translate> notification.p42 </th>
+                          <th translate> notification.p40 </th>
+                          <th translate> notification.p41 </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of scheduled_notificationList;let i=index;">
+                          <td>{{i+1}}.</td>
+                          <td>{{item.day}}</td>
+                          <td>{{item.date | date:'dd MMM, yyyy'}}</td>
+                          <td>{{item.time}}</td>
+                          <td title="{{item.text}}" class="table-td-ellipsis">{{item.text}}</td>
+                          <td><img src="{{imgURL}}{{item.image}}" onerror="this.src='assets/images/no-img.jpg';" width="50" alt=""></td>
+                          <td><a href="javascript:void(0);" class="text-danger" (click)="getDelidschedule(item.id,item.text)" data-target="#confirm-deleteScheduled" data-toggle="modal"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="iq-card iq-accordion-block">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> notification.p43 </h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <form [formGroup]="instantNotification" (ngSubmit)="instant_Noti()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="ins_notification_text" translate> notification.p30</label>
+                          <textarea class="form-control" id="ins_notification_text" formControlName="ins_notification_text" rows="5"></textarea>
+                          <div *ngIf="isSubmitted1&&form1.ins_notification_text.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form1.ins_notification_text.errors.required" translate>
+                              notification.p44</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group mb-0">
+                          <label translate> notification.p40</label>
+                          <div class="d-flex align-items-center" >
+                            <div class="from-group choosebannerselect mr-3"><label translate> notification.p33</label>
+                              <input type="file" name="banner-img" id="img_file1" (change)="filename1($event)" class="banner-img" >
+                            </div>
+                            <div class="choosebannerShow">
+                              <img onerror="this.src='assets/images/no-img.jpg';" id="filePath1" [src]="filePath1"  class="img_url" alt="your image">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 text-right">
+                        <button type="submit" id="sub" class="btn btn-primary" translate><i class="ri-add-fill"></i>
+                          notification.p45</button>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row mt-4">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h6 translate> notification.p46 </h6>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <table class="table table-hover " id="example2">
+                        <thead>
+                        <tr>
+                          <th translate> notification.p36 </th>
+                          <th translate> notification.p37 </th>
+                          <th translate> notification.p40 </th>
+                          <th translate> notification.p41 </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of instant_notificationList;let i=index;">
+                          <td>{{i + 1}}</td>
+                          <td>{{item.text}}</td>
+                          <td><img src="{{imgURL}}{{item.image}}" onerror="this.src='assets/images/no-img.jpg';" width="50" alt=""></td>
+                          <td><a href="javascript:void(0);" class="text-danger" (click)="getDelid(item.id,item.text)" data-target="#confirm-deleteInstant" data-toggle="modal"><i class="fas fa-trash"></i></a></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<div class="modal fade" style="margin:0 auto;" id="crop_model" tabindex="-1" role="dialog" aria-hidden="false">
+  <div class="modal-dialog modal-lg" style="max-width: 650px">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 10px; max-height: 650px;overflow: auto;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close_crop()">&times;
+        </button>
+        <div class="form-group-attached">
+          <div class="row">
+            <div class="col-md-12">
+              <image-cropper
+                [imageChangedEvent]="imageName"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="3 / 2"
+                [resizeToWidth]="1080"
+                [cropperMinWidth]="720"
+                [onlyScaleDown]="true"
+                [roundCropper]="false"
+                [alignImage]="'left'"
+                [style.display]="showCropper ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady($event)"
+                (loadImageFailed)="loadImageFailed()"
+              ></image-cropper>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mt-1 text-right">
+              <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="done_cropping()" translate>
+                Done Cropping</button>
+              <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal" (click)="close_crop()" translate> Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" style="margin:0 auto;" id="crop_model1" tabindex="-1" role="dialog" aria-hidden="false">
+  <div class="modal-dialog modal-lg" style="max-width: 650px">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 10px; max-height: 650px;overflow: auto;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close_crop1()">&times;
+        </button>
+        <div class="form-group-attached">
+          <div class="row">
+            <div class="col-md-12">
+              <image-cropper
+                [imageChangedEvent]="imageName1"
+                [maintainAspectRatio]="true"
+                [aspectRatio]="3 / 2"
+                [resizeToWidth]="1080"
+                [cropperMinWidth]="720"
+                [onlyScaleDown]="true"
+                [roundCropper]="false"
+                [alignImage]="'left'"
+                [style.display]="showCropper1 ? null : 'none'"
+                format="png"
+                (imageCropped)="imageCropped1($event)"
+                (imageLoaded)="imageLoaded1()"
+                (cropperReady)="cropperReady1($event)"
+                (loadImageFailed)="loadImageFailed1()"
+              ></image-cropper>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mt-1 text-right">
+              <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="done_cropping1()" translate>
+                Done Cropping</button>
+              <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal" (click)="close_crop1()" translate> Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade confirm-delete" id="confirm-deleteInstant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content modal-filled bg-danger">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="dripicons-wrong h1 text-white"></i>
+          <p class="mt-3 text-white" translate>Do you really want to delete
+            <strong>#{{instantId}} ({{instantText}})</strong>
+            <span translate> from the list.</span>
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate>
+          No</button>
+        <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="deleteInstantNotification()" translate>
+          Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade confirm-delete" id="confirm-deleteScheduled" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content modal-filled bg-danger">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="dripicons-wrong h1 text-white"></i>
+
+          <p class="mt-3 text-white" translate>Do you really want to delete
+            <strong>#{{scheduletId}} ({{scheduleText}})</strong>
+            <span translate> from the list.</span>
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate>
+          No</button>
+        <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="deleteScheduleNotification()" translate>
+          Yes</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,260 @@
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page sidebar-main">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+          <div class="row">
+            <div class="container-fluid">
+              <div class="subheader-main">
+                <h3 class="subheader-title" *ngIf="id" translate> upComming-Create.Update Upcoming Tours</h3>
+                <h3 class="subheader-title" *ngIf="!id" translate> upComming-Create.Create Upcoming Tours</h3>
+                <div class="subheader-breadcrumbs">
+                  <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                      class="ri-home-7-line"></i></a>
+                  <!-- <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator">Upcoming Tour</a> -->
+                  <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                    *ngIf="id" translate> upComming-Create.Update Upcoming Tours</a>
+                  <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                    *ngIf="!id" translate> upComming-Create.Add Upcoming Tours</a>
+                </div>
+              </div>
+              <!-- <div class="subheader-toolbar">
+                <div class="subheader-wrapper">
+                  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i class="fas fa-question"></i></button>
+                </div>
+              </div> -->
+              <!-- <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle">Departure - Locations</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Your day-wise itinerary is the most important part of your Departure. The details you add here, will be shown on the TLAK app (available on Android and iOS) and your travelers will refer to that every now and then. </p>
+                      <p class=""><span class="text-danger"><i class="fa fa-lightbulb"></i> ** TIPS: </span>&nbsp; Be detailed oriented. Do not exclude anything considering it to be trivial. If possible breakdown the day-activities into points and include. </p>
+                      <hr>
+                      <h5 class="d-block text-info"><u>Notes on the fields:</u></h5>
+                      <p><strong class="text-dark">Day Title: </strong> In a few words (4-5 max.) write what exactly will be there on that day. Example, on an Australia tour, you will take the travelers to Yarra Valley on the 4th day of the tour. So, you can write: “Melbourne to the Yarra Valley” or “Yarra Valley – Day Trip”. </p>
+                      <p><strong class="text-dark">Day Highlights: </strong> Give complete details for that day’s activities and highlights. If you have already written details, use it here.</p>
+                      <p><strong class="text-dark">Additional info (optional field):</strong> Additional details you may want to share with the travelers. For example: you are taking the travelers to a historical place where visiting the overall surroundings is free of cost, but the travelers may need to buy separate tickets if they wish to go inside the war museum. This is entirely individual traveler’s choice and you can mention it under additional info.</p>
+                      <p><strong class="text-dark">Day Notes (optional field): </strong> Another field to highlight something utterly important you want to share with the traveler. For example: The day’s itinerary include some level of hiking or soft-climbing. So, you mention here that the traveler should wear a pair of hiking boots instead of plain casual shoes. </p>
+                      <p><strong class="text-dark">Select Location: </strong> The day may include one of more locations. Type in the first few letters and the location will be show below. Add the location and repeat the process to add more.</p>
+                      <p><strong class="text-dark">Day image: </strong> Add an image of the place where you are taking the travelers on that day.</p>
+                      <hr>
+                      <p class=""><strong class="text-danger"><em>** CAUTION: </em></strong>&nbsp; Avoid copying directly from the web or your web pages. Web pages have hidden formatting which may garble up your content. Better, copy content from Notepad or Text Editor of your choice and format here. Scroll down to see copying and pasting tips given below.</p>
+                      <p>Do not forget to save the details by clicking <strong>SAVE.</strong></p>
+                      <hr>
+                      <h5 class="d-block text-cyan"><u>How to use Notepad or TextEdit to remove unwanted formatting before pasting your text</u></h5>
+                      <p class="d-block text-info"><i class="fab fa-windows"></i> Windows</p>
+                      <ul class="list-unstyled">
+                        <li>Click Start.</li>
+                        <li>In the Search box, type "Notepad" and hit Enter. The program will automatically open.</li>
+                        <li>Next, paste your copied text into Notepad. By pasting into Notepad, you strip any complicated formatting and are left with clean, unformatted text. You can then copy your text from Notepad and paste into any of the text-area boxes (e.g. Day Highlights) here.</li>
+                      </ul>
+                      <p class="d-block text-info"><i class="fab fa-apple"></i> Mac</p>
+                      <ul class="list-unstyled">
+                        <li>Go to your Applications folder or dock.</li>
+                        <li>Open TextEdit.</li>
+                        <li>Click Format &gt; Make Plain Text.</li>
+                        <li>Next, paste your copied text into TextEdit. By pasting into TextEdit, you strip any complicated formatting and are left with clean, unformatted text. You can then copy your text from TextEdit and paste into text-area boxes (e.g. Day Highlights).</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="iq-card iq-card-block iq-card-stretch iq-card-height" id="DaywiseItineraryPage">
+              <div class="iq-card-body">
+                <div class="row">
+                  <div class="col-md-12 ">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="headings">
+                        <h5 translate> upComming-Create.Add Upcoming Tours</h5>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                </div>
+                <form action="" [formGroup]="UpcomingTour" (ngSubmit)="upComingTour()">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="departureName" translate> upComming-Create.Departure Name</label>
+                        <input type="text" name="departureName" class="form-control" id="departureName"
+                          formControlName="pname">
+                        <div *ngIf="isSubmitted&&form.pname.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.pname.errors.required" translate>
+                            upComming-Create.Please enter Tour Departure Name.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="promoContent" translate> upComming-Create.Promo Content</label>
+                        <input type="text" name="promoContent" class="form-control" id="promoContent"
+                          formControlName="promo_content">
+                        <div *ngIf="isSubmitted&&form.promo_content.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.promo_content.errors.required" translate>
+                            upComming-Create.Please enter Tour Promo Content.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="startDate" translate> upComming-Create.Start Date </label>
+                        <input matInput autocomplete="off" [matDatepicker]="picker" name="start_date" id="start_date"
+                          class="form-control" (click)="picker.open()" [min]="todayDate" placeholder="Choose Date"
+                          formControlName="start_date">
+                        <mat-datepicker #picker></mat-datepicker>
+                        <div *ngIf="isSubmitted&&form.start_date.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.start_date.errors.required" translate>
+                            upComming-Create.Please enter Start Date.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="contactEmail" translate> upComming-Create.Contact Email</label>
+                        <input type="email" name="contactEmail" class="form-control" id="contactEmail"
+                          formControlName="contact_email">
+                        <div *ngIf="isSubmitted&&form.contact_email.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.contact_email.errors.required" translate>
+                            upComming-Create.Please enter Email.</p>
+                          <p class="mb-0" *ngIf="form.contact_email.errors.pattern" translate>
+                            upComming-Create.Please valid Email.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="contactNumbercode" translate> upComming-Create.Contact Number </label>
+                        <input type="text" name="contactNumber" class="form-control" id="contactNumbercode"
+                          formControlName="contact_phone">
+                        <div *ngIf="isSubmitted&&form.contact_phone.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.contact_phone.errors.required" translate>
+                            upComming-Create.Please enter Contact Number. </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="departureName" translate> Company Name </label>
+                        <input type="text" name="departureName" class="form-control" id="departureName"
+                          formControlName="comp_name">
+                        <div *ngIf="isSubmitted&&form.comp_name.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.comp_name.errors.required" translate>
+                            Please enter company name.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label translate>Total Days</label>
+                        <input id="Durations" name="totalDays" class="form-control" type="number"
+                          placeholder="Please enter tour duration" (change)="dateRangeChange($event)" min="0"
+                          onkeypress="return validateNumber(event)" formControlName="days">
+                        <div *ngIf="isSubmitted&&form.totalDays.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.totalDays.errors.required" translate>
+                            Total Days Required</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="mt-4">
+                        <label for="days" class="sr-only" translate>departure-create.Total days and nights</label>
+                        <input type="text" id="days" class="form-control number_of_days d-none" formControlName="days"
+                          [(ngModel)]="days">
+                        <input type="text" id="night" class="form-control number_of_days read-only-input d-none"
+                          formControlName="night" [(ngModel)]="night">
+                        <div class="form-control number_of_days read-only-input" translate>departure-create.Total
+                          <span id="snight">{{night}}</span> departure-create.nights and <span
+                            id="sday">{{days}}</span> departure-create.days
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group position-relative">
+                        <label for="contactEmail" translate> Destination </label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-location-arrow"></i></div>
+                          </div>
+                          <input type="text" class="form-control typeahead" id="myInput"
+                            placeholder="Enter a destination's name" name="destination" value="destination"
+                            (keyup)="search_destin($event)" formControlName="destination" autocomplete="off">
+                        </div>
+                        <div id="myInputautocomplete-list2" class="autocomplete-items auto_dest"
+                          *ngIf="destData && destData.length>0">
+                          <div *ngFor="let item of destData" class="auto-dest">
+                            <div (click)="fetch_destination_details(item, item.id)">
+                              <strong style="margin-bottom:2px;font-size: 15px;">
+                                <i class="fa fa-map-marker"></i>
+                                <span style="margin-left: 5px"> {{item.dest_name}}
+                                </span>
+                              </strong>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="isSubmitted&&form.destination.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.destination.errors.required" translate>
+                            upComming-Create.please select destination </p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="tourDescription" translate> upComming-Create.Tour Description </label>
+                        <textarea class="form-control" id="tourDescription" name="tourDescription" rows="6"
+                          formControlName="description"></textarea>
+                        <div *ngIf="isSubmitted&&form.description.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form.description.errors.required" translate>
+                            upComming-Create.Please enter Tour Description. </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label translate> upComming-Create.Choose Banner </label>
+                        <div class="d-flex align-items-center" formControlName="background_image">
+                          <div class="from-group choosebannerselect mr-3"><label for="img_file" translate>
+                              upComming-Create.Select banner </label>
+                            <input type="file" name="banner-img" id="img_file" (change)="filename($event)"
+                              class="banner-img">
+                          </div>
+                          <div class="choosebannerShow bigimag">
+                            <img [src]="filePath" class="img_url" alt="your image"
+                              onerror="src='assets/images/no-img.jpg'">
+                          </div>
+                          <div *ngIf="isSubmitted&&form.background_image.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.background_image.errors.required" translate>
+                              upComming-Create.Please upload image.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" id="sub" class="btn btn-primary" *ngIf="id" translate><i class="fa fa-save"></i>
+                    upComming-Create.Update Upcoming Tour</button>
+                  <button type="submit" id="sub" class="btn btn-primary" *ngIf="!id" translate><i
+                      class="fa fa-save"></i> upComming-Create.Save Upcoming Tour</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</article>

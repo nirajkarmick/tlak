@@ -1,0 +1,460 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate>hotel.Hotel</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                      class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                       translate>
+                      hotel.Departure</a>
+
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" *ngIf="hotelId==0"
+                       translate>
+                      hotel.Hotel Add</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" *ngIf="hotelId > 0">
+                      Update Your Hotel Details</a>
+                    <!-- <span *ngIf="editable_id==0">Add</span>
+                      <span *ngIf="editable_id>0">Edit<span> -->
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i
+                      class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          hotel.Departure - Hotels</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                          class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p></p>
+                        <ul class="list-unstyled">
+                          <li translate> hotel.p1</li>
+                          <li translate> hotel.p2</li>
+                          <li translate> hotel.p3</li>
+                          <li translate> hotel.p4</li>
+                          <li translate> hotel.p5</li>
+                        </ul>
+                        <!-- <p><strong class="text-cyan">NOTE: </strong>Certain details about a flight (mainly the status of
+                          the flight) is made available not more than 3 days before the flight. TLAK will pull the data
+                          accordingly and show that on the app for your travelers. </p> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" [ngClass]="{'col-lg-8 col-md-8': hotelList.length>0,'col-lg-12 col-md-12': hotelList.length==0}">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings" *ngIf="hotelId==0">
+                          <h5 translate> hotel.Add Hotel</h5>
+                        </div>
+                        <div class="headings" *ngIf="hotelId > 0">
+                          <h5 translate> Update Your Hotel Details</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-lg-12 col-md-12 ">
+                      <div class="newCreateitinerarymodal" id="newCreateitinerarymodal">
+                        <div class="newCreateitinerarymodal-container">
+                          <div class="newCreateitinerarymodal-wrapper">
+                            <div class="hotelSecAct" id="hotelSecAct">
+                              <form [formGroup]="hotelForm" (ngSubmit)="hotelSubmit()">
+                                <div class="form-group">
+                                  <label translate> hotel.Accommodation Name</label>
+                                  <div style="position: relative">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-bed"></i></div>
+                                      </div>
+                                      <input type="text" class="form-control typeahead" id="myInput" placeholder="Enter a hotel's name &amp; find out details..." name="hotel_name"
+                                             [(ngModel)]="hotel_name" formControlName="hotel_name" (keyup)="search_hotels()" autocomplete="off">
+                                    </div>
+                                    <div id="myInputautocomplete-list2" class="autocomplete-items" style="text-align: left;margin: 6px 0 0 42px;" *ngIf="hotelData && hotelData.length>0">
+                                      <div *ngFor="let item of hotelData" class="auto-itm">
+                                        <div (click)="fetch_hotel_details(item, item.id)">
+                                          <strong style="margin-bottom:2px;font-size: 15px;"> <i class="fa fa-map-marker"></i>
+                                            <span style="margin-left: 5px">{{item.fullName}}</span>
+                                          </strong>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <form [formGroup]="hotelForm" (ngSubmit)="hotelSubmit()"> -->
+                                <div class="form-group">
+                                  <label class="d-block" translate> hotel.Select Days<sup class="text-danger">*</sup></label>
+                                  <div class="custom-control custom-checkbox custom-control-inline" *ngFor="let day of no_of_day; let i = index;">
+                                    <input type="checkbox" name="customCheck" class="custom-control-input" id="customCheck_{{i}}" (change)="selectDate()" [(ngModel)]="day.checked" [ngModelOptions]="{standalone: true}">
+                                    <label class="custom-control-label" for="customCheck_{{i}}">{{day.day_name}}</label>
+                                  </div>
+                                  <div *ngIf="isSubmitted&&form.days.errors" class="text-danger">
+                                    <p class="mb-0" *ngIf="form.days.errors.required">Please select days.</p>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-3 form-group">
+                                    <label translate> hotel.Accommodation Star<sup class="text-danger">*</sup></label>
+                                    <div id="full-stars-example">
+                                      <div class="rating-group formStar">
+                                        <input disabled="" checked="" class="rating__input rating__input--none"
+                                               name="rating3" id="rating3-none" value="0" type="radio" (click)="set_rating(1)">
+                                        <label aria-label="1 star" class="rating__label" for="rating3-1"><i
+                                          class="rating__icon rating__icon--star fa fa-star" [ngClass]="rating >= 1 ? '' : 'not_checked'"></i></label>
+                                        <input class="rating__input" name="rating3" id="rating3-1" value="1"
+                                               type="radio" (click)="set_rating(1)" [checked]="rating >= 1 ? true : false">
+                                        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i
+                                          class="rating__icon rating__icon--star fa fa-star" [ngClass]="rating >= 2 ? '' : 'not_checked'"></i></label>
+                                        <input class="rating__input" name="rating3" id="rating3-2" value="2"
+                                               type="radio" (click)="set_rating(2)" [checked]="rating >= 2 ? true : false">
+                                        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star" [ngClass]="rating >= 3 ? '' : 'not_checked'"></i></label>
+                                        <input class="rating__input" name="rating3" id="rating3-3" value="3"
+                                               type="radio" (click)="set_rating(3)" [checked]="rating >= 3 ? true : false">
+                                        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"
+                                                                                                             [ngClass]="rating >= 4 ? '' : 'not_checked'"></i></label>
+                                        <input class="rating__input" name="rating3" id="rating3-4" value="4"
+                                               type="radio" (click)="set_rating(4)" [checked]="rating >= 4 ? true : false">
+                                        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"
+                                                                                                             [ngClass]="rating >= 5 ? '' : 'not_checked'"></i></label>
+                                        <input class="rating__input" name="rating3" id="rating3-5" value="5"
+                                               type="radio" (click)="set_rating(5)" [checked]="rating >= 5 ? true : false">
+                                        <h6 class="mt-2 ml-2" *ngIf="rating>0">
+                                          <span [(ngModel)]="rating"> {{rating}} <span translate>hotel.Star</span>
+                                          </span>
+                                        </h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="floating-label" style="margin-bottom: 3px;">
+                                      <label for="acommodation_type" translate>hotel.Accommodation Type<sup class="text-danger">*</sup></label>
+                                      <select id="acommodation_type" name="acommodation_type" class="form-control" formControlName="type">
+                                        <option value="" translate> hotel.Select Accommodation Type</option>
+                                        <option *ngFor="let acc of accom_types" [value]="acc">{{acc}}</option>
+                                      </select>
+                                      <div *ngIf="isSubmitted&&form.type.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.type.errors.required" translate> hotel.Please select the type of accommodation.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="floating-label" style="margin-bottom: 3px;">
+                                      <label translate> hotel.Socket Type</label>
+                                      <ng-select [items]="socketType" [multiple]="true" bindLabel="id" bindValue="id" [selectableGroup]="true" formControlName="socket_type"
+                                                 [(ngModel)]="selected_socket" (change)='select_socket()' [ngModelOptions]="{standalone: true}">
+                                        <ng-template ng-label-tmp let-item="item" let-clear="clear" formControlName="socket_type">
+                                          <span class="ng-value-label"><img src="https://pullit-bucket.s3.us-west-2.amazonaws.com/sockets/{{item.image}}"
+                                                                            width="20px" height="20px"> {{item.name}}</span>
+                                          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                        </ng-template>
+                                        <ng-template ng-option-tmp let-item="item" formControlName="socket_type">
+                                          <img src="https://pullit-bucket.s3.us-west-2.amazonaws.com/sockets/{{item.image}}" width="20px" height="20px"> {{item.name}}
+                                        </ng-template>
+                                      </ng-select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="floating-label">
+                                      <label translate> hotel.Country<sup class="text-danger">*</sup></label>
+                                      <input name="country" id="country" class="floating-input form-control" type="text" placeholder="" formControlName="country">
+                                      <div *ngIf="isSubmitted&&form.country.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.country.errors.required" translate> hotel.Please enter country name.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    <div class="floating-label">
+                                      <label translate> hotel.Region<!-- <sup class="text-danger">*</sup> --></label>
+                                      <input name="state" id="state" class="floating-input form-control" type="text" placeholder=" " formControlName="state">
+                                      <!-- <div *ngIf="isSubmitted&&form.state.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.state.errors.required">Please enter Region.</p>
+                                      </div> -->
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="floating-label" style="margin-bottom: 3px;">
+                                      <label translate> hotel.Destination<sup class="text-danger">*</sup></label>
+                                      <select name="location" class="form-control location" id="location" class="form-control" formControlName="destination">
+                                        <option value="" translate> hotel.Select Location</option>
+                                        <option *ngFor="let dest of destination_name" value="{{dest.location_id}}">{{dest.name}}</option>
+                                      </select>
+                                      <div></div>
+                                      <div class="addNewPoimanually pl-md-2" *ngIf="destination_name.length==0">
+                                        <small class="text-danger" translate>Please Add Destination to this package</small>&nbsp;
+                                        <strong><a href="javascript:void(0);" [routerLink]="['/departure-location']" [queryParams]="{ package_id : package_id }">Add Destination</a></strong>
+                                      </div>
+                                      <div *ngIf="isSubmitted&&form.destination.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.destination.errors.required" translate>hotel.Please select any destination.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label for="address" translate> hotel.Latitude<sup class="text-danger">*</sup></label>
+                                    <input type="text" class="form-control" name="latitude" id="latitude" formControlName="lat">
+                                    <div *ngIf="isSubmitted&&form.lat.errors" class="text-danger">
+                                      <p class="mb-0" *ngIf="form.lat.errors.required" translate>hotel.Please enter latitude.</p>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label for="address" translate>  hotel.Longitude<sup class="text-danger">*</sup></label>
+                                    <input type="text" class="form-control" name="longitude" id="longitude" formControlName="long">
+                                    <div *ngIf="isSubmitted&&form.long.errors" class="text-danger">
+                                      <p class="mb-0" *ngIf="form.long.errors.required" translate>hotel.Please enter longitude.</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="address" translate> hotel.Address<sup class="text-danger">*</sup></label>
+                                      <textarea name="address" id="address" class="form-control" rows="4" formControlName="address"></textarea>
+                                      <div *ngIf="isSubmitted&&form.address.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.address.errors.required" translate>hotel.Please enter address.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group ">
+                                      <label for="desccc" translate> hotel.Description </label>
+                                      <textarea name="desccc" id="desccc" class="form-control" placeholder=" " rows="4" formControlName="description"></textarea>
+                                      <div *ngIf="isSubmitted&&form.description.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.description.errors.required" translate>hotel.Please enter hotel description</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <label for="total_room" translate> hotel.Number of Room<sup class="text-danger">*</sup></label>
+                                      <input type="text" class="form-control" name="total_room" id="total_room" formControlName="total_room">
+                                      <div *ngIf="isSubmitted&&form.total_room.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.total_room.errors.required" translate>hotel.Please enter no of rooms.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <label translate> hotel.Select People<!--<sup class="text-danger">*</sup>--></label>
+                                      <ng-select [items]="peoples" [multiple]="true" bindLabel="name" groupBy="user_id"
+                                                 [selectableGroup]="true" [selectableGroupAsModel]="false"
+                                                 [closeOnSelect]="false" bindValue="id" [(ngModel)]="selected_people"
+                                                 placeholder="select people" [ngModelOptions]="{standalone: true}"
+                                                 (change)='people()'>
+                                        <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index" translate>
+                                          <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{standalone: true}"/>
+                                          Select All
+                                        </ng-template>
+                                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                                          <input id="items-{{index}}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{standalone: true}"/>
+                                          {{item.name}}
+                                        </ng-template>
+                                      </ng-select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <label for="hotel_arrival" translate> hotel.Check-in-date<sup
+                                        class="text-danger">*</sup></label>
+                                      <input matInput autocomplete="off" [matDatepicker]="picker" name="hotel_arrival"
+                                             id="hotel_arrival" class="form-control" (click)="picker.open()"
+                                             (dateChange)="dateCheckInCheckOut('in')" [min]="todayDate"
+                                             placeholder="Choose Check-in-date" formControlName="c_in">
+                                      <mat-datepicker #picker></mat-datepicker>
+                                      <div *ngIf="isSubmitted && form.c_in.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.c_in.errors.required" translate>
+                                          hotel.Please enter check In date.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-group">
+                                      <label for="hotel_checkout" translate> hotel.Check-out-date<sup
+                                        class="text-danger">*</sup></label>
+                                      <input matInput autocomplete="off" [matDatepicker]="picker12"
+                                             name="hotel_checkout" id="hotel_checkout" class="form-control"
+                                             (dateChange)="dateCheckInCheckOut('out')" (click)="picker12.open()"
+                                             [min]="todayDate" placeholder="Choose Check-out-date" formControlName="c_out">
+                                      <mat-datepicker #picker12></mat-datepicker>
+                                      <div *ngIf="isSubmitted&&form.c_out.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.c_out.errors.required" translate>
+                                          hotel.Please enter check Out date.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row Accommodation">
+                                  <div class="col-md-12 headings">
+                                    <h4 translate> hotel.Accommodation Amenities</h4>
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-3" *ngFor="let item of amenities_list">
+                                    <div class="form-group">
+                                      <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" name="amenities_{{item.id}}" class="custom-control-input"
+                                               id="amenities_{{item.id}}" value="1" (change)="setAmenities()"
+                                               [(ngModel)]="item.checked" [ngModelOptions]="{standalone: true}">
+                                        <label class="custom-control-label" for="amenities_{{item.id}}"
+                                               formControlName="amenities">
+                                          <img src="assets/images/amenity/{{item.icon}}" style="width: 22px">&nbsp;
+                                          {{item.name}}
+                                        </label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mb-2">
+                                  <div class="col-md-12 headings">
+                                    <h4 translate> hotel.Accommodations Image<sup class="text-danger">*</sup></h4>
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="chooseBanner selectHotelimgCheckbox" *ngIf="all_images.length>0">
+                                      <ul class="list-inline mb-0">
+                                        <li class="list-inline-item position-relative htl_img"
+                                            *ngFor="let img_url of all_images;let i=index;">
+                                          <label for="htl_chk_{{i}}"></label>
+                                          <input type="radio" name="hotelimg" class="hotelImgcheck" id="htl_chk_{{i}}"
+                                                 (click)="set_hotel_img(img_url,i)">
+                                          <figure class="selectHotelimgCheckbox-container">
+                                            <img src="{{img_url}}" alt="" class="img-fit selectHotelimgCheckbox-img">
+                                          </figure>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6 border-left">
+                                    <div class="d-flex align-items-center">
+                                      <div class="from-group choosebannerselect mr-3">
+                                        <label for="img_file" translate> hotel.Select banner</label>
+                                        <input type="file" class="banner-img" name="banner-img" id="img_file"
+                                               (change)="filename($event)">
+                                      </div>
+                                      <div class="mr-3">
+                                        <span class="file-chosen" *ngIf="!imageName" translate> hotel.No file
+                                          chosen</span>
+                                        <span class="file-chosen" *ngIf="imageName">{{imageName}}</span>
+                                      </div>
+                                      <div class="choosebannerShow">
+                                        <img src="assets/images/no-img.jpg" class="img_url" *ngIf="!filePath"
+                                             alt="your image">
+                                        <img [src]="filePath" *ngIf="filePath" class="img_url" alt="your image">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 text-right">
+                                    <button class="btn btn-theme mr-2" *ngIf="hotelId==0" translate> hotel.Save</button>
+                                    <button class="btn btn-theme mr-2" *ngIf="hotelId>0" translate>
+                                      hotel.Update
+                                    </button>
+                                    <!-- <button  class="btn btn-theme mr-2" *ngIf="editableiD == 0" >Save</button>
+                                    <button type="submit" class="btn btn-primary" *ngIf="editableiD > 0">Update</button> -->
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-lg-4" *ngIf="hotelList.length>0">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <div class="hotelBox" *ngFor="let ht of hotelList;">
+                    <div class="hotelImg_Container position-relative">
+                      <img src="{{s3_path}}{{ht.hotel_image}}" alt="" class="img-fluid">
+                      <div class="hover_overlay">
+                        <a href="javascript:void(0);" class="mr-2" (click)="hotelEdit(ht.id)"><i
+                          class="fas fa-edit"></i></a>
+                        <a href="javascript:void(0);" data-target="#confirm-delete" data-toggle="modal"
+                           title="Delete manager" class="text-danger" (click)="deletePopHotel(ht.id, ht.name)"><i
+                          class="fas fa-trash"></i></a>
+                      </div>
+                    </div>
+                    <div class="hoteContent_container mt-1">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h4>{{ht.name}}</h4>
+                        <div *ngFor="let stk of hotelList.socket_name;" class="socketType d-flex align-items-center">
+                          <img src="assets/images/socket-type-a.jpg" alt="" width="20">
+                          <strong class="ml-1" *ngIf="stk.socket_name">{{stk.socket_name}}</strong>
+                        </div>
+                      </div>
+                      <div class="HotelStar" *ngIf="ht.hotel_rating">
+                        <i class="fas fa-star"></i>
+                        {{ht.hotel_rating}} <span translate>hotel.Star</span>
+                      </div>
+                      <p class="hotelAddress" *ngIf="ht.address">{{ht.address}}</p>
+                      <p class="hotelDiss" *ngIf="ht.description"><small>{{ht.description}}</small></p>
+                      <div class="people_room d-flex align-items-center justify-content-between">
+                        <p>{{ht.total_room}} <span translate>hotel.Rooms</span></p>
+                        <p>{{ht.people_count}} <span translate>hotel.People</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--delete pop-->
+            <div class="modal fade confirm-delete" id="confirm-delete" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content modal-filled bg-danger">
+                  <div class="modal-body">
+                    <div class="text-center">
+                      <i class="dripicons-wrong h1 text-white"></i>
+
+                      <p class="mt-3 text-white" translate>hotel.Do you really want to delete
+                        <strong>{{hotelName}}</strong>
+                        <span translate> hotel.from the list.</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate>
+                      hotel.No
+                    </button>
+                    <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="deleteHotel()" translate>
+                      hotel.Yes</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- delete popup ends -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

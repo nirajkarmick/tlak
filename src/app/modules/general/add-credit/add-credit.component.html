@@ -1,0 +1,174 @@
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page sidebar-main">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page ml-0">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate translate> recharge.Recharge</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+                    <!-- <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"> Recharge</a> -->
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> recharge.Billing</a>
+                  </div>
+
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                      <h4 class="btn btn-warning">If you face any difficulties kindly contact to our customer service <br>
+                        <span> Contact Number: 7303559121</span></h4><br>
+                      <!-- <p class="btn btn-warning"> Contact Number: 7303559121</p> -->
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-12 ">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="headings">
+                              <h5 translate> recharge.Add Credit</h5>
+                            </div>
+                          </div>
+                          <hr>
+                        </div>
+                        <div class="col-12 text-center">
+                          <h4 translate> recharge.Note: 1 Credit = 1 INR</h4>
+                          <p translate> recharge.Choose how many credit you want to purchase?</p>
+                        </div>
+                        <div class="col-lg-12">
+                          <form action="">
+                            <div class="row">
+                              <div class="col-md-12 align-self-center">
+                                <div class="row">
+                                  <div class="col-6 col-sm-4 col-md-2 mb-1 mb-md-0" *ngFor="let item of Data;">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="re_{{item.id}}" (change)="oncheckChange(item.id)" name="credit_value" class="custom-control-input" value='{{item.value}}'/>
+                                      <label class="custom-control-label" for="re_{{item.id}}"> {{item.value}}</label>
+                                    </div>
+                                  </div>
+                                  <!--<div class="col-6 col-sm-4 col-md-2 mb-1 mb-md-0">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="r-200" name="credit_value" class="custom-control-input" value=200 />
+                                      <label class="custom-control-label" for="r-200">200</label>
+                                    </div>
+                                  </div>
+                                  <div class="col-6 col-sm-4 col-md-2 mb-1 mb-md-0">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="r-500" name="credit_value" class="custom-control-input" value=500 />
+                                      <label class="custom-control-label" for="r-500">500</label>
+                                    </div>
+                                  </div>
+                                  <div class="col-6 col-sm-4 col-md-2 mb-1 mb-md-0">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="r-1000" name="credit_value" class="custom-control-input" value=1000 />
+                                      <label class="custom-control-label" for="r-1000">1000</label>
+                                    </div>
+                                  </div>
+                                  <div class="col-6 col-sm-4 col-md-2 mb-1 mb-md-0">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="r-2000" name="credit_value" class="custom-control-input" value=2000 />
+                                      <label class="custom-control-label" for="r-2000">2000</label>
+                                    </div>
+                                  </div>
+                                  <div class="col-6 col-sm-4 col-md-2 mb-1 mb-md-0">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                      <input type="radio" id="r-5000" name="credit_value" class="custom-control-input" value=5000 />
+                                      <label class="custom-control-label" for="r-5000">5000</label>
+                                    </div>
+                                  </div>-->
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <p class="text-center my-3 iq-credit-or"><span class="bg-white">or</span></p>
+                              </div>
+                              <div class="col-12">
+                                <form action="" [formGroup]="payMent" (ngSubmit)="paySumbit()">
+                                  <div class="form-group">
+                                    <label for="credit" translate>
+                                       recharge.Enter manualy how many credit you purchase</label>
+                                    <input type="text" class="form-control" id="credit" formControlName="credit" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" (keyup)="putPrice()" autocomplete="off" min="100" minlength="3">
+                                    <div *ngIf="isSubmitted&&form.credit.errors" class="text-danger">
+                                      <p class="mb-0" *ngIf="form.credit.errors.required" translate>
+                                        recharge.Please enter credit.</p>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="price" translate> recharge.Price </label>
+                                    <input type="text" class="form-control" id="price" formControlName="price" readonly>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="gst_price"> G.S.T @ 18% </label>
+                                    <input type="text" class="form-control" id="gst_price" formControlName="gst_price" readonly>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="gst_no" translate> G.S.T. No. </label>
+                                    <input type="text" class="form-control" id="gst_no" formControlName="gst_no" autocomplete="off">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="total_price" translate> recharge.Total Price</label>
+                                    <input type="text" class="form-control" id="total_price" formControlName="total_price" readonly>
+                                  </div>
+                                  <div class="col-md-12 p-0 text-right">
+                                    <button type="submit" id="sub" class="btn btn-primary" translate>
+                                      recharge.Pay Now </button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-center justify-content-center h-100">
+                        <h3 class="text-center" translate *ngIf="total_credit"> recharge.Total Credit
+                          <span class="d-block text-cyan">({{total_credit}})</span>
+                        </h3>
+                        <h3 class="text-center" translate *ngIf="!total_credit"> recharge.Total Credit
+                          <span class="d-block text-cyan">0</span>
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--============================================
+                Toast for POI added
+  ============================================-->
+  <div style="position: fixed; top: 0; right: 0;z-index:9999">
+    <div class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+      <div class="toast-header">
+        <!--<img src="..." class="rounded mr-2" alt="...">-->
+        <strong class="mr-auto">20</strong>&nbsp;&nbsp;
+        <small translate> recharge.POIs added</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--<div class="toast-body">
+          See? Just like this.
+      </div>-->
+    </div>
+  </div>
+</article>

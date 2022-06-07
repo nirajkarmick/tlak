@@ -1,0 +1,12 @@
+@import '@tomtom-international/web-sdk-maps';
+#map {
+  height: 100vh;
+  width: 100%;
+  overflow:hidden;
+  position: relative;
+}
+#searchDestinationandpoiDiv ul.list-group{max-height:226px;overflow:auto;position: absolute;width: 100%;z-index: 9;}
+.closeLocation{color: #fff;padding-left: 10px;z-index: 2;position:absolute;top:7px;right:7px}
+label.badge.badge-pill.border.location-badge{padding-right:1.5rem}
+
+

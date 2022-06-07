@@ -1,0 +1,90 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~ngx-toastr/toastr';
+
+body { margin: 0; /*font-family: Roboto, "Helvetica Neue", sans-serif;*/ font-family: 'Muli', sans-serif !important;}.mat-h5, .mat-typography h5{font-family: 'Muli', sans-serif;font-weight:400;margin:0;font-size:17px;line-height: 1;}.mat-h3, .mat-subheading-2, .mat-typography h3{font-size:1.8rem;font-weight:600;font-family: 'Muli', sans-serif;}/*@import '~ngx-toastr/toastr-bs4-alert';*/
+/*@import '@tomtom-international/web-sdk-maps';*/
+#map {
+  /*height: 100vh;
+  width: 100vw;*/
+}
+.mat-h4, .mat-subheading-1, .mat-typography h4{font-family: 'Muli', sans-serif !important;font-weight:600;margin:0;font-size:1.2rem;line-height: 1;}
+body {
+  color: black;
+  font-weight: 400;
+}
+.form-has-error{
+  border-color: red;
+}
+html, body { height: 100%; }
+.iq-sidebar-menu .iq-menu li a{/*cursor: no-drop;*/}
+.mat-h6, .mat-typography h6{font-family: 'Muli', sans-serif !important;font-weight:400;margin:0;font-size:1rem;line-height: 1;margin:0}
+:host >>> ngx-skeleton-loader .loader {
+  border-radius: 5px;
+  height: 50px;
+  background-color: #992929;
+  border: 1px solid white;
+}
+
+.modal-dialog.modal-dialog-aside{
+  position: fixed;
+  margin: auto;
+  width: 320px;
+  height: 100%;
+  right: 0px;
+}
+.modal-content {
+  height: 100%;
+}
+.modal.fixed-left .modal-dialog-aside {
+  margin-left: auto;
+  transform: translateX(100%);
+}
+.modal.fixed-left.show .modal-dialog-aside {
+  transform: translateX(0);
+}
+.iq-card.iq-card-block.iq-card-stretch .height80{
+  height: calc(100vh - 20vh);
+  overflow-x: auto;
+}
+.modal-content{border-radius:0;}
+.modal-dialog.modal-dialog-aside{border-radius:0;width:30%}
+@media (min-width: 576px) {
+  .modal-dialog-scrollable .modal-content {
+    max-height: calc(100vh );
+  }
+}
+.choosebannerShow.bigimag img{width:150px;height:100px;}
+body .wrapper {min-height: calc(100vh - 50px);}
+.ellipsis-twoline{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+div.wrapper main{min-height: calc(100vh - 50px);}
+.cursor-pointer{cursor: pointer}
+#addnewincl .ng-select.ng-select-single .ng-select-container {
+  height: 45px;
+}
+
+
+ng-http-loader {
+  width: 120px !important;
+  height: 120px !important;
+}
+div.cdk-overlay-container{
+  z-index:1100 !important;
+}
+#time-picker-wrapper{
+  z-index:1100 !important;
+}
+.md-datepicker-calendar-pane{
+  z-index: 1100}
+  .ng-select .ng-select-container{min-height:45px;}  
+
+  .gm-style .gm-style-iw {
+
+    width: 100%;
+    max-width: 284px !important;
+}

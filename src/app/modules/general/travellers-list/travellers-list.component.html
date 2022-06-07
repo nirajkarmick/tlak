@@ -1,0 +1,95 @@
+<div id="loading" *ngIf="isLoading">
+    <div id="loading-center">
+    </div>
+  </div>
+  <article id="content-page" class="content-page sidebar-main">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <!-- <div class="subheader-main">
+                  <h3 class="subheader-title" translate> traveller-list.Travellers List</h3>
+                  <div class="subheader-breadcrumbs">
+                  </div>
+                </div> -->
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate> traveller-list.Travellers List</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+                    <!-- <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> departure-travellers.Departure</a> -->
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> traveller-list.Travellers List</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-header d-flex justify-content-between">
+                  <div class="iq-header-title" >
+                    <h4 class="card-title" translate> traveller-list.Travellers List</h4>
+                  </div>
+                </div>
+                <div class="iq-card-body departure-table pt-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover " id="example2">
+                      <thead>
+                        <tr>
+                          <th translate> traveller-list.S.No.</th>
+                          <th translate> traveller-list.Name</th>
+                          <th translate> traveller-list.Package Id</th>
+                          <th translate> traveller-list.Tenent Id</th>
+                          <th translate> traveller-list.Action</th>
+                        </tr>
+                      </thead> 
+                      <tbody *ngFor="let item of travelerList;let i=index;">
+                        <tr>
+                          <td>{{i + 1}}</td>
+                          <td>{{item.name}}</td>
+                          <td>{{item.tour_package_id}}</td>
+                          <td>{{item.tenant_id}}</td>
+                          <td *ngIf="item.occupied" >
+                            <input type="checkbox" class="toggle" id="toggle{{i}}" value="{{item.occupied}}"
+                             [(ngModel)]="item.occupied" data-toggle="modal" data-target="#confirm-logout" (change)="openLogout(item)"/>
+                            <label for="toggle{{i}}"  matTooltipPosition="above" matTooltip="Logout from device">
+                              <span class="on" translate > traveller-list.Login</span>
+                              <span class="off" translate > traveller-list.Logout</span>
+                            </label>
+                          </td>
+                          <td *ngIf="item.occupied==0"> 
+                              <b> Logged Out </b>
+                             
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<div class="modal fade confirm-delete" id="confirm-logout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content modal-filled bg-danger">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="dripicons-wrong h1 text-white"></i>
+
+          <p class="mt-3 text-white">Are you sure to logout  <strong>{{editable_name}}</strong> from device </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" (click)="resetLg()" data-dismiss="modal" translate>departure-travellers.No.</button>
+        <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="getStatus()" translate>departure-travellers.Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
+  </article>
+  

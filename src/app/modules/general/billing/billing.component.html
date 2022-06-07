@@ -1,0 +1,68 @@
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page">
+  <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+    <div class="container-fluid">
+      <div class="subheader-main">
+        <h3 class="subheader-title" translate> billing.Billing </h3>
+        <div class="subheader-breadcrumbs">
+          <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+          <!--<span class="subheader-breadcrumbs-separator"></span>-->
+          <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>
+            billing.Billing List </a>
+          <!--<span class="subheader-breadcrumbs-separator"></span>-->
+          <!-- <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"> Departure List</a> -->
+        </div>
+      </div>
+      <div class="subheader-toolbar">
+        <button class="btn btn-primary mr-2" [routerLink]="['/payment-details']" translate><i class="fas fa-file-invoice-dollar"></i> billing.Payment Details</button>
+        <button class="btn btn-success" [routerLink]="['/add-credit']" translate><i class="fas fa-plus-circle"></i>
+          billing.Add Credit</button>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+          <div class="iq-card-header d-flex justify-content-between">
+            <div class="iq-header-title">
+              <h4 class="card-title" translate> billing.Billing List</h4>
+            </div>
+            <h5 class="text-primary"><small translate> billing.Total Credit: </small>{{totalBill}}</h5>
+          </div>
+          <div class="iq-card-body departure-table">
+            <div class="table-responsive">
+              <table class="table table-hover" id="example2">
+                <thead>
+                <tr>
+                  <!-- <th>S No</th> -->
+                  <th translate> billing.Departure Name</th>
+                  <th translate> billing.Credit</th>
+                  <th translate> billing.Debit</th>
+                  <th translate> billing.Payment Date</th>
+                  <th translate> billing.Transaction Id</th>
+                  <th translate> billing.Region Id</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of paymentData">
+                  <!-- <td>{{i + 1}}</td> -->
+                  <td title="Test Departure" class="table-td-ellipsis">{{item.departure_name}}</td>
+                  <td>{{item.credit}}</td>
+                  <td>{{item.debit}}</td>
+                  <td>{{item.payment_date}}</td>
+                  <td>{{item.transaction_id}}</td>
+                  <td class="text-center">{{item.id}}  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

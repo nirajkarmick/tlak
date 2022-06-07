@@ -1,0 +1,205 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate>departure-travellers.Travelers</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> departure-travellers.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> departure-travellers.Add Travelers</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          departure-travellers.Dt </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p translate> departure-travellers.p1 </p>
+                        <p>
+                          <strong class="text-danger"><i class="fa fa-lightbulb"></i> 
+                          <span translate> departure-travellers.tip</span>
+                        </strong> 
+                          <span translate> departure-travellers.p2</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body" id="addtravelers">
+                  <form action="" [formGroup]="addPeople" (ngSubmit)="addpeople()" >
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="name" translate>departure-travellers.Add new traveler</label>
+                          <div class="uploadtravelers">
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="name" name="name" value="" [(ngModel)]="name" id="name" placeholder="Start typing traveler name..." autocomplete="off">
+                              <div *ngIf="isSubmitted1&&form.name.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.name.errors.required" translate>
+                                  departure-travellers.Please enter Traveler Name.</p>
+                              </div>
+                              <div class="input-group-append">
+                                <button type="submit" id="sub" class="btn btn-primary" [disabled]="!addPeople.valid" translate><i class="fa fa-save"></i> departure-travellers.Save travellers</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="or"></div>
+                  <div class="row">
+                    <div class="col-md-12 mb-3">
+                      <h6>
+                        <small translate>departure-travellers.You may upload a list of travelers in CSV format. Follow the sample file to create the list.</small>
+                        <a href="assets/people-sample.csv" class="btn btn-warning btn-sm ml-2" translate><i class="fas fa-download"></i> departure-travellers.Download Sample CSV</a>
+                      </h6>
+                    </div>
+                  </div>
+                  <form action="" [formGroup]="addCSV" id="csvForm">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <div class="input-group file">
+                            <input type="file" class="form-control custom-file-input btn-file-upload errorImg btn-file-upload"
+                                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                   formControlName="import_file" (change)="getname($event.target)" name="uploadtravelerlist" id="file">
+                            <label for="file" class="custom-file-label" id="filename" translate>
+                              departure-travellers.Choose File</label>
+                            <span class="file-custom" id="file-chosen"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3 pl-md-0 pr-md-0 ">
+                        <button class="btn btn-theme" type="submit" (click)="postCsv($event)" translate><i class="fas fa-upload"></i>departure-travellers.Upload List</button>
+                      </div>
+                      <div *ngIf="isSubmitted&&csv.import_file.errors" class="text-danger">
+                        <p class="mb-0" *ngIf="csv.import_file.errors.required" translate>departure-travellers.Please upload travel name CSV file.</p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body" id="travelsList">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                          <th translate>departure-travellers.No.</th>
+                          <th translate>departure-travellers.Name</th>
+                          <th translate>departure-travellers.Action</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="travelerList && travelerList.length>0">
+                        <tr *ngFor="let dd of travelerList; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>{{dd.name}}</td>
+                          <td *ngIf="disableDeparture === false">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" (click)="openEditpeople(dd.id)"><i class="fas fa-edit"></i></a>
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#confirm-delete" (click)="openDeletepeople(dd.id)"><i class="fas fa-trash ml-1 text-danger"></i></a>
+                          </td>
+                          <td *ngIf="disableDeparture === true">
+                            <a href="javascript:void(0);"><i class="fas fa-edit text-dark" title="You can't edit"></i></a>
+                            <a href="javascript:void(0);" ><i class="fas fa-trash ml-1 text-dark" title="You can't delete"></i></a>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <div class="abcx  float-right" *ngIf="totalData>15 && travelerList && travelerList.length > 0">
+                        <p>Total: {{totalData}}</p>
+                        <ul class="pagination" role="navigation">
+                          <li class="page-item " aria-disabled="true" aria-label="« Previous" *ngIf="current_page>1">
+                            <a class="page-link" aria-hidden="true"  href="javascript:void(0);" (click)="goToFirst()">‹‹</a>
+                          </li>
+                          <li class="page-item " aria-disabled="true" aria-label="« Previous" *ngIf="current_page>1">
+                            <a class="page-link" aria-hidden="true"  href="javascript:void(0);" (click)="goToPrev()">‹</a>
+                          </li>
+                          <li class="page-item" *ngFor="let pg of paginationArray" >
+                            <span class="page-link" [ngClass]="{'active': pg.page_no==current_page,'not_active': pg.page_no==current_page}" (click)="gotToPage(pg.page_no)" >{{pg.page_no}}</span>
+                          </li>
+                          <li class="page-item" *ngIf="current_page!=total_page">
+                            <a class="page-link" href="javascript:void(0);" rel="next"
+                               aria-label="Next »" (click)="goToNext()">›</a>
+                          </li>
+                          <li class="page-item" *ngIf="current_page!=total_page">
+                            <a class="page-link"  href="javascript:void(0);" rel="next"
+                               aria-label="Next »" (click)="goToLast()">››</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<div id="myModal" class="modal fade fixed-left1">
+  <div class="modal-dialog modal-dialog-aside1">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;<span class="sr-only" translate>
+          departure-travellers.Close</span></button>
+        <h4 class="modal-title" translate>departure-travellers.Update Travellers</h4>
+      </div>
+      <div class="modal-body">
+        <form action="" [formGroup]="updatePeople" (ngSubmit)="updateName()">
+          <div class="form-group">
+            <input type="text" class="form-control" id="editable_name" value="" [(ngModel)]="editable_name"  formControlName="editable_name" >
+            <div *ngIf="isSubmitted&&formz.editable_name.errors" class="text-danger">
+              <p class="mb-0" *ngIf="formz.editable_name.errors.required" translate>
+                departure-travellers.Please enter travellers name.</p>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-theme"  data-dismiss="modal" (click)="updateName()" translate>departure-travellers.Update Name</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade confirm-delete" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content modal-filled bg-danger">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="dripicons-wrong h1 text-white"></i>
+          <p class="mt-3 text-white" translate> departure-travellers.Do you really want to remove <strong> {{editable_name}} </strong>
+             <span translate> departure-travellers.from list. </span> </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate> departure-travellers.No. </button>
+        <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="delete()" translate> 
+          departure-travellers.Yes </a>
+      </div>
+    </div>
+  </div>
+</div>

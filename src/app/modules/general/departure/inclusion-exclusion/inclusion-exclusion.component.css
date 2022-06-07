@@ -1,0 +1,18 @@
+.uploadincusionimage label {
+  background-color: indigo;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  /*margin-top: 1rem;*/
+  margin-bottom:0;
+}
+
+#file-chosen{
+  margin-left: 0.3rem;
+  font-family: sans-serif;
+}
+textarea.form-control {
+  line-height: 1.5;
+}

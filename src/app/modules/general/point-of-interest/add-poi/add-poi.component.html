@@ -1,0 +1,260 @@
+<article id="content-page" class="content-page sidebar-main">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+          <div class="row">
+            <div class="container-fluid">
+              <div class="subheader-main">
+                <h3 class="subheader-title" *ngIf="editableiD == 0" translate> poi.Add Point of Interest </h3>
+                <h3 class="subheader-title" *ngIf="editableiD > 0" translate> Add Point of Interest for your destination Package </h3>
+                <div class="subheader-breadcrumbs">
+                  <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                      class="ri-home-7-line"></i></a>
+                  <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                    [routerLink]="['/poi']" translate> poi.Point of Interest </a>
+                  <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                    translate>
+                    poi.Add Point of Interest </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+              <div class="iq-card-body">
+                <div class="row">
+                  <div class="col-md-12 ">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="headings">
+                        <h5 translate> poi.Add Point of Interest </h5>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                  <div class="col-lg-12">
+                    <form [formGroup]="poiForm" (ngSubmit)="addPOI()">
+                      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" id="map">
+                        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                      </agm-map>
+                      <div class="form-group poiSearch_field searchPoiName">
+                        <input type="text" class="form-control" placeholder="Please type point of interest name"
+                          (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off"
+                          formControlName="poiName" [(ngModel)]="poiName"
+                          #search>
+                      </div>
+                      <div class="poiMannualDetails mt-5">
+                        <div class="row">
+                          <div class="col-md-12 mb-3">
+                            <h5 class="text-secondary" translate> poi.Add Poi Details </h5>
+                          </div>
+                          <div class="col-md-12 poi-field">
+                            <div class="form-group  position-relative">
+                              <label translate> poi.Destination Name </label>
+                              <div>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="fas fa-location-arrow"></i></div>
+                                  </div>
+                                  <input type="text" class="form-control typeahead" id="myInput"
+                                    placeholder="Enter a destination's name" name="destination" value="destination"
+                                    (keyup)="search_destin($event)" formControlName="destination" 
+                                      autocomplete="off" [(ngModel)]="destination">
+                                </div>
+                                <div *ngIf="isSubmitted&&form.destination_id.errors" class="text-danger">
+                                  <p class="mb-0" *ngIf="form.destination_id.errors.required" translate>
+                                    poi.Please add Destination </p>
+                                </div>
+                                <div id="myInputautocomplete-list2" class="autocomplete-items auto_dest"
+                                  *ngIf="destData && destData.length>0">
+                                  <div *ngFor="let item of destData" class="auto-dest">
+                                    <div (click)="fetch_destination_details(item, item.id)">
+                                      <strong style="margin-bottom:2px;font-size: 15px;">
+                                        <i class="fa fa-map-marker"></i>
+                                        <span style="margin-left: 5px"> {{item.dest_name}}
+                                        </span>
+                                      </strong>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="poiName" translate> poi.POI Name <sup>*</sup></label>
+                              <input type="text" class="form-control" formControlName="poiName" id="poiName">
+                              <div *ngIf="isSubmitted && form.poiName.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.poiName.errors.required" translate>
+                                  poi.Name is required </p>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="country" translate> poi.Country <sup>*</sup></label>
+                              <input type="text" class="form-control" formControlName="country" id="country">
+                            </div>
+                            <div *ngIf="isSubmitted && form.country.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form.country.errors.required" translate>
+                                poi.Country is required </p>
+                            </div>
+                          </div>
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="latitude" translate> poi.Latitude <sup>*</sup></label>
+                              <input type="text" class="form-control" formControlName="latitude" id="latitude">
+                              <div *ngIf="isSubmitted && form.latitude.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.latitude.errors.required" translate>
+                                  poi.Latitude is required </p>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="longitude" translate> poi.Longitude <sup>*</sup></label>
+                              <input type="text" class="form-control" formControlName="longitude" id="longitude">
+                              <div *ngIf="isSubmitted && form.longitude.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.longitude.errors.required" translate>
+                                  poi.Longitude is required </p>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="countryIso" translate> poi.Country ISO-2 <sup>*</sup></label>
+                              <input type="text" class="form-control" formControlName="countryIso" id="countryIso">
+                              <div *ngIf="isSubmitted && form.countryIso.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.countryIso.errors.required" translate>
+                                  poi.Country ISO-2 is required </p>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="location" translate> operator.Location <sup>*</sup></label>
+                              <input type="text" class="form-control" formControlName="location" id="location">
+                              <div *ngIf="isSubmitted && form.location.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.location.errors.required" translate>
+                                  poi.Location is required </p>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="placeId" translate> poi.Place Id </label>
+                              <input type="text" class="form-control" formControlName="placeId" id="placeId">
+                            </div>
+                          </div>
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="utcTime" translate> poi.UTC Time Zone </label>
+                              <input type="text" class="form-control" formControlName="utcTime" id="utcTime">
+                            </div>
+                          </div>
+                          <div class="col-md-4 poi-field">
+                            <div class="form-group">
+                              <label for="poiTypes" translate> poi.Select POI Type </label>
+                              <ng-select (click)="getPOItypes()" formControlName="poiType">
+                                <ng-option *ngFor="let item of poisType" [value]="item">{{item.name}}
+                                </ng-option>
+                              </ng-select>
+                              <div *ngIf="isSubmitted && form.poiType.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.poiType.errors.required" translate>
+                                  poi.Poi is required </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="address" translate> poi.Address <sup>*</sup></label>
+                              <textarea class="form-control" id="address" formControlName="address" rows="1"></textarea>
+                              <div *ngIf="isSubmitted && form.address.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.address.errors.required" translate>
+                                  poi.Address is required </p>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="description" translate> hotel.Description <sup>*</sup></label>
+                              <textarea class="form-control" id="description" formControlName="description"
+                                rows="1"></textarea>
+                              <div *ngIf="isSubmitted && form.description.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.description.errors.required" translate>
+                                  poi.Description is required </p>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-md-4">
+                            <label translate> poi.Upload thumbnail image for app <sup>*</sup></label>
+                            <div class="">
+                              <div class="form-group">
+                                <div class="d-flex align-items-center">
+                                  <div class="from-group choosebannerselect mr-3">
+                                    <label for="img_file" translate> daywise-itinerary.Select banner </label>
+                                    <input type="file" class="banner-img" name="banner-img" id="img_file"
+                                      (change)="uploadBannerImage($event)">
+                                  </div>
+                                  <div class="choosebannerShow">
+                                    <img src="assets/images/no-img.jpg" id="img_url" alt="your image"
+                                      *ngIf="poiBannerImg && poiBannerImg.length==0">
+                                    <img src="{{poiBannerImg[0].base}}" id="img_url" alt="your image"
+                                      *ngIf="poiBannerImg && poiBannerImg.length>0">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <label translate> poi.Upload Multiple Images </label>
+                            <input type="hidden" name="poiImages" id="j_son">
+                            <div class="header-upload mb-3">
+                              <input type="file" name="poi_images" id="uploadFile" multiple
+                                (change)="uploadMultipleImage($event)"
+                                accept="image/jpeg, image/jpg, image/png, image/gif," class="errorMultiple d-none">
+                              <label class="upload btn btn-theme d-block" for="uploadFile" translate>
+                                poi.Upload Images </label>
+                            </div>
+                            <div class="mr-3">
+                              <span class="file-chosen" *ngIf="poiImages && poiImages.length == 0"></span>
+                              <span class="file-chosen" *ngIf="poiImages && poiImages.length > 0"><span class="p-2"
+                                  *ngFor="let img of poiImages;">
+                                  <img style="width:100px;" src="{{img.base}}"></span></span>
+                            </div>
+                            <div class="multiple-images" id="Filelist">
+                              <ul class="thumb-Images" id="imgList">
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="col-md-12 mb-3 mb-lg-0 text-right" *ngIf="editableiD == 0">
+                            <button type="submit" id="sub" class="btn btn-primary" translate><i class="fa fa-save"></i>
+                              daywise-itinerary.Save </button>
+                          </div>
+                          <div class="col-md-12 mb-3 mb-lg-0 text-right" *ngIf="editableiD > 0">
+                            <button type="submit" id="sub2" class="btn btn-primary" translate><i class="fa fa-save"></i>
+                              daywise-itinerary.Save </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

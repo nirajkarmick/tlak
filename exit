@@ -1,0 +1,127 @@
+[1mdiff --git a/src/app/modules/general/departure/departure-create/departure-create.component.html b/src/app/modules/general/departure/departure-create/departure-create.component.html[m
+[1mindex 66dd3a7..042568d 100644[m
+[1m--- a/src/app/modules/general/departure/departure-create/departure-create.component.html[m
+[1m+++ b/src/app/modules/general/departure/departure-create/departure-create.component.html[m
+[36m@@ -43,10 +43,10 @@[m
+                       </div>[m
+                       <div class="modal-body">[m
+                         <p translate> departure-create-help.dep-one</p>[m
+[31m-                        <h5 class="d-block text-info" translate> [m
+[32m+[m[32m                        <h5 class="d-block text-info" translate>[m
+                           departure-create-help.dep-two </h5>[m
+[31m-                        <p translate> [m
+[31m-                          departure-create-help.dep-three [m
+[32m+[m[32m                        <p translate>[m
+[32m+[m[32m                          departure-create-help.dep-three[m
+                       </p>[m
+                         <p class="mb-0"><span class="fas fa-times-circle text-danger"></span>&nbsp;<em translate>[m
+                           departure-create-help.Wrong way:</em>[m
+[36m@@ -62,21 +62,21 @@[m
+                         <p><strong class="d-block kt-label-font-color-2" translate>[m
+                           departure-create-help.Company/Agent/Tour Operator’s name:</strong>[m
+                            <span translate>[m
+[31m-                            departure-create-help.dep-four [m
+[32m+[m[32m                            departure-create-help.dep-four[m
+                           </span>[m
+                           <span translate>[m
+                             departure-create-help.Travel business requires networking and at times, different entities may have to collaborate to manage a tour. That’s why it’s important to enter the name of the organization (your company or your partner/associate) responsible for managing the tour.  </span>[m
+                           </p>[m
+                         <p>[m
+[31m-                          <strong class="d-block kt-label-font-color-2" translate> [m
+[31m-                            departure-create-help.Traveller’s Passcode:</strong> [m
+[32m+[m[32m                          <strong class="d-block kt-label-font-color-2" translate>[m
+[32m+[m[32m                            departure-create-help.Traveller’s Passcode:</strong>[m
+                           <span translate>[m
+                             departure-create-help.dep-six[m
+                           </span>[m
+                           </p>[m
+                         <p>[m
+[31m-                          <strong class="d-block kt-label-font-color-2" translate> [m
+[31m-                            departure-create-help.Operator Team’s Passcode:</strong> [m
+[32m+[m[32m                          <strong class="d-block kt-label-font-color-2" translate>[m
+[32m+[m[32m                            departure-create-help.Operator Team’s Passcode:</strong>[m
+                           <span translate>[m
+                             departure-create-help.dep-seven[m
+                           </span>[m
+[36m@@ -88,22 +88,22 @@[m
+                         <p><strong class="d-block kt-label-font-color-2" translate>[m
+                            departure-create-help.Start Date:[m
+ [m
+[31m-                        </strong> [m
+[32m+[m[32m                        </strong>[m
+                           <span translate>[m
+[31m-                            departure-create-help.The date on which the departure starts (usually, it starts with Day1 at the first location). [m
+[32m+[m[32m                            departure-create-help.The date on which the departure starts (usually, it starts with Day1 at the first location).[m
+                           </span>[m
+                           </p>[m
+[31m-                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.End Date: </strong> [m
+[32m+[m[32m                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.End Date: </strong>[m
+                           <span translate>[m
+                             departure-create-help.The date on which the tour ends (usually, it’s the last day of the tour).[m
+                         </span>[m
+                           </p>[m
+[31m-                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.Start time:</strong>  [m
+[32m+[m[32m                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.Start time:</strong>[m
+                           <span translate>[m
+                             departure-create-help.It’s the estimated time at which the travellers are supposed to arrive at the first location.[m
+                              </span>[m
+                           </p>[m
+[31m-                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.No. of users:</strong> [m
+[32m+[m[32m                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.No. of users:</strong>[m
+                           <span translate>[m
+                             departure-create-help.In this field, you need to state the number of users who will be accessing the tour package.[m
+                           </span>[m
+[36m@@ -166,7 +166,7 @@[m
+                                 <div class="from-group choosebannerselect mr-3"><label for="img_file" translate>[m
+                                   departure-create.Select banner</label>[m
+                                   <input type="file" name="banner-img" id="img_file" (change)="filename($event)"[m
+[31m-                                    class="banner-img">[m
+[32m+[m[32m                                    class="banner-img" accept="image/png, image/jpg, image/jpeg">[m
+                                 </div>[m
+                                <!-- <div class="mr-3">[m
+                                   <span class="file-chosen" *ngIf="!imageName">No file chosen</span>[m
+[36m@@ -529,3 +529,44 @@[m
+     </div>[m
+   </div>[m
+ </article>[m
+[32m+[m
+[32m+[m
+[32m+[m[32m<div class="modal fade" style="margin:0 auto;" id="crop_model" tabindex="-1" role="dialog" aria-hidden="false">[m
+[32m+[m[32m  <div class="modal-dialog modal-lg" style="max-width: 650px">[m
+[32m+[m[32m    <div class="modal-content">[m
+[32m+[m[32m      <div class="modal-body" style="padding: 10px; max-height: 650px;overflow: auto;">[m
+[32m+[m[32m        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close_crop()">&times;[m
+[32m+[m[32m        </button>[m
+[32m+[m[32m        <div class="form-group-attached">[m
+[32m+[m[32m          <div class="row">[m
+[32m+[m[32m            <div class="col-md-12">[m
+[32m+[m[32m              <image-cropper[m
+[32m+[m[32m                [imageChangedEvent]="imageName"[m
+[32m+[m[32m                [maintainAspectRatio]="true"[m
+[32m+[m[32m                [aspectRatio]="3 / 2"[m
+[32m+[m[32m                [resizeToWidth]="1080"[m
+[32m+[m[32m                [cropperMinWidth]="720"[m
+[32m+[m[32m                [onlyScaleDown]="true"[m
+[32m+[m[32m                [roundCropper]="false"[m
+[32m+[m[32m                [alignImage]="'left'"[m
+[32m+[m[32m                [style.display]="showCropper ? null : 'none'"[m
+[32m+[m[32m                format="png"[m
+[32m+[m[32m                (imageCropped)="imageCropped($event)"[m
+[32m+[m[32m                (imageLoaded)="imageLoaded()"[m
+[32m+[m[32m                (cropperReady)="cropperReady($event)"[m
+[32m+[m[32m                (loadImageFailed)="loadImageFailed()"[m
+[32m+[m[32m              ></image-cropper>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m          </div>[m
+[32m+[m[32m          <div class="row">[m
+[32m+[m[32m            <div class="col-md-12 mt-5 text-right">[m
+[32m+[m[32m              <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="done_cropping()" translate>[m
+[32m+[m[32m                settings.Done Cropping</button>[m
+[32m+[m[32m              <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal" (click)="close_crop()" translate> settings.Cancel</button>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m          </div>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m      </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m  </div>[m
+[32m+[m[32m</div>[m

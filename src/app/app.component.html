@@ -1,0 +1,22 @@
+<div id="wrapper" class="wrapper" >
+<app-header *ngIf="showHeader"></app-header>
+  <main (click)="hideProfileMenu()">
+    <ng-http-loader
+      [backdrop]="true"
+      [backgroundColor]="'#bfa56c'"
+      [debounceDelay]="100"
+      [extraDuration]="300"
+      [minDuration]="300"
+      [backdropBackgroundColor]="'#777777'"
+      [spinner]="spinkit.skCubeGrid">
+    </ng-http-loader>
+    <router-outlet></router-outlet>
+  </main>
+</div>
+<div class="mobile-wrapper" >
+    <div class="d-flex justify-content-around align-items-center">
+    <h2>This application is for <span class="text-danger">desktop/laptop</span> only</h2>
+    </div>
+</div>
+<app-footer *ngIf="showHeader"></app-footer>
+

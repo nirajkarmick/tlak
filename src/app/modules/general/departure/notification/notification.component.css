@@ -1,0 +1,26 @@
+.mypopovermodal .nav-fill .nav-item {
+  color:#c9c9c9
+}
+.mypopovermodal ul.list-unstyled li::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f058";
+  margin-right: 10px;
+  color: #e0b827;
+}
+.mypopovermodal ul li {
+  padding-left: 1.3em;
+  margin-bottom: 5px;
+}
+.mypopovermodal .nav-tabs .nav-item.show .nav-link, .mypopovermodal .nav-tabs .nav-link.active, .mypopovermodal .nav-tabs .nav-link:hover  {
+  border-bottom: 2px solid var(--iq-primary);
+  color: var(--iq-primary);
+}
+textarea.form-control{line-height: 1.2}
+.iq-card{overflow: hidden}
+

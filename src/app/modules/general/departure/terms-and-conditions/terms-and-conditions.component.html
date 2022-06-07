@@ -1,0 +1,59 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate> terms&conditions.Terms and Conditions </h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+                    <!-- <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" [routerLink]="['/departure-table']" translate> terms&conditions.Departure</a> -->
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> terms&conditions.Departure - Terms and Conditions</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height min-vh-50">
+                <div class="iq-card-body" id="">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> terms&conditions.Terms and Conditions</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-6 mr-auto">
+                      <div class="row">
+                        <form action="" class="w-100">
+                          <div class="col-12">
+                            <div class="form-group">
+                              <label for="" translate> terms&conditions.Departure Terms and Conditions</label>
+                              <angular-editor [placeholder]="'Enter text here...'" [ngModelOptions]="{standalone: true}" [(ngModel)]="termsData" [config]="config"></angular-editor>
+                            </div>
+                          </div>
+                          <div class="col-12 text-right">
+                            <button class="btn btn-theme" (click)="Terms()" type="submit" translate><i class="fas fa-savs"></i>terms&conditions.Save </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,246 @@
+<div id="loading" *ngIf="isLoading">
+    <div id="loading-center">
+    </div>
+</div>
+<article id="content-page" class="content-page">
+    <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+        <div class="container-fluid">
+            <div class="subheader-main">
+                <h3 class="subheader-title" translate> users.Users</h3>
+            </div>
+            <div class="subheader-toolbar" *ngIf="userCreate">
+                <div class="subheader-wrapper">
+                    <a href="javascript:void(0)" class="btn btn-warning" data-toggle="modal"
+                        data-target="#exampleModalCenter" translate>
+                        <i class="la la-plus"></i> users.Create User </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                    <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                            <h4 class="card-title" translate> users.Users</h4>
+                        </div>
+                    </div>
+                    <div class="iq-card-body departure-table">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="example2">
+                                <thead>
+                                    <tr>
+                                        <th translate> users.User Name</th>
+                                        <th translate> users.Email</th>
+                                        <th translate> users.Phone</th>
+                                        <th translate> users.Role</th>
+                                        <th translate> users.Status</th>
+                                        <th translate> users.Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of allUsers">
+                                        <td title="Test Departure" class="table-td-ellipsis">{{item.name}}</td>
+                                        <td>{{item.email}}</td>
+                                        <td>{{item.phone}}</td>
+                                        <td>{{item.role_name}}</td>
+                                        <td>
+                                            <!-- <span class="badge badge-pill badge-success"
+                                             *ngIf="item.verified && !item.status" translate> users.Verified </span> -->
+                                            <span class="badge badge-pill badge-danger" 
+                                            *ngIf="!item.verified && !item.status" translate> users.Not Verified </span>
+                                        <span class="badge badge-pill badge-success"
+                                            *ngIf="item.status && item.verified" translate> users.Active </span>
+                                        <span class="badge badge-pill badge-warning text-dark" *ngIf="!item.status  && item.verified" translate> users.Inactive </span>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" *ngIf="userEdit" class="copy-departure" title="Edit Info" 
+                                             data-toggle="modal" data-target="#exampleModalCenter2" 
+                                             (click)="userEditModel(item.id)">
+                                                <i class="las la-edit f2x"></i> </a>
+                                            <a class="text-warning" href="javascript:void(0);" title="Resend Mail" (click)="openResend(item)" data-toggle="modal" data-target="#confirm-resend" *ngIf="!item.verified && !item.status"><i
+                                                    class="las la-mail-bulk f2x"></i> </a>
+                                                    <span *ngIf="userActivateInactivate">
+                                                        <a class="text-success" href="javascript:void(0);" title="Aactivate" 
+                                            (click)="userActive(item.id)" *ngIf="!item.status && item.verified">
+                                            <i class="las la-check f2x"></i> </a>
+                                        </span>
+                                            
+                                            <span *ngIf="userActivateInactivate">
+                                                <a class="text-danger" href="javascript:void(0);" title="Inactive" 
+                                            (click)="inActive(item.id)" *ngIf="item.status && item.verified">
+                                            <i class="las la-window-close f2x"></i> </a>
+                                        </span>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create User Details-->
+    <div class="modal fade fixed-left" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" translate> users.Create User Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body overflow-auto">
+                    <form action="" [formGroup]="userAdd" (ngSubmit)="addUser()">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name" translate> users.Name</label>
+                                    <input type="text" class="form-control" name="compnayname" value="" id="name"
+                                        formControlName="name">
+                                    <div *ngIf="isSubmitted&&form.name.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.name.errors.required">
+                                            users.Please add user name</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="email" translate> users.Email</label>
+                                    <input type="text" class="form-control" name="email" value="" id="email"
+                                        formControlName="email">
+                                    <div *ngIf="isSubmitted&&form.email.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.email.errors.required" translate>
+                                            users.Please add email address</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="mobile_number" translate> users.Contact Number</label>
+                                    <input type="text" class="form-control" name="mobile_number" value=""
+                                        id="mobile_number" formControlName="mobile_number">
+                                    <div *ngIf="isSubmitted&&form.mobile_number.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.mobile_number.errors.required" translate>
+                                            users.Please add contact number</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="filter" translate> users.Select role</label>
+                                    <select id="filter" class="form-control" formControlName="role">
+                                        <option value="" selected="" translate> Select </option>
+                                        <option *ngFor="let l of roleSelect" value="{{l.id}}">{{l.name}}</option>
+                                    </select>
+                                    <div *ngIf="isSubmitted&&form.Role.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form.Role.errors.required" translate>
+                                            users.Please add User Role.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" translate> users.Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Create Close-->
+
+    <!--edit user-->
+    <div class="modal fade fixed-left" id="exampleModalCenter2" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" translate> users.Edit User Details</h5>
+                    <button type="button" class="close" id='closeModel'  data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body overflow-auto">
+                    <form action="" [formGroup]="editUser" (ngSubmit)="editFormUser()">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name" translate> users.Name</label>
+                                    <input type="text" class="form-control" name="name"
+                                     value="{{editUser.value.name}}" id="name"
+                                        formControlName="name">
+                                    <div *ngIf="isSubmitted1&&form1.name.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form1.name.errors.required" translate>
+                                            users.Please add user name</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="email" translate> users.Email</label>
+                                    <input type="text" class="form-control" name="email" value="{{editUser.value.email}}" id="email" formControlName="email">
+                                    <div *ngIf="isSubmitted1&&form1.email.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form1.email.errors.required" translate>
+                                            users.Please add email address</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="mobile_number" translate> users.Contact Number</label>
+                                    <input type="text" class="form-control" name="mobile_number"
+                                     value="{{editUser.value.mobile_number}}"
+                                        id="mobile_number" formControlName="mobile_number">
+                                    <div *ngIf="isSubmitted1&&form1.mobile_number.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form1.mobile_number.errors.required" translate>
+                                            users.Please add contact number</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="filter" translate> users.Select role</label>
+                                    <select id="filter" class="form-control" formControlName="role">
+                                        <option value="{{editUser.value.role_id}}" selected="" translate>
+                                            Select </option>
+                                        <option *ngFor="let l of roleSelect" value="{{l.id}}">{{l.name}}</option>
+                                    </select>
+                                    <div *ngIf="isSubmitted1&&form1.role.errors" class="text-danger">
+                                        <p class="mb-0" *ngIf="form1.role.errors.required" translate>
+                                            users.Please add User Role.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" translate> users.Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade confirm-delete" id="confirm-resend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content modal-filled bg-danger">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="dripicons-wrong h1 text-white"></i>
+
+          <p class="mt-3 text-white" translate> users.u1 <strong> {{resend_name}} </strong> </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate> departure-travellers.No. </button>
+        <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" 
+                                            (click)="resendEmail()" translate> departure-travellers.Yes </a>
+      </div>
+    </div>
+  </div>
+</div>
+    <!--edit user close-->
+</article>

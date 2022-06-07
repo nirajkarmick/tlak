@@ -1,0 +1,192 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate> departure-document.Tour documents</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                        class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>
+                      departure-document.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>
+                      departure-document.Tour documents</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i
+                        class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          departure-document.Departure - Documents</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                            class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p translate> departure-document.p1</p>
+                        <h5 class="text-info mb-1"><u translate> departure-document.p2 </u></h5>
+                        <p translate> departure-document.p3 </p>
+                        <ul class="list-unstyled">
+                          <li translate> departure-document.p4 </li>
+                          <li translate> departure-document.p5 </li>
+                          <li translate> departure-document.p6 </li>
+                          <li translate> departure-document.p7 </li>
+                        </ul>
+                        <p translate> departure-document.p8 </p>
+                        <h5 class="text-warning mb-1"><u translate> departure-document.pdf </u></h5>
+                        <p translate> departure-document.p9 </p>
+                        <p translate> departure-document.p10 </p>
+                        <p><strong class="text-dark" translate> departure-document.n</strong> 
+                          <span translate> departure-document.p11 </span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" [ngClass]="{'col-lg-6 col-md-6': TourDoc.length>0,'col-lg-12 col-md-12': TourDoc.length==0}">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body" id="">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> departure-document.Add Travel Documents</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <form action="" [formGroup]="AddTourDoc" (ngSubmit)="TourDocument()">
+                        <div class="row communicationadd">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="document_name" translate> departure-document.Document Name</label>
+                              <input type="text" name="document_name" class="form-control" id="document_name" formControlName="name">
+                            </div>
+                            <div *ngIf="isSubmitted && form.name.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form.name.errors.required" translate>
+                                departure-document.Please upload image.</p>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group mb-0 mt-3 pt-3">
+                              <div class="d-flex align-items-center">
+                                <div class="from-group choosebannerselect mr-3"><label for="img_file" translate>
+                                  departure-document.Select file</label>
+                                  <input type="file" name="banner-img" id="img_file" multiple (change)="filename($event)" class="banner-img">
+                                </div>
+                                <div class="mr-3">
+                                  <span class="file-chosen" *ngIf="imageName && imageName.length == 0" translate>
+                                    departure-document.No file chosen</span>
+                                  <span class="file-chosen" *ngIf="imageName && imageName.length > 0"><span
+                                      *ngFor="let name of imageName;">{{name}},</span></span>
+                                </div>
+                                <!--<div class="choosebannerShow">
+                                  <img src="assets/images/no-img.jpg" class="img_url" *ngIf="!filePath" alt="your image">
+                                  <img [src]="filePath" *ngIf="filePath" class="img_url" alt="your image">
+                                </div>-->
+                              </div>
+                            </div>
+                            <div *ngIf="isSubmitted&& imageName.length==0" class="text-danger">
+                              <p class="mb-0"  translate>
+                                departure-document.Please Select File.</p>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <p><strong class="text-danger">Note: </strong>Only jpg, jpeg, png, pdf, doc, csv and xls supported</p>
+                          </div>
+                          <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-theme" translate><i class="fa fa-save"></i>
+                              departure-document.Save</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="TourDoc.length>0">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> departure-document.Document List</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <table class="table table-hover " id="example2">
+                        <thead>
+                          <tr>
+                            <th translate> departure-document.Document Name</th>
+                            <th translate> departure-document.Document Files</th>
+                            <th translate> departure-document.Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of TourDoc">
+                            <td title="Test Departure" class="table-td-ellipsis">{{item.name}}</td>
+                            <td>
+                              <span *ngFor="let doc of item.documents" class="mr-2"><a href="{{url}}{{doc.document}}" target="_blank"><img src="assets/images/filetype/{{doc.ext}}.png" alt="fileType" width="18">{{doc.document}}</a></span>
+                            </td>
+                            <td>
+                              <!-- <a href="javascript:void(0);"><i class="fas fa-edit"></i></a> -->
+                              <a href="javascript:void(0)" data-target="#confirm-delete" data-toggle="modal"
+                                title="Delete manager" class="text-danger" (click)="deleteOpenpop(item.id, item.name)">
+                                <i class="ri-delete-bin-2-line upload-button"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade confirm-delete" id="confirm-delete" tabindex="-1" role="dialog"
+              aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content modal-filled bg-danger">
+                  <div class="modal-body">
+                    <div class="text-center">
+                      <i class="dripicons-wrong h1 text-white"></i>
+                      <p class="mt-3 text-white" translate> departure-document.Do you really want to delete <strong>{{docName}}</strong>
+                       <span translate>  departure-document.from the list.</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate>
+                      departure-document.No</button>
+                    <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="deletedoc(docId)" translate>
+                      departure-document.Yes </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,241 @@
+
+Conversation opened. 1 unread message.
+
+Skip to content
+Using watconsultingservicescom Mail with screen readers
+1 of 462
+html
+Inbox
+
+Pranesh Jha
+3:31 PM (5 minutes ago)
+to me
+
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar [depBreak]="depBreak"></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate>departure-destination.Destination</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" [routerLink]="['/dashboard']"
+                       class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                      class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" [routerLink]="['/departure-table']"
+                       class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>departure-destination.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                       translate>
+                      departure-destination.Add Destination</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i
+                      class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          departure-destination.Departure - Locations</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                          class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>
+                          <span translate> dep-loc.p1 </span>
+                          <span translate> dep-loc.p2 </span>
+                          <span translate> dep-loc.p3 </span>
+                          <span translate> dep-loc.p4 </span>
+                          <span translate> dep-loc.p5  </span>
+                          </p>
+                        <p translate> dep-loc.p6</p>
+                        <p>
+                          <strong class="d-block text-dark mb-2" translate> dep-loc.p7 </strong>
+                          <span translate> dep-loc.p8 </span>
+                        </p>
+                        <p><strong class="text-danger"><i class="fa fa-lightbulb"></i> <span translate> dep-loc.p9 </span>
+                        </strong>
+                          <span translate> dep-loc.p10 </span>
+                        </p>
+                        <h5 class="d-block text-info" translate> dep-loc.p11
+                        </h5>
+                        <p translate> dep-loc.p12 </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate>departure-destination.Add Destination</h5>
+                        </div>
+                        <div class="">
+                          <ul class="list-inline">
+                            <li class="list-inline-item">
+                              <button type="submit" class="btn btn-theme" (click)="destination_data()" translate>
+                                departure-destination.Next<i class="fas fa-arrow-right"></i>
+                              </button>
+                            </li>
+                            <li class="list-inline-item">
+                              <button class="btn btn-sm btn-outline-secondary showpoiMap" (click)="showmapdiv()" id="showpoiMap" translate><i class="fas fa-map-marker-alt mr-0"></i>
+                                departure-destination.Show Map
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <hr class="mt-0">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-9 hidepoiMap" id="hidepoiMap">
+                      <div class="row">
+                        <div class="col-md-10">
+                          <form action="">
+                            <div class="form-group position-relative" id="searchDestinationandpoiDiv">
+                              <label for="searchlocationandpoi" translate>departure-destination.Search Destination/POI Name</label>
+                              <div class="d-flex justify-content-between align-items-center">
+                                <div class="input-group position-relative">
+                                  <input type="search" class="form-control" id="searchlocationandpoi" (keyup)="search_pullit()" name="keyword" [(ngModel)]="keyword" autocomplete="off">
+                                  <i class="fas fa-search-location"></i>
+                                </div>
+                                <div class="addNewPoimanually pl-md-2">
+                                  <small class="text-danger" translate>departure-destination.If you don't found POI below add manually</small>&nbsp;
+                                  <strong><a href="javascript:void(0);" [routerLink]="['/poi']" translate>departure-destination.Add POI</a></strong>
+                                </div>
+                              </div>
+                              <div id="pullit-autocomplete" class="pullit-autocomplete">
+                                <ul class="list-group">
+                                </ul>
+                              </div>
+                              <ul class="list-group" *ngIf="search_data && search_data.poi && search_data.destination">
+                                <ng-container *ngFor="let obj of search_data.destination;let i=index">
+                                  <li class="list-group-item curser_pull" (click)="search_destination(obj.id,obj.dest_name,obj.country_name,obj.country_code, obj.geonameId)">
+                                    <a href="javascript:void(0)">
+                                      <i class="fas fa-map-marked"></i> {{obj.dest_name}} , {{obj.region}}, {{obj.country_name}}
+                                    </a>
+                                  </li>
+                                </ng-container>
+                                <ng-container *ngFor="let obj of search_data.poi;let i=index;">
+                                  <li class="list-group-item curser_pull" (click)="search_poi(obj.id,obj.destination_name,obj.country_name,obj.country_code, obj.geonameId)">
+                                    <a href="javascript:void(0)">
+                                      <i class="fas fa-map-pin"></i> {{obj.attraction_name}}, {{obj.destination_name}}, {{obj.country_name}}
+                                    </a>
+                                  </li>
+                                </ng-container>
+                              </ul>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="list-inline">
+                            <li class="list-inline-item position-relative locationpillTab" *ngFor="let data of all_search_data; let i = index">
+                              <label class="badge badge-pill border location-badge selected" (click)="changelocation(data.name,i)">{{data.name}}
+                                <span class="badge badge-secondary ml-2">{{data.pois.length}}</span>
+                              </label>
+                              <a href="javascript:void(0);" (click)="remove_location(i,data.name,data.location_id)" class="closeLocation"><i class="fas fa-times"></i></a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="item" *ngIf="!distinct_types">
+                      </div>
+                      <div class="row" id="Reasonstovisit" *ngIf="distinct_types && distinct_types.length>0">
+                        <div class="col-md-12 heading_section d-flex align-items-center justify-content-between">
+                          <h2 translate>departure-destination.Filter by type <span> {{keyword}} </span></h2>
+                        </div>
+                        <ul class="list-inline">
+                          <li class="list-inline-item" (click)="filter_by_type(type)" *ngFor="let type of distinct_types; let i = index">
+                            <figure class="Tovisit" *ngIf="type" data-toggle="tooltip" data-placement="bottom" title="{{type}}">
+                              <div class="Tovisit_div">
+                                <img src="{{s3url}}poi_types/{{type.toLowerCase().replace(' ','-').replace('/','-')}}.png"
+                                  alt="{{type}}" *ngIf="type" class="figure-img img-fit">
+                              </div>
+                              <figcaption *ngIf="type !== null">{{type}}</figcaption>
+                            </figure>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="row" id="poiBox" *ngIf="poi_data && poi_data.length>0;">
+                        <div class="col-md-12 heading_section">
+                          <h2 translate>departure-destination.Reasons to visit <span>{{keyword}}</span></h2>
+                          <p translate>departure-destination.Based on traveller visits and local insights</p>
+                        </div>
+                        <ng-container *ngIf="poi_data && poi_data.length>0;">
+                          <div class="col-md-3 d-flex flex-column position-relative" role="listitem"
+                               *ngFor="let location of poi_data; let i = index">
+                            <div class="poiBox">
+                              <div class="poiBox_wrapper">
+                                <div class="poiBox_wrapperlayout">
+                                  <figure class="height-56">
+                                    <img *ngIf="poi_data" [src]="location.images_url" alt="" class="img-fit"  (error)="onPoiImgError($event)">
+                                  </figure>
+                                  <span class="d-none">{{location.latitude}}{{location.longitude}}</span>
+                                  <div class="poiBox_caption">
+                                    <div class="poiBox_caption_heading">
+                                      <span>{{location.attraction_name}}</span>
+                                    </div>
+                                    <div class="poiBox_caption_location">
+                                      <span>{{location.address}}</span>
+                                    </div>
+                                    <div class="poiBox_caption_description text-dark font-weight-bold">
+                                      <span>{{location.description | slice:0:65 }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="poiBox_check">
+                                <div class="poiBox_check_wrapper">
+                                  <div class="custom-control custom-checkbox custom-checkbox-color-check">
+                                    <input type="checkbox" class="custom-control-input bg-success poi_sel_ck" id="poi_checked_{{ location.id}}" (click)=showSuccess(location)>
+                                    <label class="custom-control-label" for="poi_checked_{{ location.id}}"></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="col-md-3 poiMap" id="poiMap">
+                      <div class="sticky-top">
+                        <div class="closePoiMap" (click)="closePoiMap()"><i class="fas fa-times"></i>
+                        </div>
+                        <div id="map"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

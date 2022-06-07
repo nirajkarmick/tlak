@@ -1,0 +1,41 @@
+.f2x {
+    font-size: 1.2rem;
+}
+.downloadPDFDW a{cursor: pointer;}
+.mat-datepicker-toggle, .mat-datepicker-content .mat-calendar-next-button, .mat-datepicker-content .mat-calendar-previous-button {
+  color: #000;
+  position: absolute;
+  right: 0;
+}
+.rs-picker-daterange-menu {
+  z-index: 10000000000; /* added a large random number, you can choose it more carefully based on your use-case.*/
+}
+.pagination .active{
+  color: white;
+  background: #827af3;
+}
+.pagination .page-item{
+  cursor: pointer;
+}
+#notificationModal .nav-tabs {
+   border-bottom: 2px solid var(--iq-light-border);
+   margin-bottom: 0;
+}
+#notificationModal .nav-tabs a{
+  color: #8f8f8f;
+}
+#notificationModal .nav-tabs .nav-item.show .nav-link, #notificationModal .nav-tabs .nav-link.active {
+  border-bottom: 2px  solid #8b3e00;
+  color: #8b3e00;
+}
+select:focus-visible {
+  outline:none;
+}
+#notificationModal textarea.form-control{
+  line-height:1.2;
+}
+.choosebannerShow img {
+  width: 70px;
+  height: 50px;
+  border-radius: 5px;
+}

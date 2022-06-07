@@ -1,0 +1,135 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate> upcomming.Upcoming tours</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> upcomming.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> upcomming.Edit Upcoming tours</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          upcomming.Departure - Upcoming Tour</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p translate> upcomming.p1 </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body" id="inclusionsCheck">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> upcomming.Upcoming Tours</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <form [formGroup]="upcomging"  (ngSubmit)="updateUpmg()" >
+                        <div class="row upcomingList">
+                          <div class="col-md-12">
+                            <div class="form-group" style="margin-bottom: 3px;">
+                              <label translate> upcomming.Select Upcomming Tour<sup class="text-danger">*</sup></label>
+                              <div class="input-group">
+                                <ng-select [multiple]="true" (change)='selectUpcoming($event)'  [(ngModel)]="upmg_tour" style="width:85%;" formControlName="upcoming_list">
+                                <ng-option *ngFor="let dep of departureUpcoming" [value]="dep.id">{{dep.name}}</ng-option>
+                                 
+                            </ng-select>
+                                <!-- <ng-select style="width:85%;" [items]="departureUpcoming" [multiple]="true" bindLabel="upcomingId" (change)='selectUpcoming()' bindValue="upcomingId" [selectableGroup]="true" formControlName="Upcoming_list" [(ngModel)]="upmg_tour" placeholder="select people" > 
+                                <ng-template ng-label-tmp  let-item="item" let-clear="clear">
+                                  <span class="ng-value-label">{{item.upcomingName}}</span>
+                                  <span class="ng-value-icon right" 
+                                    aria-hidden="true">×</span>
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item">{{item.upcomingName}}
+                                </ng-template>
+                              </ng-select> -->
+                              <button type="submit" id="sub" class="btn btn-primary" translate><i class="fa fa-save"></i> upcomming.Update</button> 
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-12" *ngIf="departureUpcomingList && departureUpcomingList.length>0">
+                      <div class="row mt-4">
+                        <div class="col-md-12 ">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="headings">
+                              <h6 translate> upcomming.Upcomming List</h6>
+                            </div>
+                          </div>
+                          <hr>
+                        </div>
+                        <div class="col-md-12">
+                          <table class="table table-hover " id="example2">
+                            <thead>
+                            <tr>
+                              <th translate> upcomming.S.No.</th>
+                              <th translate> upcomming.Image</th>
+                              <th translate> upcomming.Upcomming Tours</th>
+                              <th translate> upcomming.Start Date</th>
+                              <th translate> upcomming.Phone</th>
+                              <th translate> upcomming.Email</th>
+                              <th translate> upcomming.Promo Content</th>
+                              <th translate> upcomming.Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of departureUpcomingList; let i = index">
+                              <td>{{i + 1}}</td>
+                              <td><img src="{{urls}}{{item.background_image}}" onerror="src='assets/images/no-img.jpg'" alt="img" width="65"></td>
+                              <td>{{item.selectedpkgName}}</td>
+                              <td>{{item.startDate}}</td>
+                              <td class="">98989 89858</td>
+                              <td>{{item.email}}</td>
+                              <td>{{item.promoContent}}</td>
+                              <td>
+                                <input type="checkbox" class="toggle" id="toggle{{i}}" value="{{item.status}}" [(ngModel)]="item.status" (change)="getStatus(item.depUpId)" />
+                                <label for="toggle{{i}}">
+                                  <span class="on" translate > upcomming.Active</span>
+                                  <span class="off"  translate> upcomming.Inactive</span>
+                                </label>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

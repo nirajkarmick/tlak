@@ -1,0 +1,303 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate>inclusion.Inclusion/ Exclusion</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                        class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                      translate>
+                      inclusion.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                      translate>
+                      inclusion.Add Inclusion/ Exclusion</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i
+                        class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          inclusion.Inclusion/ Exclusion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                            class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p translate>inclusion.p1 </p>
+                        <p><strong class="text-danger"><i class="fa fa-lightbulb"></i> <span translate> inclusion.TIP
+                            </span>
+                          </strong>
+                          <span translate> inclusion.p2 </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height ">
+                <div class="iq-card-body" id="inclusionsCheck">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate>inclusion.Add Inclusion</h5>
+                        </div>
+                        <a href="javascript:void(0);" class="btn btn-primary text-white" (click)="saveIncl()"><span
+                            translate>
+                            inclusion.Save Inclusion</span></a>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group mb-3">
+                        <div class="custom-control custom-checkbox custom-checkbox-color-check custom-control-inline">
+                          <input type="checkbox" class="custom-control-input bg-success" id="checkall"
+                            (change)="checkUncheckAll()" [(ngModel)]="masterSelected">
+                          <label class="custom-control-label " for="checkall"><strong class="text-success" translate>
+                              inclusion.Check All</strong></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" *ngFor="let incl of inclusions">
+                      <div class="mb-4 d-flex inc_check align-items-center">
+                        <img src="assets/images/{{incl.images_url}}" alt="" width="36" class="img-fluid mr-2"
+                          onerror="this.src='assets/images/no-img.jpg'">
+                        <div class="form-group m-0 d-flex align-items-center justify-content-between"
+                          id="inclusion_{{incl.id}}">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="inclusions_{{incl.id}}" class="custom-control-input"
+                              id="inclusions_{{incl.id}}" value="1" (change)="setInclusion()" [(ngModel)]="incl.checked">
+                            <label class="custom-control-label" for="inclusions_{{incl.id}}"
+                              id="incluslable_{{incl.id}}">{{incl.name}}</label>
+                          </div>
+                          <div class="inclupdateinput" id="inclupdateinput_{{incl.id}}">
+                            <div class="input-group">
+                              <input type="text" class="form-control" value="" name="inclusions_{{incl.name}}"
+                                id="inclusions_{{incl.id}}">
+                              <div class="input-group-append">
+                                <span class="input-group-text text-success submitinclusion" id=""><i>&#10004;</i></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="">
+                            <img src="assets/images/bin.png" data-toggle="modal" data-target="#confirm-deleteInclsuion"
+                              (click)="deleteinclusion(incl.id, incl.name)" alt="confirm-deleteInclsuion"
+                              class="editinclusion">
+                            <img src="assets/images/pencil.svg" data-toggle="modal" data-target="#exampleModalCenter1"
+                              (click)="editinclusion(incl.id, incl.name,incl.images_url)" alt="editinclusion"
+                              class="editinclusion">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                      <h4 class="text-danger mb-3" translate>inclusion.Not in list? Add Now
+                        <a href="javascript:void(0);" class="btn btn-primary btn-sm addnewincl_show"
+                          (click)="addinclusion()" id="addnewincl_show"><i class="fas fa-plus mr-0"></i></a>
+                      </h4>
+                      <form action="" [formGroup]="addInclusion" (ngSubmit)="addIncl()">
+                        <div class="addnewincl" id="addnewincl">
+                          <label for="newinclusion" translate>inclusion.Add new inclusion</label>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group ">
+                                <ng-select [items]="incl_imgType" bindLabel="id" placeholder="Select inclusion image"
+                                  bindValue="id" [selectableGroup]="true" formControlName="incl_img"
+                                  [(ngModel)]="selected_incl_img" (change)='select_incl_img()'>
+                                  <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                    <span class="ng-value-label"><img src="assets/images/{{item.image}}" width="20px"
+                                        height="20px"> {{item.name}}</span>
+                                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                                  </ng-template>
+                                  <ng-template ng-option-tmp let-item="item" formControlName="incl_img">
+                                    <img src="assets/images/{{item.image}}" width="20px" height="20px"> {{item.name}}
+                                  </ng-template>
+                                </ng-select>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <div class="input-group">
+                                  <!--<div class="input-group-prepend uploadincusionimage d-flex align-items-center mr-2">
+                                    <input type="file" id="actual-btn" (change)="filename($event)" formControlName="incl_img"
+                                      hidden />
+                                    <label for="actual-btn">Choose File</label>
+                                    <span class="file-chosen" *ngIf="!imageName">No file chosen</span>
+                                    <span class="file-chosen" *ngIf="imageName">{{imageName}}</span>
+                                  </div>-->
+                                  <input type="text" class="form-control" name="newinclusion"
+                                    formControlName="incl_name" id="newinclusion" placeholder="Inclusion Name">
+                                  <div class="input-group-append">
+                                    <button class="btn btn-theme" type="submit" translate>inclusion.Add
+                                      Inclusion</button>
+                                  </div>
+                                </div>
+                                <div *ngIf="isSubmitted && form.incl_name.errors" class="text-danger">
+                                  <p class="mb-0" *ngIf="form.incl_name.errors.required" translate>
+                                    inclusion.Please add inclusion name.</p>
+                                </div>
+                                <div *ngIf="isSubmitted&&form.incl_img.errors" class="text-danger">
+                                  <p class="mb-0" *ngIf="form.incl_img.errors.required" translate>
+                                    inclusion.Please upload image.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate>inclusion.Add Exclusion</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="">
+                    <form [formGroup]="addExclusion">
+                      <div class="form-group">
+                        <textarea class="form-control" rows="10" placeholder="Please add your exclusions"
+                          formControlName="exclusion" translate></textarea>
+                        <div *ngIf="isSubmittedExclusion&&form2.exclusion.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="form2.exclusion.errors.required" translate>
+                            inclusion.Please add exclusion.</p>
+                        </div>
+                      </div>
+                      <div>
+                        <button class="btn btn-theme" type="submit" (click)="addExclusionForm()" translate>
+                          inclusion.Add Exclusion</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<!-- popup of edit -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" translate>inclusion.Edit Inclusion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="editinclusionClose">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="EditInclusion" (ngSubmit)="UpdateIncl()">
+        <div class="modal-body">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label translate>inclusion.Edit Inclusion Name</label>
+              <input type="text" class="form-control" formControlName="inc_name_edit">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <ng-select [items]="incl_imgType" bindLabel="id" bindValue="id" [selectableGroup]="true"
+                formControlName="incl_img" [(ngModel)]="selected_incl_img" (change)='select_incl_imgEdit()'
+                placeholder="Select inclusion image" [ngModelOptions]="{standalone: true}">
+                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                  <span class="ng-value-label">
+                    <img src="assets/images/{{item.image}}" width="20px" height="20px">
+                    {{item.name}}</span>
+                  <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" formControlName="incl_img">
+                  <img src="assets/images/{{item.image}}" width="20px" height="20px"> {{item.name}}
+                </ng-template>
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" translate>inclusion.Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- end popup -->
+<!-- Delete popup-->
+<div class="modal fade confirm-delete" id="confirm-delete3" tabindex="-1" role="dialog1" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content modal-filled bg-danger">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="dripicons-wrong h1 text-white"></i>
+
+          <p class="mt-3 text-white" translate>inclusion.Do you really want to delete <strong>{{exclusion}}</strong>
+            <span translate>inclusion.from the list.</span>
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate>No</button>
+        <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="deleteExclusion()"
+          translate>inclusion.Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end delete popup -->
+<div class="modal fade confirm-delete" id="confirm-deleteInclsuion" tabindex="-1" role="dialog1"
+  aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content modal-filled bg-danger">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="dripicons-wrong h1 text-white"></i>
+
+          <p class="mt-3 text-white" translate>inclusion.Do you really want to delete <strong
+              class="pl-1 pr-1">{{incName}}</strong>
+            <span translate>inclusion.from the list.</span>
+          </p>
+          <p class="d-none">{{inclID}}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0);" class="btn btn-light" data-dismiss="modal">No</a>
+        <a href="javascript:void(0);" class="btn btn-light btn-ok text-danger" data-dismiss="modal"
+          (click)="deleteinclusionBtn()" translate>inclusion.Yes</a>
+      </div>
+    </div>
+  </div>
+</div>

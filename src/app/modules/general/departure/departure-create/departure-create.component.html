@@ -1,0 +1,700 @@
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar [depBreak]="depBreak"></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate>departure-create.Departure</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" [routerLink]="['/dashboard']"
+                      class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                        class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" [routerLink]="['/departure-table']"
+                      class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>
+                      departure-create.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                      *ngIf="editableiD == 0" translate> departure-create.Create Basic Details</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                      *ngIf="editableiD > 0" translate> departure-create.Edit Basic Details</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-info mr-3" *ngIf="editableiD > 0" (click)="PublishIf()">
+                      Publish To IF</button>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i
+                        class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-skype" id="exampleModalLongTitle" translate>
+                          departure-create.Departure – Basic Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                            class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p translate> departure-create-help.dep-one</p>
+                        <h5 class="d-block text-info" translate>
+                          departure-create-help.dep-two </h5>
+                        <p translate>
+                          departure-create-help.dep-three
+                        </p>
+                        <p class="mb-0"><span class="fas fa-times-circle text-danger"></span>&nbsp;<em translate>
+                            departure-create-help.Wrong way:</em>
+                          <strong translate> departure-create-help.USA Tour</strong>
+                        </p>
+                        <p><span class="fas fa-check-circle text-success"></span>&nbsp;
+                          <em translate> departure-create-help.Right way:</em> <strong translate>
+                            departure-create-help.New York with Niagara Falls and Washington DC (7 Days/6 Nights)
+                          </strong>
+                        </p>
+                        <hr>
+                        <h5 class="d-block text-info" translate> departure-create-help.Departure Identifier &amp; <span
+                            translate> departure-create-help.Access Details</span></h5>
+                        <p translate> departure-create-help.This section contains the following fields:</p>
+                        <p><strong class="d-block kt-label-font-color-2" translate>
+                            departure-create-help.Company/Agent/Tour Operator’s name:</strong>
+                          <span translate>
+                            departure-create-help.dep-four
+                          </span>
+                          <span translate>
+                            departure-create-help.Travel business requires networking and at times, different entities
+                            may have to collaborate to manage a tour. That’s why it’s important to enter the name of the
+                            organization (your company or your partner/associate) responsible for managing the tour.
+                          </span>
+                        </p>
+                        <p>
+                          <strong class="d-block kt-label-font-color-2" translate>
+                            departure-create-help.Traveller’s Passcode:</strong>
+                          <span translate>
+                            departure-create-help.dep-six
+                          </span>
+                        </p>
+                        <p>
+                          <strong class="d-block kt-label-font-color-2" translate>
+                            departure-create-help.Operator Team’s Passcode:</strong>
+                          <span translate>
+                            departure-create-help.dep-seven
+                          </span>
+                        </p>
+                        <hr>
+                        <h5 class="d-block text-info mb-0" translate>
+                          departure-create-help.Date - Time and Total Users</h5>
+                        <p translate> departure-create-help.This section covers the following fields: </p>
+                        <p><strong class="d-block kt-label-font-color-2" translate>
+                            departure-create-help.Start Date:
+
+                          </strong>
+                          <span translate>
+                            departure-create-help.The date on which the departure starts (usually, it starts with Day1
+                            at the first location).
+                          </span>
+                        </p>
+                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.End Date:
+                          </strong>
+                          <span translate>
+                            departure-create-help.The date on which the tour ends (usually, it’s the last day of the
+                            tour).
+                          </span>
+                        </p>
+                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.Start
+                            time:</strong>
+                          <span translate>
+                            departure-create-help.It’s the estimated time at which the travellers are supposed to arrive
+                            at the first location.
+                          </span>
+                        </p>
+                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.No. of
+                            users:</strong>
+                          <span translate>
+                            departure-create-help.In this field, you need to state the number of users who will be
+                            accessing the tour package.
+                          </span>
+                        </p>
+                        <p><strong class="d-block kt-label-font-color-2" translate> departure-create-help.Departure
+                            Break:
+                          </strong>
+                          <span translate>
+                            departure-create-help.dep-eight
+                          </span>
+                        </p>
+                        <p><strong class="d-block kt-label-font-color-2" translate>Departure Type:</strong>
+                          <span translate>
+                            departure-create-help.dep-nine
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <form [formGroup]="departureForm" class="itinerary-setup m-t-20" (ngSubmit)="departure_register()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="headings">
+                              <h5 translate>departure-create.Enter Tour Package/ Departure Name</h5>
+                            </div>
+                            <hr>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <input name="pname" id="pname" formControlName="pname" class="form-control" type="text"
+                                placeholder=" " value="">
+                              <div *ngIf="isSubmitted&&form.pname.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.pname.errors.required" translate>
+                                  departure-create.Please enter Tour Package Name.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="headings">
+                              <h5 translate>departure-create.App Banner image</h5>
+                            </div>
+                            <hr style="margin-bottom:.2rem">
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group mb-0">
+                              <div class="d-flex align-items-center">
+                                <div class="from-group choosebannerselect mr-3"><label for="img_file" translate>
+                                    departure-create.Choose banner</label>
+                                  <input type="file" name="banner-img" id="img_file" (change)="filename($event)"
+                                    class="banner-img">
+                                </div>
+                                <div class="choosebannerShow">
+                                  <img onerror="this.src='assets/images/no-img.jpg';" id="filePath" [src]="filePath"
+                                    class="img_url" alt="your image">
+                                </div>
+                                <div *ngIf="isSubmitted&&form.banner_image.errors" class="text-danger">
+                                  <p class="mb-0" *ngIf="form.banner_image.errors.required" translate>
+                                    departure-create.Please upload image.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-5" id="agentName">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="headings">
+                              <h5 translate>departure-create.Company Name OR Agent Name</h5>
+                              <button type="button" class="btn btn-light btn-sm btn-icon" mat-raised-button
+                                matTooltipPosition="above"
+                                matTooltip="Name of the company entered here will be displayed as the ‘Tour Operator’ on TLAK app"
+                                data-original-title="" title=""><i class="fas fa-question-circle"
+                                  aria-hidden="true"></i></button>
+                            </div>
+                            <hr>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label translate>departure-create.Company/Agent/Tour Operator’s name</label>
+                              <input name="agent_name" id="agent_name" class="form-control"
+                                formControlName="agent_name">
+                              <div *ngIf="isSubmitted&&form.agent_name.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.agent_name.errors.required" translate>
+                                  departure-create.Please enter Company/Agent/Tour Operator’s name.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="form-group mb-0">
+                                  <label>Agent Logo</label>
+                                  <div class="d-flex align-items-center">
+                                    <div class="from-group choosebannerselect mr-3">
+                                      <label for="img_file" translate> departure-create.Choose logo </label>
+                                      <input type="file" name="banner-img" id="img_file1" (change)="filename1($event)"
+                                        class="banner-img">
+                                    </div>
+                                    <div class="choosebannerShow agentlogo">
+                                      <img onerror="this.src='assets/images/no-img.jpg';" id="filePath1" [src]="filePath1"
+                                        class="img_url" alt="your image">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-7" id="passcodeField">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="headings">
+                              <h5 translate>departure-create.Passcode</h5>
+                              <button type="button" class="btn btn-light btn-sm btn-icon" mat-raised-button
+                                matTooltipPosition="above"
+                                matTooltip="Tour Operator Team gets a few extra features like Admin status in Chat and so on. So, be extra cautious while sharing the Operator Team’s Passcode."
+                                data-original-title="" title=""><i class="fas fa-question-circle"
+                                  aria-hidden="true"></i></button>
+                            </div>
+                            <hr>
+                          </div>
+                          <div class="col-md-4" id="tenetID">
+                            <div class="form-group">
+                              <label translate>departure-create.Company ID<sup>*</sup></label>
+                              <input id="tenant_code" class="form-control read-only-input" type="text" placeholder=" "
+                                value="{{comp_id}}" disabled="disabled">
+                            </div>
+                          </div>
+                          <div class="col-md-4" id="travellerPass" *ngIf="editableiD == 0">
+                            <div class="form-group">
+                              <label translate>departure-create.Traveler’s Passcode<sup>*</sup></label>
+                              <input id="passcode" name="passcode" class="form-control" formControlName="passcode"
+                                [(ngModel)]="passcode" type="text" #box>
+                              <p class="mb-0 d-flex align-items-center justify-content-between" id="tpasscode">
+                                <small><strong><span>{{comp_id}}-</span><span
+                                      id="travellerpasscode-show">{{passcode}}</span></strong></small>
+                                <i class="fas fa-copy" (click)="copyPass()"></i>
+                              </p>
+                              <div *ngIf="isSubmitted&&form.passcode.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.passcode.errors.required" translate>
+                                  departure-create.Please enter Passcode.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4" id="travellerPass" *ngIf="editableiD > 0">
+                            <div class="form-group">
+                              <label translate>departure-create.Traveler’s Passcode<sup>*</sup></label>
+                              <div class="position-relative">
+                                <input id="passcode" name="passcode" class="form-control editable"
+                                  formControlName="passcode" [(ngModel)]="passcode" type="text" #box>
+                                <span class="readOnlyspan"></span>
+                              </div>
+                              <p class="mb-0 d-flex align-items-center justify-content-between" id="tpasscode">
+                                <small><strong><span id="travellerpasscode-show">{{passcode}}</span></strong></small>
+                                <i class="fas fa-copy" (click)="copyPass()"></i>
+                              </p>
+                              <div *ngIf="isSubmitted&&form.passcode.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.passcode.errors.required" translate>
+                                  departure-create.Please enter Passcode.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4" id="managerPass" *ngIf="editableiD == 0">
+                            <div class="form-group">
+                              <label translate>departure-create.Manager Passcode<sup>*</sup></label>
+                              <input id="manager_passcode" name="manager_passcode" class="form-control"
+                                [(ngModel)]="manager_passcode" (keyup)="keyFunc()" formControlName="manager_passcode"
+                                type="text" #box>
+                              <p class="mb-0 d-flex align-items-center justify-content-between" id="mpasscode">
+                                <small><strong><span id="manager_pass">{{comp_id}}-</span><span
+                                      id="managerpasscode-show">{{manager_passcode}}</span></strong></small>
+                                <i class="fas fa-copy" (click)="mcopyPass()"></i>
+                              </p>
+                              <div *ngIf="isSubmitted&&form.manager_passcode.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.manager_passcode.errors.required" translate>
+                                  departure-create.Please enter operator Passcode.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4" id="managerPass" *ngIf="editableiD > 0">
+                            <div class="form-group">
+                              <label translate>departure-create.Manager Passcode<sup>*</sup></label>
+                              <div class="position-relative">
+                                <input id="manager_passcode" name="manager_passcode" class="form-control editable"
+                                  formControlName="manager_passcode" type="text" [(ngModel)]="manager_passcode">
+                                <span class="readOnlyspan"></span>
+                              </div>
+                              <p class="mb-0 d-flex align-items-center justify-content-between" id="mpasscode">
+                                <small><strong><span
+                                      id="managerpasscode-show">{{manager_passcode}}</span></strong></small>
+                                <i class="fas fa-copy" (click)="mcopyPass()"></i>
+                              </p>
+                              <div *ngIf="isSubmitted&&form.manager_passcode.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.manager_passcode.errors.required" translate>
+                                  departure-create.Please enter operator Passcode.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="headings">
+                          <h5 translate>departure-create.Date - Time And Total Users</h5>
+                          <button type="button" class="btn btn-light btn-sm btn-icon" mat-raised-button
+                            matTooltipPosition="above"
+                            matTooltip="Do not consider the ‘local’ location as the Day 1 of the Departure. Example: A departure starts for New York, USA from New Delhi, India. Now, considering the flight duration and transit time, the actual Day 1 will start at least 24 to 36 hours after the traveler leaves his/her home in New Delhi."
+                            data-original-title="" title=""><i class="fas fa-question-circle"
+                              aria-hidden="true"></i></button>
+                        </div>
+                        <hr>
+                      </div>
+
+                      <div class="col-md-3" *ngIf="editableiD == 0">
+                        <div class="form-group date">
+                          <label translate>departure-create.Departure Dates <sup>*</sup></label>
+                          <div class="input-group">
+                            <mat-date-range-input [rangePicker]="picker" (click)="picker.open()"
+                              class="form-control p-0 pl-2" [min]="minDate">
+                              <input formControlName="s_date" matStartDate placeholder="Start date" #dateRangeStart>
+                              <input formControlName="e_date" matEndDate placeholder="End date" #dateRangeEnd
+                                (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                            <div class="d-none"></div>
+                          </div>
+                          <div *ngIf="isSubmitted&&form.start_date.errors && form.end_date.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.start_date.errors.required && form.end_date.errors.required"
+                              translate>
+                              departure-create.Please enter departure dates.</p>
+                          </div>
+                        </div>
+                        <span id="firstDate_error" class="text-danger"></span>
+                      </div>
+                      <div class="col-md-3" *ngIf="editableiD > 0 && (depStatus == 0 || depStatus == 3)">
+                        <div class="form-group date">
+                          <label translate>departure-create.Departure Dates <sup>*</sup></label>
+                          <div class="input-group">
+                            <mat-date-range-input [rangePicker]="picker" (click)="picker.open()"
+                              class="form-control p-0 pl-2" [min]="minDate">
+                              <input formControlName="s_date" matStartDate placeholder="Start date" #dateRangeStart>
+                              <input formControlName="e_date" matEndDate placeholder="End date" #dateRangeEnd
+                                (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                            <div class="d-none"></div>
+                          </div>
+                          <div *ngIf="isSubmitted&&form.start_date.errors && form.end_date.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.start_date.errors.required && form.end_date.errors.required"
+                              translate>
+                              departure-create.Please enter departure dates.</p>
+                          </div>
+                        </div>
+                        <span id="firstDate_error" class="text-danger"></span>
+                      </div>
+                      <div class="col-md-3" *ngIf="editableiD > 0 && depStatus == 2">
+                        <div class="form-group date read-only-input">
+                          <label translate>departure-create.Departure Dates <sup>*</sup></label>
+                          <div class="input-group" aria-disabled="true">
+                            <input type="text"
+                              value="{{departureForm.value.s_date | date: 'Y/M/d'}} - {{departureForm.value.e_date | date: 'Y/M/d'}}"
+                              class="form-control read-only-input" disabled>
+                          </div>
+                        </div>
+                        <span id="firstDate_error" class="text-danger"></span>
+                      </div>
+                      <div class="col-md-2" *ngIf="editableiD == 0">
+                        <div class="form-group timepicker">
+                          <label translate>departure-create.Start Time <sup></sup></label>
+                          <div class="input-group">
+                            <input type="time" class="form-control" value="{{selectedTime}}"
+                              formControlName="start_time" [(ngModel)]="selectedTime" (click)="open()" />
+                          </div>
+                          <div *ngIf="isSubmitted&&form.start_time.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.start_time.errors.required" translate> departure-create.Time
+                              req. </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-2" *ngIf="editableiD > 0 && (depStatus == 0 || depStatus == 3)">
+                        <div class="form-group timepicker">
+                          <label translate>departure-create.Start Time <sup></sup></label>
+                          <div class="input-group">
+                            <input type="time" class="form-control" value="{{selectedTime}}"
+                              formControlName="start_time" [(ngModel)]="selectedTime" (click)="open1()" />
+                          </div>
+                          <div *ngIf="isSubmitted&&form.start_time.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.start_time.errors.required" translate> departure-create.Time
+                              req. </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-2" *ngIf="editableiD > 0 && depStatus == 2">
+                        <div class="form-group timepicker">
+                          <label translate>departure-create.Start Time <sup></sup></label>
+                          <div class="input-group">
+                            <input type="time" class="form-control read-only-input" value="{{selectedTime}}"
+                              formControlName="start_time" [(ngModel)]="selectedTime" [readonly]="true" />
+                          </div>
+                          <div *ngIf="isSubmitted&&form.start_time.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.start_time.errors.required" translate>departure-create.Time req.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="mt-4">
+                          <label for="days" class="sr-only" translate>departure-create.Total days and nights</label>
+                          <input type="text" id="days" class="form-control number_of_days d-none"
+                            formControlName="total_days" [(ngModel)]="daysBetweenDates">
+                          <input type="text" id="night" class="form-control number_of_days read-only-input d-none"
+                            formControlName="total_nights" [(ngModel)]="numberOfNights">
+                          <div class="form-control number_of_days read-only-input" translate>departure-create.Total
+                            <span id="snight">{{numberOfNights}}</span> departure-create.nights and <span
+                              id="sday">{{daysBetweenDates}}</span> departure-create.days
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label translate>departure-create.No. of users</label>
+                          <input id="total_users" name="total_users" class="form-control" type="number" placeholder=""
+                            value="" formControlName="total_users" min="0" onkeypress="return validateNumber(event)">
+                          <div *ngIf="isSubmitted&&form.total_users.errors" class="text-danger">
+                            <p class="mb-0" *ngIf="form.total_users.errors.required" translate>
+                              departure-create.User required.</p>
+                            <p *ngIf="form.total_users.errors.pattern" translate>
+                              departure-create.Enter only number.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row d-md-flex">
+                      <div class="col-md-6 order-md-2 order-lg-2">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="headings">
+                              <h5 translate>departure-create.Departure Break</h5>
+                            </div>
+                            <hr>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input depBreakDEp" name="depBreak"
+                                  id="depBreak" (change)="hidePasscode()" value='1' formControlName="break">
+                                <label class="custom-control-label" for="depBreak" translate>
+                                  departure-create.Break Departure</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 order-md-1 order-lg-1">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="headings">
+                              <h5 translate>departure-create.Departure type</h5>
+                            </div>
+                            <hr>
+                          </div>
+                          <div class="col-12">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <label class="d-block"><strong translate>departure-create.Departure type
+                                    </strong></label>
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" (click)="showCountry_list('hide','d')" id="customRadio6"
+                                      formControlName="departure_type" name="departure_type"
+                                      class="custom-control-input" checked="" value="domestic">
+                                    <label class="custom-control-label" for="customRadio6" translate>
+                                      departure-create.Domestic</label>
+                                  </div>
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" (click)="showCountry_list('hide','a')" id="customRadio7"
+                                      formControlName="departure_type" name="departure_type"
+                                      class="custom-control-input" value="international_out">
+                                    <label class="custom-control-label" for="customRadio7" translate>
+                                      departure-create.International(Outbound)</label>
+                                  </div>
+                                  <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" (click)="showCountry_list('show','a')" id="customRadio8"
+                                      formControlName="departure_type" name="departure_type"
+                                      class="custom-control-input" value="international_in">
+                                    <label class="custom-control-label" for="customRadio8" translate>
+                                      departure-create.International<em
+                                        translate>departure-create.(Inbound)</em></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row disclaimer" *ngIf="showdisclaimer">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <div class="custom-control custom-checkbox">
+                            <!-- <a > -->
+                            <input type="checkbox" class="custom-control-input" formControlName="disclaimer"
+                              name="disclaimer" id="disclaimer" >
+                            <label class="custom-control-label" for="disclaimer" >
+                             <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalLong"><span translate> departure-create.Disclaimer </span></a>   
+                              <span translate> departure-create.content for domestic tour </span></label>
+                            <div *ngIf="isSubmitted&&form.disclaimer.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form.disclaimer.errors.required" translate>
+                                departure-create.Please check</p>
+                            </div>
+                          <!-- </a> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="showinbond">
+                      <div class="col-md-6 country_box">
+                        <div class="form-group">
+                          <label translate>departure-create.Tour Originationg From</label>
+                          <div class="form-group">
+                            <ng-select (click)="country()" formControlName="inbound_countries">
+                              <ng-option *ngFor="let country of country_list" [value]="country.id">{{country.country}}
+                              </ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 text-right">
+                        <button class="btn btn-theme m-t-20" type="submit" *ngIf="editableiD == 0" translate><i
+                            class="fas fa-save"></i>departure-create.Save Basic Details
+                        </button>
+                        <button class="btn btn-theme m-t-20" type="submit" *ngIf="editableiD > 0" translate><i
+                            class="fas fa-save"></i>departure-create.Update Basic Details
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+<div class="modal fade" style="margin:0 auto;" id="crop_model" tabindex="-1" role="dialog" aria-hidden="false">
+  <div class="modal-dialog modal-lg" style="max-width: 650px">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 10px; max-height: 650px;overflow: auto;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close_crop()">&times;
+        </button>
+        <div class="form-group-attached">
+          <div class="row">
+            <div class="col-md-12">
+              <image-cropper
+               [imageChangedEvent]="imageName"
+               [maintainAspectRatio]="true" 
+               [aspectRatio]="4 / 3"
+               [resizeToWidth]="1080" 
+               [cropperMinWidth]="720" 
+               [onlyScaleDown]="true" 
+               [roundCropper]="false"
+               [alignImage]="'left'"
+               [style.display]="showCropper ? null : 'none'" format="png"
+               (imageCropped)="imageCropped($event)"
+               (imageLoaded)="imageLoaded()"
+                (cropperReady)="cropperReady($event)" 
+                (loadImageFailed)="loadImageFailed()">
+              </image-cropper>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mt-5 text-right">
+              <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="done_cropping()" translate>
+                settings.Done Cropping</button>
+              <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal" (click)="close_crop()"
+                translate> settings.Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Agent cropper-->
+
+<div class="modal fade" style="margin:0 auto;" id="crop_model1" tabindex="-1" role="dialog" aria-hidden="false">
+  <div class="modal-dialog modal-lg" style="max-width: 650px">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 10px; max-height: 650px;overflow: auto;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="close_crop1()">&times;
+        </button>
+        <div class="form-group-attached">
+          <div class="row">
+            <div class="col-md-12">
+              <image-cropper
+                [imageChangedEvent]="imageName1"
+                [maintainAspectRatio]="true"
+                [containWithinAspectRatio]="containWithinAspectRatio"
+                [aspectRatio]="1 / 1"
+                [resizeToWidth]="1080"
+                [cropperMinWidth]="1080"
+                [onlyScaleDown]="true"
+                [roundCropper]="false"
+                [alignImage]="'left'"
+                [style.display]="showCropper1 ? null : 'none'" format="png"
+                (imageCropped)="imageCropped1($event)"
+                (imageLoaded)="imageLoaded1()"
+                (cropperReady)="cropperReady1($event)"
+                (loadImageFailed)="loadImageFailed1()"
+              ></image-cropper>
+            </div>
+            <button class="btn btn-primary" (click)="toggleContainWithinAspectRatio()">
+              {{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mt-2 text-right">
+              <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="done_cropping1()" translate>
+                settings.Done Cropping</button>
+              <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal" (click)="close_crop1()"
+                translate> settings.Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Agent cropper-->
+
+<!-- Disclaimer Model -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle" translate> departure-create.Disclaimer content for domestic tour </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <P translate> departure-create.dc1 </P>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+<!-- end disclaimer model -->

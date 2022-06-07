@@ -1,0 +1,1608 @@
+<style>
+  body {
+    font-family: 'Darker Grotesque', sans-serif;
+  }
+</style>
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title">Pdf Pages</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);"
+                       class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                      class="ri-home-7-line"></i></a>
+                    <!-- <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator">
+                       Departure</a> -->
+                    <a href="javascript:void(0);"
+                       class="subheader-breadcrumbs-link subheader-breadcrumbs-separator">
+                      Pdf Create</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height min-vh-50">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5>PDF Pages</h5>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-icon-sm" id="submitPdfCreate"
+                                (click)="generatePDF()"><i class="la la-file-pdf-o"></i>Generate PDF
+                        </button>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <nav>
+                        <ul class="nav nav-tabs">
+                          <li class="nav-item" *ngFor="let item of pdfTabs | keyvalue;let i=index;">
+                            <a class="nav-link pdf_nav_tab" [ngClass]="i==0?'active':''" href="javascript:void(0)" id="pdf_tab_{{item.key}}" (click)="tabPdf(item,item.key)">{{getTabName(item.key)}}</a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                    <!-- Basics Details PDF-->
+                    <div class="col-12" *ngIf="dayName=='basic_detail'">
+                      <button type="button" class="btn btn-primary btn-icon-sm" data-toggle="modal"
+                              data-target="#exampleModalCenter3"><i class="la la-file-pdf-o"></i>Edit Basics
+                        Details
+                      </button>
+                      <div class="modal fade fixed-left" id="exampleModalCenter3" tabindex="-1" role="dialog"
+                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside"
+                             role="document" style="width:60%;">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Update Basics Details</h5>
+                              <button type="button" class="close" id="userBasicsDetails"
+                                      data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body overflow-auto">
+                              <form action="" [formGroup]="basicForm" (ngSubmit)="updateBasic()">
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h5>Basic Detail of package</h5>
+                                    <hr>
+                                  </div>
+                                  <div class="form-group col-md-12">
+                                    <label>Package Name</label>
+                                    <input type="text" id="package_name" name="package_name"
+                                           class="form-control" autocomplete="off" ngDefaultControl
+                                           formControlName="package_name" placeholder="Company name..">
+                                    <input type="hidden" name="basic_id" value="33">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Total Days</label>
+                                    <input type="text" id="total_days" name="total_days"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="total_days" class="form-control"
+                                           placeholder="Total days..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Total Night</label>
+                                    <input type="text" id="total_nights" name="total_nights"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="total_nights" class="form-control"
+                                           placeholder="Total Nights..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Departs On</label>
+                                    <input type="text" id="departs_on" name="departs_on"
+                                           autocomplete="off" ngDefaultControl formControlName="departs"
+                                           class="form-control" placeholder="Enter company website..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Start From</label>
+                                    <input type="text" id="start_from" name="start_from"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="start_from" class="form-control"
+                                           placeholder="Start from..">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h5>Places to Visit</h5>
+                                    <hr>
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Place Visit 1</label>
+                                    <input type="text" id="place1" name="place1" autocomplete="off"
+                                           ngDefaultControl formControlName="place1" class="form-control"
+                                           placeholder="Place first..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Place Visit 2</label>
+                                    <input type="text" id="place2" name="place2" autocomplete="off"
+                                           ngDefaultControl formControlName="place2" class="form-control"
+                                           placeholder="Place Second..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Place Visit 3</label>
+                                    <input type="text" id="place3" name="place3" autocomplete="off"
+                                           ngDefaultControl formControlName="place3" class="form-control"
+                                           placeholder="Place Third..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Place Visit 4</label>
+                                    <input type="text" id="place4" name="place4" autocomplete="off"
+                                           ngDefaultControl formControlName="place4" class="form-control"
+                                           placeholder="Place Fourth..">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h5>Top Attractions</h5>
+                                    <hr>
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Attraction 1</label>
+                                    <input type="text" id="attraction1" name="attraction1"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_name1" class="form-control"
+                                           placeholder="Attraction first..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Address</label>
+                                    <input type="text" id="address1" name="address1"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_address1" class="form-control"
+                                           placeholder="Address..">
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                      <label style="margin-bottom: 15px">Attraction Image1</label>
+                                      <span class="validationError" id="image_error"></span>
+                                      <div class="input-group">
+                                        <input type="file" name="image1" id="uploadFileBanner1"
+                                               accept="image/jpeg, image/jpg, image/png, image/gif,"
+                                               (change)="attractionfilename($event,1)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <img id="banner1" src="{{poiURL}}{{attraction_image1}}"
+                                         class="fetured_images_view" width="80" height="80">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Attraction 2</label>
+                                    <input type="text" id="attraction2" name="attraction2"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_name2" class="form-control"
+                                           placeholder="Attraction first..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Address</label>
+                                    <input type="text" id="address2" name="address2"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_address2" class="form-control"
+                                           placeholder="Address..">
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                      <label style="margin-bottom: 15px">Attraction Image2</label>
+                                      <span class="validationError" id="image_error"></span>
+                                      <div class="input-group">
+                                        <input type="file" name="image2" id="uploadFileBanne2r"
+                                               accept="image/jpeg, image/jpg, image/png, image/gif,"
+                                               (change)="attractionfilename($event,2)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <img id="banner2" src="{{poiURL}}{{attraction_image2}}"
+                                         class="fetured_images_view" width="80" height="80">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Attraction 3</label>
+                                    <input type="text" id="attraction3" name="attraction3"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_name3" class="form-control"
+                                           placeholder="Attraction first..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Address</label>
+                                    <input type="text" id="attraction_address3" name="address3"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_address3" class="form-control"
+                                           placeholder="Address..">
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                      <label style="margin-bottom: 15px">Attraction Image3</label>
+                                      <span class="validationError" id="image_error"></span>
+                                      <div class="input-group">
+                                        <input type="file" name="image3" id="uploadFileBanner3"
+                                               accept="image/jpeg, image/jpg, image/png, image/gif,"
+                                               (change)="attractionfilename($event,3)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <img id="banner3" src="{{poiURL}}{{attraction_image3}}"
+                                         class="fetured_images_view" width="80" height="80">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Attraction 4</label>
+                                    <input type="text" id="attraction4" name="attraction4"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_name4" class="form-control"
+                                           placeholder="Attraction first..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Address</label>
+                                    <input type="text" id="attraction_address4" name="address4"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_address4" class="form-control"
+                                           placeholder="Address..">
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                      <label style="margin-bottom: 15px">Attraction Image4</label>
+                                      <span class="validationError" id="image_error"></span>
+                                      <div class="input-group">
+                                        <input type="file" name="image4" id="uploadFileBanner4"
+                                               accept="image/jpeg, image/jpg, image/png, image/gif,"
+                                               (change)="attractionfilename($event,4)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <img id="banner4" src="{{poiURL}}{{attraction_image4}}"
+                                         class="fetured_images_view" width="80" height="80">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Attraction 5</label>
+                                    <input type="text" id="attraction5" name="attraction5"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_name5" class="form-control"
+                                           placeholder="Attraction first..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Address</label>
+                                    <input type="text" id="attraction_address5" name="address5"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_address5" class="form-control"
+                                           placeholder="Address..">
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                      <label style="margin-bottom: 15px">Attraction Image5</label>
+                                      <span class="validationError" id="image_error"></span>
+                                      <div class="input-group">
+                                        <input type="file" name="image5" id="uploadFileBanner5"
+                                               accept="image/jpeg, image/jpg, image/png, image/gif,"
+                                               (change)="attractionfilename($event,5)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <img id="banner5" src="{{poiURL}}{{attraction_image5}}"
+                                         class="fetured_images_view" width="80" height="80">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Attraction 6</label>
+                                    <input type="text" id="attraction6" name="attraction6"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_name6" class="form-control"
+                                           placeholder="Attraction first..">
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                    <label>Address</label>
+                                    <input type="text" id="attraction_address6" name="address6"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="attraction_address6" class="form-control"
+                                           placeholder="Address..">
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                      <label style="margin-bottom: 15px">Attraction Image6</label>
+                                      <span class="validationError" id="image_error"></span>
+                                      <div class="input-group">
+                                        <input type="file" name="image6" id="uploadFileBanner6"
+                                               accept="image/jpeg, image/jpg, image/png, image/gif,"
+                                               (change)="attractionfilename($event,6)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3 col-lg-3 col-sm-12">
+                                    <img id="banner6" src="{{poiURL}}{{attraction_image6}}"
+                                         class="fetured_images_view" width="80" height="80">
+                                  </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                  <div class="col-md-12 text-right">
+                                    <button type="submit" class="btn btn-info m-t-20 pull-right"><i
+                                      class="fas fa-save"></i>Update
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div size="A4" style="position: relative" id="container">
+                        <div class="departure-basic-details" style="">
+                          <h2 class="">{{basicForm.value.package_name}}</h2>
+                          <div class="display:flex;flex-wrap: wrap;">
+                            <p
+                              style="display:flex;align-items:center;width:50%;float:left;margin-bottom:10px;">
+                              <img src="assets/images/pdf/time.png"
+                                   style="width:30px;margin-right:10px;"><span class="h2">Duration</span>:
+                              {{basicForm.value.total_nights}}N/{{basicForm.value.total_days}}D
+                            </p>
+                            <p
+                              style="display:flex;align-items:center;width:50%;float:left;margin-bottom:10px;">
+                              <img src="assets/images/pdf/route.png"
+                                   style="width:30px;margin-right:10px;"><span class="h2">Starts
+                                                from</span>: {{basicForm.value.start_from}}
+                            </p>
+                            <p
+                              style="display:flex;align-items:center;width:50%;float:left;margin-bottom:10px;">
+                              <img src="assets/images/pdf/calendar.png"
+                                   style="width:30px;margin-right:10px;"><span class="h2">Departs
+                                                on</span>: {{basicForm.value.departs}}
+                            </p>
+                          </div>
+                          <!-- <p><span class="h2">Timezone </span>: Kamchatka Krai, Russia (GMT+12), Magadan (GMT+11), Sakhalin (GMT+11), Vladivostok (GMT+10), Yakutsk (GMT+9), Irkutsk (GMT+8)</p> -->
+                        </div>
+                        <div style="display: block">
+                          <div class="compnayName"
+                               style="position: relative;background:#cc2127;color:#fff;display: inline-block;padding: 20px;">
+                            <h1>Pleaces to Visit</h1>
+                          </div>
+                          <div style="padding: 20px;display: block;float:left;width:100%;">
+                            <ul style="list-style: none;padding:0;margin:0;">
+                              <li *ngIf="basicForm.value.place1">{{basicForm.value.place1}}</li>
+                              <li *ngIf="basicForm.value.place2">{{basicForm.value.place2}}</li>
+                              <li *ngIf="basicForm.value.place3">{{basicForm.value.place3}}</li>
+                              <li *ngIf="basicForm.value.place4">{{basicForm.value.place4}}</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="compnayName"
+                             style="position: relative;background:#cc2127;color:#fff;display: inline-block;padding: 20px;">
+                          <h1>Top Attractions</h1>
+                        </div>
+                        <div style="padding: 20px;display:flex;flex-wrap: wrap;">
+                          <div style="display: flex;align-items: center;margin-bottom:10px;width: 50%;"
+                               *ngIf="basicForm.value.attraction_name1">
+                            <img src="{{poiURL}}{{attraction_image1}}"
+                                 style="width:50px;height:50px;object-fit:cover;border-radius:50%;float:left;margin-right:15px;"
+                                 *ngIf="attraction_image1">
+                            <div>
+                              <h4>{{basicForm.value.attraction_name1}}</h4>
+                              <p>{{basicForm.value.attraction_address1}}</p>
+                            </div>
+                          </div>
+                          <div style="display: flex;align-items: center;margin-bottom:10px;width: 50%;"
+                               *ngIf="basicForm.value.attraction_name2">
+                            <img src="{{poiURL}}{{attraction_image2}}"
+                                 style="width:50px;height:50px;object-fit:cover;border-radius:50%;float:left;margin-right:15px;"
+                                 *ngIf="attraction_image2">
+                            <div>
+                              <h4>{{basicForm.value.attraction_name2}}</h4>
+                              <p>{{basicForm.value.attraction_address2}}</p>
+                            </div>
+                          </div>
+                          <div style="display: flex;align-items: center;margin-bottom:10px;width: 50%;"
+                               *ngIf="basicForm.value.attraction_name3">
+                            <img src="{{poiURL}}{{attraction_image3}}"
+                                 style="width:50px;height:50px;object-fit:cover;border-radius:50%;float:left;margin-right:15px;"
+                                 *ngIf="attraction_image3">
+                            <div>
+                              <h4>{{basicForm.value.attraction_name3}}</h4>
+                              <p>{{basicForm.value.attraction_address3}}</p>
+                            </div>
+                          </div>
+                          <div style="display: flex;align-items: center;margin-bottom:10px;width: 50%;"
+                               *ngIf="basicForm.value.attraction_name4">
+                            <img src="{{poiURL}}{{attraction_image4}}"
+                                 style="width:50px;height:50px;object-fit:cover;border-radius:50%;float:left;margin-right:15px;"
+                                 *ngIf="attraction_image4">
+                            <div>
+                              <h4>{{basicForm.value.attraction_name4}}</h4>
+                              <p>{{basicForm.value.attraction_address4}}</p>
+                            </div>
+                          </div>
+                          <div style="display: flex;align-items: center;margin-bottom:10px;width: 50%;"
+                               *ngIf="basicForm.value.attraction_name5">
+                            <img src="{{poiURL}}{{attraction_image5}}"
+                                 style="width:50px;height:50px;object-fit:cover;border-radius:50%;float:left;margin-right:15px;"
+                                 *ngIf="attraction_image5">
+                            <div>
+                              <h4>{{basicForm.value.attraction_name5}}</h4>
+                              <p>{{basicForm.value.attraction_address5}}</p>
+                            </div>
+                          </div>
+                          <div style="display: flex;align-items: center;margin-bottom:10px;width: 50%;"
+                               *ngIf="basicForm.value.attraction_name6">
+                            <img src="{{poiURL}}{{attraction_image6}}"
+                                 style="width:50px;height:50px;object-fit:cover;border-radius:50%;float:left;margin-right:15px;"
+                                 *ngIf="attraction_image6">
+                            <div>
+                              <h4>{{basicForm.value.attraction_name6}}</h4>
+                              <p>{{basicForm.value.attraction_address6}}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <img src="assets/images/pdf/page2graphic.png"
+                             style="width: 100%;height:auto;position: absolute;bottom: 0;left:0;">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="button" class="btn btn-info mt-3 pull-center"
+                                  (click)="addBasicPDF()"><i class="fas fa-save"></i>Add Page for pdf
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Basics Details PDF ends-->
+                    <!-- Contact PDF -->
+                    <div class="col-12" *ngIf="dayName=='contact'">
+                      <button type="button" class="btn btn-primary btn-icon-sm" data-toggle="modal"
+                              data-target="#exampleModalCenter"><i class="la la-file-pdf-o"></i>Edit Contact
+                        Details
+                      </button>
+                      <div class="modal fade fixed-left" id="exampleModalCenter" tabindex="-1" role="dialog"
+                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside"
+                             role="document" style="width:60%;">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Update Contact Details</h5>
+                              <button type="button" class="close" id="closeContactDetails"
+                                      data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body overflow-auto">
+                              <form action="" [formGroup]="contactForm" (ngSubmit)="updateContact()">
+                                <div class="form-group">
+                                  <label>Company Name</label>
+                                  <input type="text" id="company_name" name="company_name"
+                                         class="form-control" autocomplete="off" ngDefaultControl
+                                         formControlName="company_name" placeholder="Enter company name..">
+                                </div>
+                                <div class="row">
+                                  <div class="form-group col-md-4">
+                                    <label>Name</label>
+                                    <input type="text" id="name" name="name" autocomplete="off"
+                                           ngDefaultControl formControlName="name" class="form-control"
+                                           placeholder="Enter name..">
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <label>Mobile</label>
+                                    <input type="text" id="mobile" name="mobile" autocomplete="off"
+                                           ngDefaultControl formControlName="mobile" class="form-control"
+                                           placeholder="Enter company website..">
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <label>Email</label>
+                                    <input type="email" id="email" autocomplete="off" ngDefaultControl
+                                           formControlName="email" class="form-control"
+                                           placeholder="Enter email..">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="form-group col-md-12">
+                                    <label>Address</label>
+                                    <input type="text" id="address" name="address" autocomplete="off"
+                                           ngDefaultControl formControlName="address" class="form-control"
+                                           placeholder="Enter name..">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="form-group col-md-6">
+                                    <label>Guide Name</label>
+                                    <input type="text" id="guide_name" name="guide_name"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="guide_name" class="form-control"
+                                           placeholder="Enter guide name..">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label>Guide phone</label>
+                                    <input type="text" id="guide_phone" name="guide_phone"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="guide_phone" class="form-control"
+                                           placeholder="Enter guide phone..">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="form-group col-md-4">
+                                    <label>Manager Name</label>
+                                    <input type="text" id="manager_name" name="manager_name"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="manager_name" class="form-control"
+                                           placeholder="Enter manager name..">
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <label>Manager phone</label>
+                                    <input type="text" id="manager_phone" name="manager_phone"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="manager_phone" class="form-control"
+                                           placeholder="Enter manager mobile..">
+                                  </div>
+                                  <div class="form-group col-md-4">
+                                    <label>Manager email</label>
+                                    <input type="text" id="manager_email" name="manager_email"
+                                           autocomplete="off" ngDefaultControl
+                                           formControlName="manager_email" class="form-control"
+                                           placeholder="Enter manager email..">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 text-right">
+                                    <button type="submit" class="btn btn-info m-t-20 pull-right"><i
+                                      class="fas fa-save"></i>Update
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div size="A4" style="position: relative" id="container">
+                        <div class="contact">
+                          <h1 style="text-align: center;margin-bottom:50px;">Contact Details</h1>
+                          <div class="travel-guide-box">
+                            <div
+                              style="display:flex;vertical-align: top;align-items: end;margin-bottom:10px;">
+                              <img src="assets/images/pdf/guide.png"
+                                   style="width:40px;margin-right:10px;">
+                              <div>
+                                <h1>Travel Guide</h1>
+                                <p>{{contactForm.value.guide_name}}</p>
+                                <p>{{contactForm.value.guide_phone}}</p>
+                              </div>
+                            </div>
+                            <div
+                              style="display:flex;vertical-align: top;align-items: end;margin-bottom:10px;">
+                              <img src="assets/images/pdf/guide.png"
+                                   style="width:40px;margin-right:10px;">
+                              <div>
+                                <h1>Tour Manager</h1>
+                                <p>{{contactForm.value.manager_name}}</p>
+                                <p>{{contactForm.value.manager_phone}}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="contact-detail-box">
+                            <div class="contact-detail">
+                              <img src="http://demo.dookindia.in/design3/images/logo.png"
+                                   alt="company-logo" style="max-width:100%;" width="100px">
+                              <h2 style="font-size:30px">{{contactForm.value.company_name}}</h2>
+                              <p style="border-bottom:1px solid #fff;width: 100px;margin:10px auto;"></p>
+                              <p style="font-size:18px;"><strong>Company Contact</strong></p>
+                              <p><span><strong>Name:</strong> {{contactForm.value.name}}</span></p>
+                              <p><span><strong>M.:</strong> {{contactForm.value.mobile}}</span></p>
+                              <p><span><strong>Email:</strong> {{contactForm.value.email}}</span></p>
+                              <p style="border-bottom:1px solid #fff;width: 100px;margin:10px auto;"></p>
+                              <address>
+                                <strong>Address</strong><br>
+                                <span>{{contactForm.value.address}}</span>
+                              </address>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="button" class="btn btn-info mt-3 pull-center"
+                                  (click)="addContactPDF()"><i class="fas fa-save"></i>Add Page for pdf
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Contact PDF ends -->
+                    <!--Banner PDF-->
+                    <div class="col-12" *ngIf="dayName == 'banner'">
+                      <button type="button" class="btn btn-primary btn-icon-sm" data-toggle="modal"
+                              data-target="#exampleModalCenter2"><i class="la la-file-pdf-o"></i>Edit
+                        Banner
+                      </button>
+                      <div class="modal fade fixed-left" id="exampleModalCenter2" tabindex="-1" role="dialog"
+                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside"
+                             role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title"> Update Banner Content</h5>
+                              <button type="button" class="close" id="closeBannerModel"
+                                      data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body overflow-auto">
+                              <form action="" [formGroup]="bannerForm" (ngSubmit)="updateBanner()"
+                                    class="w-100">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <h5 class="mb-2"> Banner Image</h5>
+                                    <div class="d-flex align-items-center">
+                                      <div class="from-group choosebannerselect mr-3">
+                                        <label for="img_file">Change banner</label>
+                                        <input type="file" class="banner-img" name="banner-img"
+                                               id="img_file" (change)="bannerfilename($event)">
+                                      </div>
+                                      <div class="choosebannerShow">
+                                        <img onerror="this.src='assets/images/no-img.jpg';"
+                                             [src]="bannerImage" id="filePath" class="img_url"
+                                             alt="your image">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <h5 class="mb-2"> Company Logo</h5>
+                                    <div class="chooseBanner selectHotelimgCheckbox">
+                                      <div class="d-flex align-items-center">
+                                        <div class="from-group choosebannerselect mr-3">
+                                          <label for="img_file">Change logo</label>
+                                          <input type="file" class="banner-img" name="banner-img"
+                                                 id="img_file" (change)="logofilename($event)">
+                                        </div>
+                                        <div class="choosebannerShow">
+                                          <img onerror="this.src='assets/images/no-img.jpg';"
+                                               [src]="bannerCompanyLogo" id="filePath"
+                                               class="img_url" alt="your image">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label>Company Name</label>
+                                      <input class="form-control" ngDefaultControl
+                                             formControlName="company_name" autocomplete="off"
+                                             name="company_name">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label>Phone</label>
+                                      <input class="form-control" ngDefaultControl
+                                             formControlName="phone" autocomplete="off" name="phone">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label>Email</label>
+                                      <input class="form-control" ngDefaultControl
+                                             formControlName="email" autocomplete="off" name="email">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label>Website</label>
+                                      <input class="form-control" ngDefaultControl
+                                             formControlName="website" autocomplete="off" name="website">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-12 text-right">
+                                  <button class="btn btn-theme" type="submit"><i
+                                    class="fas fa-savs"></i>
+                                    Update
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div size="A4" style="position: relative" id="container">
+                        <div class="" style="position: relative;width: 100%;height: 100%">
+                          <div class="leftcornor"
+                               style="background: #b14e51;height: 50px;width: 80%;position: absolute;bottom:0;right: 0;">
+                          </div>
+                          <img src="{{bannerImage}}" alt=""
+                               style="width: 100%;object-fit: cover;height: 70%;">
+                          <img src="assets/images/pdf/cover_graphic.png" alt=""
+                               style="max-width: 100%;position: absolute;top: 0;left: 0;width: 100%;">
+                          <div
+                            style="position: absolute;bottom:50px;right: 80px;width: 370px;text-align: center;color: #fff;">
+                            <div style="width:200px;margin:auto;margin-bottom:20px;">
+                              <img src="{{bannerCompanyLogo}}" alt=""
+                                   style="max-width:100%;height: auto;">
+                            </div>
+                            <h1 style="font-size:52px;line-height: 1;" *ngIf="bannerCompanyName">
+                              {{bannerCompanyName}}</h1>
+                          </div>
+                          <div style="position: absolute;bottom:60px;left:25px;width: 270px;color: #000;">
+                            <p style="line-height:1.5;margin-bottom:0" *ngIf="bannerCompanyPhone"><img
+                              src="assets/images/pdf/phone.png" alt=""
+                              style="width: 20px;position: relative;top:0px;"> &nbsp;
+                              <span style="font-size:18px;">{{bannerCompanyPhone}}</span>
+                            </p>
+                            <p style="line-height:1.5;margin-bottom:0" *ngIf="bannerCompanyEmail"><img
+                              src="assets/images/pdf/email.png" alt=""
+                              style="width: 20px;position: relative;top:0px;"> &nbsp;
+                              <span style="font-size:18px;">{{bannerCompanyEmail}}</span>
+                            </p>
+                            <p style="line-height:1.5;margin-bottom:0" *ngIf="bannerCompanyWebsite"><img
+                              src="assets/images/pdf/website.png" alt=""
+                              style="width: 20px;position: relative;top:0px;"> &nbsp;
+                              <span style="font-size:18px;">{{bannerCompanyWebsite}}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="button" class="btn btn-info mt-3 pull-center"
+                                  (click)="addBannerPDF()"><i class="fas fa-save"></i>Add Page for pdf
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Banner PDF ends -->
+                    <!-- Days PDF -->
+                    <div class="col-12" *ngIf="dayName == 'day'">
+                      <button type="button" class="btn btn-primary btn-icon-sm" data-toggle="modal"
+                              data-target="#exampleModalCenter5"><i class="la la-file-pdf-o"></i>Edit Contact
+                        Details
+                      </button>
+                      <div class="modal fade fixed-left" id="exampleModalCenter5" tabindex="-1" role="dialog"
+                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside"
+                             role="document" style="width:60%;">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Update Day Details</h5>
+                              <button type="button" class="close" id="closeDaymodaledit" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body overflow-auto">
+
+                              <form action="" id="Dayitinerary" [formGroup]="dayForm" (ngSubmit)="update_day_data()">
+                                <div class="row mb-2">
+                                  <div class="col-md-6">
+                                    <h5 class="mb-2"> Banner Image</h5>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <h5 class="mb-2"> Poi Image</h5>
+                                  </div>
+                                  <div class="col-md-6 border-left">
+                                    <div class="d-flex align-items-center">
+                                      <div class="from-group choosebannerselect mr-3">
+                                        <label for="img_file">Change banner</label>
+                                        <input type="file" class="banner-img" name="banner-img" id="img_file" (change)="dayfilename($event)">
+                                      </div>
+                                      <div class="choosebannerShow">
+                                        <img onerror="this.src='assets/images/no-img.jpg';" [src]="dayBannerPath" id="filePath" class="img_url" alt="your image">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="chooseBanner selectHotelimgCheckbox">
+                                      <div class="d-flex align-items-center">
+                                        <div class="from-group choosebannerselect mr-3">
+                                          <label for="img_file">Change image</label>
+                                          <input type="file" class="banner-img" name="poi-img"
+                                                 id="img_file" (change)="poidayfilename($event)">
+                                        </div>
+                                        <div class="choosebannerShow">
+                                          <img onerror="this.src='assets/images/no-img.jpg';"
+                                               [src]="poiDayBannerPath" id="filePath" class="img_url"
+                                               alt="your image">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label translate>daywise-itinerary.Day Title</label>
+                                  <input type="text" name="dayoneTitle" class="form-control"
+                                         autocomplete="off" ngDefaultControl formControlName="name">
+                                  <div *ngIf="isSubmitted&&form.name.errors" class="text-danger">
+                                    <p class="mb-0" *ngIf="form.name.errors.required" translate>
+                                      daywise-itinerary.Please enter day title.
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label translate>daywise-itinerary.Day Highlights
+                                        <span></span></label>
+                                      <textarea rows="5" class="form-control" ngDefaultControl formControlName="description" autocomplete="off" name="dayoneDescription"></textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div *ngIf="dayPois && dayPois.length>0">
+                                  <div class="row" *ngFor="let poi of dayPois;let i=index">
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                        <label>POI Name <span></span></label>
+                                        <!-- <input class="form-control" [(ngModel)]="poi.name" autocomplete="off"
+                                           name="dayoneDescription"> -->
+                                        <textarea class="form-control" [(ngModel)]="poi.name" autocomplete="off" name="dayoneDescription"> {{poi.name}}</textarea>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                        <label>Address<span></span></label>
+                                        <textarea class="form-control" [(ngModel)]="poi.address" autocomplete="off" name="dayoneDescription"> {{poi.address}}</textarea>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="form-group">
+                                        <label>Poi Image<span></span></label>
+                                        <div class="from-group choosebannerselect mr-3">
+                                          <label for="img_file">Change Image</label>
+                                          <input type="file" class="banner-img" name="banner-img" id="img_file" (change)="poifilename($event,i)">
+                                        </div>
+                                        <img onerror="this.src='assets/images/no-img.jpg';"
+                                             [src]="this.poiURL+poi.image" width="100"
+                                             id="poifilePath_{{i}}" class="img_url" alt="your image">
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mt-2">
+                                  <div class="col-md-12 text-right mb-2">
+                                    <button type="submit" class="btn btn-primary btn-large">Update
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div size="A4" style="position: relative" id="container">
+                        <div class="DaywiseTopbg">
+                          <h1 class="text-capitalize">{{dayName}} {{daynumber}}</h1>
+                          <p class="text-capitalize">{{dayTitle}}</p>
+                          <div style="position: absolute;bottom:-50%;z-index:10;right:5%;border:10px solid #fff;border-radius:50%;overflow: hidden;width:200px;height:200px;">
+                            <img src="{{pdfURL}}{{imgName}}" style="width:100%;height:100%;object-fit:cover;">
+                          </div>
+                        </div>
+                        <div style="width:50%;position:relative;float:left;">
+                          <div style="position: relative;top: -130px;">
+                            <div class="Poi-imgDaywise">
+                              <img src="{{poiURL}}{{poiImg}}" style="width:100%;height:100%;object-fit:cover;">
+                            </div>
+                            <!--<h1>Day {{daynumber}} </h1>-->
+                            <p style="font-size:18px;padding:10px;">{{desp}}</p>
+                          </div>
+                        </div>
+                        <div class="Daywisebottomrightbg">
+                          <div *ngIf="dayPois.length>0;">
+                            <h1 style="margin-bottom:20px;">Highlights of the day</h1>
+                            <div style="display: flex;align-items: center;margin-bottom:10px;"
+                                 *ngFor="let item of dayPois">
+                              <img src="{{poiURL}}{{item.image}}"
+                                   style="width:50px;height:50px;object-fit:cover;border-radius:50%;float:left;margin-right:15px;">
+                              <div>
+                                <h3 style="margin-bottom:0;font-size:18px;line-height:1.2;">
+                                  {{item.name}}</h3>
+                                <p style="margin-bottom:0;">{{item.address}}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="button" class="btn btn-info mt-3 pull-center"
+                                  (click)="addDayPDF()"><i class="fas fa-save"></i>Add Page for pdf
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Day PDF ends -->
+                    <!-- Terms and Condition PDF -->
+                    <div class="col-12" *ngIf="dayName == 'Terms_Conditions'">
+                      <button type="button" class="btn btn-primary btn-icon-sm" data-toggle="modal"
+                              data-target="#exampleModalCenter6"><i class="la la-file-pdf-o"></i>Edit T&C
+                        Details
+                      </button>
+                      <div class="modal fade fixed-left" id="exampleModalCenter6" tabindex="-1" role="dialog"
+                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside"
+                             role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title"> Update T&C Content</h5>
+                              <button type="button" class="close" id="closeTermsAndConditionModalEdit"
+                                      data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body overflow-auto">
+                              <form action="" class="w-100">
+                                <div class="col-12">
+                                  <div class="form-group">
+                                    <label for="">Departure Terms and Conditions</label>
+                                    <!--<textarea rows="4" class="form-control" formControlName="terms"></textarea>
+                                    <div *ngIf="isSubmitted&&form.terms.errors" class="text-danger">
+                                      <p class="mb-0" *ngIf="form.terms.errors.required">Please add Terms and Condition.
+                                      </p>
+                                    </div>-->
+                                    <angular-editor [placeholder]="'Enter text here...'" [ngModelOptions]="{standalone: true}" [(ngModel)]="termsConditionDatas" [config]="config"></angular-editor>
+                                  </div>
+                                </div>
+                                <div class="col-12 text-right">
+                                  <button class="btn btn-theme" type="submit" (click)="updateTerms()"><i class="fas fa-savs"></i>Save
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div size="A4" style="position: relative" id="container">
+                        <div class="terms-condition"
+                             style="box-shadow:0px 0px 5px 0px #ddd;margin:10px;padding:30px 20px;font-size:18px;font-weight:500">
+                          <h2>Travel terms and conditions</h2>
+                          <p [innerHTML]="termsCondition.value.terms"></p>
+                        </div>
+                        <img src="assets/images/pdf/page2graphic.png" style="width: 100%;height:auto;position: absolute;bottom: 0;left:0;">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="button" class="btn btn-info mt-4 pull-center"
+                                  (click)="addTermPDF()"><i class="fas fa-save"></i>Add Page for pdf
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Terms and Condition PDF ends -->
+                    <!-- Inclusion PDF -->
+                    <div class="col-12" *ngIf="dayName == 'inclusion'">
+                      <button type="button" class="btn btn-primary btn-icon-sm" data-toggle="modal"
+                              data-target="#exampleModalCenter6"><i class="la la-file-pdf-o"></i>Edit inclusion
+                        Details
+                      </button>
+                      <div class="modal fade fixed-left" id="exampleModalCenter6" tabindex="-1" role="dialog"
+                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside"
+                             role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Edit Inclusion Details</h5>
+                              <button type="button" class="close" id="closeInclusion" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body overflow-auto">
+                              <form action="" class="itinerary-setup m-t-20">
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h5>Inclusion</h5>
+                                    <hr>
+                                  </div>
+                                  <div class="form-group col-md-4" *ngFor="let inc of inclusionsData;let i=index;">
+                                    <label>Name</label>
+                                    <input type="text" id="incname_{{i}}" name="inclusion_name_{{i}}" [(ngModel)]="inc.name" class="form-control" placeholder="Inclusion name..">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h5>Exclusion</h5>
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <textarea class="form-control" [(ngModel)]="exclusion">{{exclusion}}</textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 text-right">
+                                    <button type="submit" class="btn btn-info m-t-20 pull-right" (click)="updateInclusion()"><i class="fas fa-save"></i>Update
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div size="A4" style="position: relative" id="container">
+                        <div style="display: block">
+                          <div class="compnayName"
+                               style="position: relative;background:#cc2127;color:#fff;display: inline-block;padding: 20px;">
+                            <h1>Inclusions</h1>
+                          </div>
+                          <div class="inclusions">
+                            <!-- <div class="inclusions-img">
+                               <img src="assets/images/pdf/POI-itinerary/jaisalmer/2.desert safari.jpg">
+                            </div> -->
+                            <ul class="inclusions-list mt-4">
+                              <li *ngFor="let inc of inclusionsData;let i=index;">
+                                <img src="{{inc.image}}" width="25"> {{inc.name}}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div style="display: block;margin-top: 40px">
+                          <div class="compnayName"
+                               style="position: relative;background:#cc2127;color:#fff;display: inline-block;padding: 20px;">
+                            <h1>Exclusions</h1>
+                          </div>
+                          <div class="exclusions">
+                            <!-- <div class="exclusions-img">
+                               <img src="assets/images/pdf/POI-itinerary/udaipur/1.pichola lake.jpg">
+                            </div> -->
+                            <div class="exclusions-list mt-4">
+                              <p>{{exclusion}} </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="button" class="btn btn-info mt-4 pull-center"
+                                  (click)="addInclPDF()"><i class="fas fa-save"></i>Add Page for pdf
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Inclusion PDF ends -->
+                    <!-- Hotel Details -->
+                    <div class="col-12" *ngIf="dayName == 'hotel'">
+                      <button type="button" class="btn btn-primary btn-icon-sm" data-toggle="modal"
+                              data-target="#exampleModalCenter7"><i class="la la-file-pdf-o"></i>Edit Hotel
+                        Details
+                      </button>
+                      <div class="modal fade fixed-left" id="exampleModalCenter7" tabindex="-1" role="dialog"
+                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside"
+                             role="document" style="width:60%;">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Update Hotel Details</h5>
+                              <button type="button" class="close" id="closeHotelModelEdit"
+                                      data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body overflow-auto">
+                              <div *ngFor="let hotelItem of hotelData;let jj=index;">
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <label>Hotel Name </label>
+                                    <div class="floating-label form-group">
+                                      <input name="hotel_name_{{jj}}" class="floating-input form-control"
+                                             id="hotel_name_{{jj}}" type="text" placeholder=" "
+                                             [(ngModel)]="hotelItem.hotel_name">
+
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Address</label>
+                                    <div class="floating-label">
+                                      <input name="address_{{jj}}" id="address_{{jj}}"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="hotelItem.address">
+
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Hotel Rating</label>
+                                    <div class="floating-label">
+                                      <div id="full-stars-example">
+                                        <div class="rating-group formStar">
+                                          <input disabled="" checked=""
+                                                 class="rating__input rating__input--none" name="rating3"
+                                                 id="rating3-none" value="0" type="radio"
+                                                 (click)="set_rating(1,jj)">
+                                          <label aria-label="1 star" class="rating__label"
+                                                 for="rating3-1_{{jj}}"><i
+                                            class="rating__icon rating__icon--star fa fa-star"
+                                            [ngClass]="hotelItem.rating >= 1 ? '' : 'not_checked'"></i></label>
+                                          <input class="rating__input" name="rating3" id="rating3-1_{{jj}}"
+                                                 value="1" type="radio" (click)="set_rating(1,jj)"
+                                                 [checked]="hotelItem.rating >= 1 ? true : false">
+
+                                          <label aria-label="2 stars" class="rating__label"
+                                                 for="rating3-2_{{jj}}"><i
+                                            class="rating__icon rating__icon--star fa fa-star"
+                                            [ngClass]="hotelItem.rating >= 2 ? '' : 'not_checked'"></i></label>
+                                          <input class="rating__input" name="rating3" id="rating3-2_{{jj}}"
+                                                 value="2" type="radio" (click)="set_rating(2,jj)"
+                                                 [checked]="hotelItem.rating >= 2 ? true : false">
+
+                                          <label aria-label="3 stars" class="rating__label"
+                                                 for="rating3-3_{{jj}}"><i
+                                            class="rating__icon rating__icon--star fa fa-star"
+                                            [ngClass]="hotelItem.rating >= 3 ? '' : 'not_checked'"></i></label>
+                                          <input class="rating__input" name="rating3" id="rating3-3_{{jj}}"
+                                                 value="3" type="radio" (click)="set_rating(3,jj)"
+                                                 [checked]="hotelItem.rating >= 3 ? true : false">
+
+                                          <label aria-label="4 stars" class="rating__label"
+                                                 for="rating3-4_{{jj}}"><i
+                                            class="rating__icon rating__icon--star fa fa-star"
+                                            [ngClass]="hotelItem.rating >= 4 ? '' : 'not_checked'"></i></label>
+                                          <input class="rating__input" name="rating3" id="rating3-4_{{jj}}"
+                                                 value="4" type="radio" (click)="set_rating(4,jj)"
+                                                 [checked]="hotelItem.rating >= 4 ? true : false">
+
+                                          <label aria-label="5 stars" class="rating__label"
+                                                 for="rating3-5_{{jj}}"><i
+                                            class="rating__icon rating__icon--star fa fa-star"
+                                            [ngClass]="hotelItem.rating >= 5 ? '' : 'not_checked'"></i></label>
+                                          <input class="rating__input" name="rating3" id="rating3-5_{{jj}}"
+                                                 value="5" type="radio" (click)="set_rating(5,jj)"
+                                                 [checked]="hotelItem.rating >= 5 ? true : false">
+                                          <h6 class="mt-2 ml-2" *ngIf="hotelItem.rating>0">
+                                                                  <span [(ngModel)]="hotelItem.rating"> {{hotelItem.rating}}
+                                                                    <span>Star</span>
+                                                                  </span>
+                                          </h6>
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h4>Hotel Amenities</h4>
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-3" *ngFor="let item of amenities_list;let a=index;">
+                                    <div class="form-group">
+                                      <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" name="amn_{{item.id}}_{{jj}}"
+                                               class="custom-control-input" id="am_{{item.id}}_{{jj}}"
+                                               (change)="setAmenities(item.name,jj,a)"
+                                               [(ngModel)]="hotelItem[item.short_name]">
+                                        <label class="custom-control-label" for="am_{{item.id}}_{{jj}}">
+                                          <img src="assets/images/amenity/{{item.icon}}"
+                                               style="width: 22px">&nbsp;
+                                          {{item.name}}
+                                        </label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h4>Hotel Image</h4>
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-12 col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                      <label style="margin-bottom: 15px">Hotel Image</label> <span
+                                      class="validationError" id="image_error"></span>
+                                      <div class="input-group">
+                                        <input type="file" name="hotel_image" id="uploadFileHotel00"
+                                               accept="image/jpeg, image/jpg, image/png, image/gif,"
+                                               (change)="hotelfilename($event,jj)">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12 col-lg-12 col-sm-12">
+                                    <div class="">
+                                      <img src="{{hotelURL}}{{hotelItem.image}}" width="100" class="hotelImg"
+                                           id="hotel_img_{{jj}}">
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 text-right">
+                                  <button type="submit" class="btn btn-info m-t-20 pull-right"
+                                          (click)="updateHotel()"><i class="fas fa-save"></i>Update
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div size="A4" style="position: relative" id="container">
+                        <div style="display: block">
+                          <div class="compnayName"
+                               style="position: relative;background:#cc2127;color:#fff;display: inline-block;padding: 20px;">
+                            <h1>Hotel Details</h1>
+                          </div>
+                          <div class="hotel-img" *ngFor="let item of hotelData">
+                            <div class="hotel-detail">
+                              <h1>{{item.hotel_name}}
+                                <span class="starRating">
+                                                   <img src="assets/images/pdf/star.png" *ngIf="item.rating>=1">
+                                                   <img src="assets/images/pdf/star.png" *ngIf="item.rating>=2">
+                                                   <img src="assets/images/pdf/star.png" *ngIf="item.rating>=3">
+                                                   <img src="assets/images/pdf/star.png" *ngIf="item.rating>=4">
+                                                   <img src="assets/images/pdf/star.png" *ngIf="item.rating>=5">
+                                                   <label style="color:#fff;">{{item.rating}} Star</label></span>
+                              </h1>
+                              <p>
+                                <span class="streetaddress">{{item.address}}</span>
+                                <!-- <span class="citystatePin">Jaipur, Rajasthan 302001,</span> <span class="addresscountry">India</span> -->
+                              </p>
+                              <ul class="amenities">
+                                <li *ngIf="item.ac">
+                                  <span><img src="assets/images/amenity/air-conditioner.png"></span> AC
+                                </li>
+                                <li *ngIf="item.free_wifi">
+                                  <span><img src="assets/images/amenity/wifi.png"></span> Free Wifi
+                                </li>
+                                <li *ngIf="item.bar">
+                                  <span><img src="assets/images/amenity/cocktail.png"></span> Bar
+                                </li>
+                                <li *ngIf="item.tv">
+                                  <span><img src="assets/images/amenity/tv-monitor.png"></span> TV
+                                </li>
+                                <li *ngIf="item.gym">
+                                  <span><img src="assets/images/amenity/dumbbell.png"></span> Gym
+                                </li>
+                                <li *ngIf="item.free_parking">
+                                  <span><img src="assets/images/amenity/parking.png"></span> Parking
+                                </li>
+                                <li *ngIf="item.spa">
+                                  <span><img src="assets/images/amenity/relax.png"></span> Spa
+                                </li>
+                                <li *ngIf="item.laundry_service">
+                                  <span><img src="assets/images/amenity/laundry.png"></span> Laundry
+                                  service
+                                </li>
+                                <li *ngIf="item.laundry_service">
+                                  <span><img src="assets/images/amenity/conference.png"></span>
+                                  Conference hall
+                                </li>
+                                <li *ngIf="item.pool">
+                                  <span><img src="assets/images/amenity/pool.png"></span> Pool
+                                </li>
+
+                                <li *ngIf="item.confrence_hall">
+                                  <span><img src="assets/images/amenity/geyser.png"></span> Geyser
+                                </li>
+                              </ul>
+                            </div>
+                            <img src="{{hotelURL}}{{item.image}}" class="hotelImg">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="button" class="btn btn-info mt-4 pull-center"
+                                  (click)="addHotelPDF()"><i class="fas fa-save"></i>Add Page for pdf
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Hotel PDF ends -->
+                    <!-- Flight PDF start -->
+                    <div class="col-12" *ngIf="dayName == 'flight'">
+                      <button type="button" class="btn btn-primary btn-icon-sm" data-toggle="modal"
+                              data-target="#exampleModalCenter8"><i class="la la-file-pdf-o"></i>Edit flight
+                        Details
+                      </button>
+                      <div class="modal fade fixed-left" id="exampleModalCenter8" tabindex="-1" role="dialog"
+                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-aside"
+                             role="document" style="width:60%;">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Update flight Details</h5>
+                              <button type="button" class="close" id="closeFlightModelEdit"
+                                      data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body overflow-auto">
+                              <div *ngFor="let flt of flightData">
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h4>Departure Flight Details</h4>
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Airport Name </label>
+                                    <div class="floating-label form-group">
+                                      <input name="departure_airport" class="floating-input form-control"
+                                             id="departure_airport" type="text" placeholder=""
+                                             [(ngModel)]="flt.departure_airport">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Airline</label>
+                                    <div class="floating-label">
+                                      <input name="airline" id="airline" class="floating-input form-control"
+                                             type="text" placeholder=" " [(ngModel)]="flt.airline">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Airline Code<sup>*</sup></label>
+                                    <div class="floating-label">
+                                      <input name="airline_code" id="airline_code"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.airline_code">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Flight Number <sup>*</sup></label>
+                                    <div class="floating-label form-group">
+                                      <input name="flight_number" class="floating-input form-control"
+                                             id="flight_number" type="text" placeholder=" "
+                                             [(ngModel)]="flt.flight_number">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <label>Date <sup>*</sup></label>
+                                    <div class="floating-label form-group">
+                                      <input name="departure_date" class="floating-input form-control"
+                                             id="departure_date" type="text" placeholder=" "
+                                             [(ngModel)]="flt.departure_date">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Time</label>
+                                    <div class="floating-label">
+                                      <input name="schedule_departure" id="schedule_departure"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.schedule_departure">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label> City Country</label>
+                                    <div class="floating-label">
+                                      <input name="departure_city_country" id="departure_city_country"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.departure_city_country">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>IATA Code</label>
+                                    <div class="floating-label">
+                                      <input name="departure_iata" id="departure_iata"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.departure_iata">
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h4>Arrival Flight Details</h4>
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Airport Name</label>
+                                    <div class="floating-label">
+                                      <input name="arrival_airport" id="arrival_airport"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.arrival_airport">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Arrival City Country </label>
+                                    <div class="floating-label form-group">
+                                      <input name="arrival_airport_city_country"
+                                             class="floating-input form-control" id="arrival_airport_city_country"
+                                             type="text" placeholder=" " [(ngModel)]="flt.arrival_city_country">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Date</label>
+                                    <div class="floating-label">
+                                      <input name="arrival_date" id="arrival_date"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.arrival_date">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Time</label>
+                                    <div class="floating-label">
+                                      <input name="arrivaltimes" id="arrivaltimes"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.schedule_arrival">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <label>IATA</label>
+                                    <div class="floating-label">
+                                      <input name="arrival_iata" id="arrival_iata"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.arrival_iata">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-12 headings">
+                                    <h4>Flight Status Detail</h4>
+                                    <hr>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="floating-label">
+                                      <label>Travel Time</label>
+                                      <input name="timetotals" id="timetotals"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.total_travel_time">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Terminal</label>
+                                    <div class="floating-label">
+                                      <input name="terminalD" id="terminalD" class="floating-input form-control"
+                                             type="text" placeholder=" " [(ngModel)]="flt.departure_terminal">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Gate Number</label>
+                                    <div class="floating-label">
+                                      <input name="departureG" id="departureG"
+                                             class="floating-input form-control" type="text" placeholder=" "
+                                             [(ngModel)]="flt.gate_number">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label>Delay</label>
+                                    <div class="floating-label">
+                                      <input name="delayTime" id="delayTime" class="floating-input form-control"
+                                             type="text" placeholder=" " [(ngModel)]="flt.delay_time">
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 text-right">
+                                  <button type="button" class="btn btn-info m-t-20 pull-right"
+                                          (click)="UpdateFlightPDF()"><i class="fas fa-save"></i>Update
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div size="A4" style="position: relative" id="container">
+                        <div style="display: block">
+                          <div class="compnayName"
+                               style="position: relative;background:#cc2127;color:#fff;display: inline-block;padding: 20px;">
+                            <h1>FLIGHT DETAIL</h1>
+                          </div>
+                          <div style="padding:20px" class="outbond" *ngFor="let item of flightData">
+                            <div
+                              style="display:flex;align-items: center;padding-bottom:10px;border-bottom:1px solid #ccc;margin-bottom:10px;">
+                              <img [src]="'assets/images/airlineLogo/'+item.airline_code+'.jpg'"
+                                   onError="this.src='assets/images/watermark.png'" alt="{{item.airline}}"
+                                   style="width:50px;">
+                              <div style="margin-left:10px;">
+                                <h2 style="line-height:1;">{{item.airline}} <small class="flightno">
+                                  {{item.airline_code}}-{{item.flight_number}}</small>
+                                </h2>
+                                <!-- <p style="line-height:1;">Boeing 787-8</p> -->
+                              </div>
+                            </div>
+                            <div class="flightBlock"
+                                 style="display:flex;align-items: center;font-size:18px;font-weight: 600;">
+                              <div class="depart-det">
+                                <div class="departCity ellipsis">{{item.departure_city_country}}
+                                  ({{item.departure_iata}})
+                                </div>
+                                <div class="time">{{item.schedule_departure}}</div>
+                                <div class="flightdate">{{item.departure_date}}</div>
+                                <div class="airportname">{{item.departure_airport}}</div>
+                              </div>
+                              <div class="duration-stop">
+                                <div style="width: 120px;">
+                                                   <span
+                                                     style="display:flex;line-height: 1;align-items: center;justify-content: center;margin-bottom:10px;">
+                                                      <img src="assets/images/pdf/clock.png"
+                                                           style="width:13px;margin-right:5px;position: relative;top:2px;">
+                                                      <span class="duration">{{item.total_travel_time}} </span>
+                                                     <!-- <span>&nbsp; | &nbsp;</span>
+                                                     <span class="stop">none-stop</span> -->
+                                                   </span>
+                                  <span class="line">
+                                                      <img src="assets/images/pdf/flight-blue.png" class="flightarrow"
+                                                           style="width:20px;">
+                                                   </span>
+                                </div>
+                              </div>
+                              <div class="arrive-det" style="padding-left:80px;">
+                                <div class="departCity ellipsis">{{item.arrival_city_country}}
+                                  ({{item.arrival_iata}})
+                                </div>
+                                <div class="time">{{item.schedule_arrival}}</div>
+                                <div class="flightdate">{{item.arrival_date}}</div>
+                                <div class="airportname">{{item.arrival_airport}}</div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="button" class="btn btn-info mt-4 pull-center"
+                                  (click)="addFlightPDF()"><i class="fas fa-save"></i>Add Page for pdf
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Flight PDF ends -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade show" id="loadMe" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+       aria-labelledby="loadMeLabel" aria-modal="true" style="padding-right: 15px; display: block;" *ngIf="pdfLoader">
+    <div class="modal-dialog modal-sm" id="addRemoveClass" role="document">
+      <div class="modal-content">
+        <div class="modal-header" id="model_header" style="display: none;padding: 5px;">
+          <h5 class="modal-title" id="exampleModalLabel" style="padding: 5px;color:#c8aa05">Pdf Creation!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -45px;">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <div class="pdf_loader"></div>
+          <h3 class="test_trasitions">Please wait while we generate your PDF</h3>
+          <div clas="loader-txt">
+            <div class="col-12 tableHideShow" style="display: none;">
+              <table class="table table-striped- table-hover table-checkable tableHide">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td id="filenames"></td>
+                  <td id="filenames_preview"></td>
+                  <td>
+                    <p id="filenames_download"></p>
+                  </td>
+
+                  <td>
+
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="message_show"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

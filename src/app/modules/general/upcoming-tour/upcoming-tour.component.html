@@ -1,0 +1,113 @@
+<div id="loading" *ngIf="isLoading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page sidebar-main">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+          <div class="row">
+            <div class="container-fluid">
+              <div class="subheader-main">
+                <h3 class="subheader-title" translate> upComming.Upcoming Tours</h3>
+                <div class="subheader-breadcrumbs">
+                  <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                      class="ri-home-7-line"></i></a>
+                  <!-- <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator">
+                    Upcoming Tour</a> -->
+                  <a href="javascript:void(0);"
+                    class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>
+                    upComming.Upcoming Tours List </a>
+                </div>
+              </div>
+              <div class="subheader-toolbar" *ngIf="optionalDepartureCreate">
+                <div class="subheader-wrapper">
+                  <a href="javascript:void(0)" [routerLink]="['/create']" class="btn btn-warning" translate><i
+                      class="la la-plus"></i> upComming.Create Upcoming Tours </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+              <div class="iq-card-header d-flex justify-content-between">
+                <div class="iq-header-title">
+                  <h4 class="card-title" translate> upComming.Upcomping Tours List </h4>
+                </div>
+              </div>
+              <div class="iq-card-body departure-table pt-0">
+                <div class="table-responsive">
+                  <table class="table table-hover " id="example2">
+                    <thead>
+                      <tr>
+                        <th translate> upComming.S.No.</th>
+                        <th translate> upComming.Image</th>
+                        <th translate> upComming.Tours</th>
+                        <th translate> upComming.Start Date</th>
+                        <th translate> upComming.Phone</th>
+                        <th translate> upComming.Email</th>
+                        <th translate> upComming.Promo Content</th>
+                        <th translate> upComming.Status</th>
+                        <th translate> upComming.Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let up of upcomingtourList;let i=index;">
+                        <td title="Delhi-Himanchal" class="table-td-ellipsis">{{i + 1}}</td>
+                        <td><img src="{{bannerimgPath}}{{up.background_image}}" alt="" width="80"></td>
+                        <td>{{up.pname}}</td>
+                        <td>{{up.start_date | date: 'd MMM y'}}</td>
+                        <td>{{up.contact_phone}}</td>
+                        <td>{{up.contact_email}}</td>
+                        <td>{{up.promo_content}}</td>
+                        <td>
+                          <input type="checkbox" class="toggle" id="toggle{{i}}" value="{{up.status}}" [(ngModel)]="up.status" (change)="getStatus(up.status, up.id)" />
+                          <label for="toggle{{i}}">
+                            <span class="on" translate> upComming.Active</span>
+                            <span class="off" translate> upComming.Inactive</span>
+                          </label>
+                        </td>
+                        <td>
+                          <a href="javascript:void(0);" *ngIf="optionalDepartureEdit == true" class="btn btn-primary btn-sm mr-1" [routerLink]="['/create']"
+                            [queryParams]="{ 'id': up.id}"><i class="fas fa-edit"></i></a>
+                            <a href="javascript:void(0);" *ngIf="optionalDepartureEdit == false"><i class="fas fa-edit text-dark" title="You can't edit"></i></a>
+                          <a href="javascript:void(0);" *ngIf="optionalDepartureDelete == true" class="btn btn-danger btn-sm" data-target="#confirm-delete" data-toggle="modal"
+                          href="javascript:void(0);" (click)="openUpcomingform(up.id, up.pname)"><i class="fas fa-trash"></i></a>
+                          <a href="javascript:void(0);" *ngIf="optionalDepartureDelete == false"><i class="fas fa-trash ml-1 text-dark" title="You can't delete"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade confirm-delete" id="confirm-delete" tabindex="-1" role="dialog"
+          aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-filled bg-danger">
+              <div class="modal-body">
+                <div class="text-center">
+                  <i class="dripicons-wrong h1 text-white"></i>
+
+                  <p class="mt-3 text-white" translate> upComming.Do you really want to delete <strong>{{departureName}}</strong>
+                   <span translate> upComming.from Upcoming list. </span>  
+                  </p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate> upComming.No</button>
+                <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="deleteUpcomingTour()" translate> upComming.Yes </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</article>

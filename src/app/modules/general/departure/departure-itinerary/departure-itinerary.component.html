@@ -1,0 +1,273 @@
+<div id="loading">
+  <div id="loading-center">
+  </div>
+</div>
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate>daywise-itinerary.Day Wise Itinerary</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i
+                      class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                       translate>
+                      daywise-itinerary.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator"
+                       translate>
+                      daywise-itinerary.Day Wise Itinerary</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i
+                      class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          daywise-itinerary.Day Wise Itinerary</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                          class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p translate> dep-iti.p1 </p>
+                        <p class=""><span class="text-danger"><i class="fa fa-lightbulb"></i> <span translate>
+                              dep-iti.p2
+                            </span> </span>&nbsp;
+                          <span translate> dep-iti.p3 </span>
+                        </p>
+                        <hr>
+                        <h5 class="d-block text-info"><u translate> dep-iti.p4 </u></h5>
+                        <p><strong class="text-dark" translate> dep-iti.p5 </strong>
+                          <span translate> dep-iti.p6 </span>
+                        </p>
+                        <p><strong class="text-dark" translate> dep-iti.p7 </strong>
+                          <span translate> dep-iti.p8 </span>
+                        </p>
+                        <p>
+                          <strong class="text-dark" translate> dep-iti.p9 </strong>
+                          <span translate> dep-iti.p10 </span>
+                        </p>
+                        <p>
+                          <strong class="text-dark" translate> dep-iti.p11 </strong>
+                          <span translate> dep-iti.p12 </span>
+                        </p>
+                        <p>
+                          <strong class="text-dark" translate> dep-iti.p13 </strong>
+                          <span translate> dep-iti.p14 </span>
+                        </p>
+                        <p><strong class="text-dark" translate> dep-iti.p15 </strong>
+                          <span translate> dep-iti.p16 </span>
+                        </p>
+                        <hr>
+                        <p class=""><strong class="text-danger"><em translate> dep-iti.p17 </em></strong>&nbsp;
+                          <span translate> dep-iti.p18 </span>
+                        </p>
+                        <p><span translate> dep-iti.p19 </span>
+                          <strong translate> flight.Save </strong>
+                        </p>
+                        <hr>
+                        <h5 class="d-block text-cyan">
+                          <u translate> dep-iti.p20 </u>
+                        </h5>
+                        <p class="d-block text-info"><i class="fab fa-windows"></i>
+                          <span translate> Windows </span>
+                        </p>
+                        <ul class="list-unstyled">
+                          <li translate> dep-iti.cs</li>
+                          <li translate> dep-iti.p21</li>
+                          <li translate> dep-iti.p22
+                          </li>
+                        </ul>
+                        <p class="d-block text-info"><i class="fab fa-apple"></i> <span translate> Mac </span></p>
+                        <ul class="list-unstyled">
+                          <li translate> dep-iti.p23</li>
+                          <li translate> dep-iti.p24</li>
+                          <li translate> dep-iti.p25</li>
+                          <li translate> dep-iti.p26</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8 col-md-8"
+                 [ngClass]="{'col-lg-8 col-md-8': select_location.length>0,'col-lg-12 col-md-12': select_location.length==0}">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height" id="DaywiseItineraryPage">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="DaywiseItineraryPage_tabs">
+                        <ul class="nav nav-tabs nav-justified mb-0" role="tablist">
+                          <li class="nav-item" *ngFor="let no of itaneary_forms;let i=index;">
+                            <a class="nav-link dd_tab_link" [ngClass]="no==1?'active':''" data-toggle="tab"
+                               href="#day_form" role="tab" (click)="dayWiseForm(no.id)" id="dd_tab_{{no.id}}"
+                               translate>daywise-itinerary.Day <span>{{no.day_number}}</span></a>
+                          </li>
+                        </ul>
+                        <div class="tab-content">
+                          <div class="tab-pane p-4 active" id="day_form" role="tabpanel">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group text-center">
+                                  <div class="custom-control custom-checkbox custom-control-inline" *ngFor="let loc of all_locations;let i=index;">
+                                    <input type="checkbox" class="custom-control-input loc_chck" id="location_check_{{i}}" value="{{loc.location_id}}" name="set_location">
+                                    <label class="custom-control-label" for="location_check_{{i}}" [(ngModel)]="loc.checked" [ngModelOptions]="{standalone: true}"
+                                           (click)="set_location_poi(i,loc.location_id, loc.geoname, loc.name)">{{loc.name}}</label>
+                                  </div>
+                                </div>
+                                <form action="" id="Dayitinerary" [formGroup]="locationForm" (ngSubmit)="itinerary_data()">
+                                  <div class="row mb-2">
+                                    <div class="col-md-12">
+                                      <h5 class="mb-2" translate>daywise-itinerary.Choose banner image or select from your computer</h5>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="chooseBanner selectHotelimgCheckbox">
+                                        <ul class="list-inline mb-0">
+                                          <li class="list-inline-item position-relative htl_img" *ngFor="let img of (dd_img ? dd_img.slice(0,3): []);let i=index;">
+                                            <label for="htl_chk_{{i}}"></label>
+                                            <input type="radio" name="hotelimg" class="hotelImgcheck" id="htl_chk_{{i}}" (click)="setDayImg(img.images_url,i)">
+                                            <figure class="selectHotelimgCheckbox-container">
+                                              <img src="{{img.images_url}}" alt="img" class="img-fit selectHotelimgCheckbox-img">
+                                            </figure>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6 border-left">
+                                      <div class="d-flex align-items-center">
+                                        <div class="from-group choosebannerselect mr-3">
+                                          <label for="img_file" translate>daywise-itinerary.Select banner</label>
+                                          <input type="file" class="banner-img" name="banner-img" id="img_file" (change)="filename($event)">
+                                        </div>
+                                        <div class="choosebannerShow">
+                                          <img onerror="this.src='assets/images/no-img.jpg';" [src]="filePath" id="filePath" class="img_url" alt="your image">
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label translate>daywise-itinerary.Day Title</label>
+                                    <input type="text" name="dayoneTitle" class="form-control" autocomplete="off" ngDefaultControl formControlName="day_title">
+                                    <div *ngIf="isSubmitted&&form.day_title.errors" class="text-danger">
+                                      <p class="mb-0" *ngIf="form.day_title.errors.required" translate>daywise-itinerary.Please enter day title.</p>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <label translate>daywise-itinerary.Day Highlights <span></span></label>
+                                        <textarea rows="5" class="form-control" ngDefaultControl formControlName="day_highlights" autocomplete="off" name="dayoneDescription"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row d-flex align-items-end">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label translate>daywise-itinerary.Additional Info <span></span></label>
+                                        <textarea rows="5" class="form-control" name="additionalinfo" autocomplete="off" ngDefaultControl formControlName="add_info"></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label translate>daywise-itinerary.Day Notes <span></span></label>
+                                        <textarea rows="5" class="form-control" name="daynotes" autocomplete="off" ngDefaultControl formControlName="day_notes"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-md-12 text-right mb-2">
+                                      <button type="submit" class="btn btn-primary btn-large" translate>daywise-itinerary.Save</button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="select_location.length>0">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height poiCard1">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate>daywise-itinerary.Select POI's</h5>
+                        </div>
+                        <!-- <button class="btn btn-dark btn-sm" id="MakeOptional">Make Optional</button> -->
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="" *ngFor="let loc of select_location;let i=index">
+                    <h5 class="mb-3">{{loc.name}}</h5>
+                    <div class="poilist_box" *ngFor="let poi of loc.pois; let j = index;">
+                      <div class="poilist_boxCheckpoi optionalPoi">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input poi_dt_loc " name="poi_poidata{{poi.poi_id}}" id="poi_poidata{{j}}{{poi.poi_id}}" value="{{poi.poi_id}}" (change)="poiSelect(poi.poi_id)"
+                                 [(ngModel)]="poi.checked" [ngModelOptions]="{standalone: true}">
+                          <label class="custom-control-label check-box1" for="poi_poidata{{j}}{{poi.poi_id}}"></label>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-wrap align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between w-100">
+                          <!-- <div class="poilist_boxCheckpoi">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input poi_dt_loc"
+                              id="poi_poidata{{poi.poi_id}}"
+                                     (change)="poiSelect(poi.poi_id)" [(ngModel)]="poi.checked" [ngModelOptions]="{standalone: true}">
+                              <label class="custom-control-label" for="poi_poidata{{poi.poi_id}}"></label>
+                            </div>
+                          </div> -->
+                          <figure class="">
+                            <img src="{{poiurl}}{{poi.images_url}}" alt="" class="img-fit rounded-circle" (error)="onPoiImgError($event)">
+                          </figure>
+                          <div class="poilist_boxContent">
+                            <h4>{{poi.attraction_name}}</h4>
+                            <p class="m-0">{{poi.address}}</p>
+                          </div>
+                          <div class="poilist_boxCheckpoi">
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input poi_dt_loc"
+                                     name="poi_poidata{{poi.poi_id}}" id="poi_poidata{{poi.poi_id}}" value="{{poi.poi_id}}"
+                                     (change)="poiSelect(poi.poi_id)" [(ngModel)]="poi.checked" [ngModelOptions]="{standalone: true}">
+                              <label class="custom-control-label" for="poi_poidata{{poi.poi_id}}"></label>
+                              <!-- <label class="custom-control-label" for="op_poi_{{poi.poi_id}}">opt</label>
+                              <input type="checkbox" name="op_poi_{{poi.poi_id}}" id="opt_checked_{{poi.poi_id}}"
+                                (change)="poiOptional(poi.poi_id,i,j)"> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

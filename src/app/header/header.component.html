@@ -1,0 +1,118 @@
+<div class="iq-top-navbar">
+  <div class="iq-navbar-custom d-flex align-items-center justify-content-between">
+    <div class="iq-sidebar-logo" (click)="hideProfileMenuHead()">
+      <div class="top-logo">
+        <a href="javascript:void(0);" routerLinkActive="active" class="logo">
+          <img src="assets/images/logo.png" routerLink="dashboard" class="img-fluid" alt="">
+          <span class="text-uppercase" translate>header.title</span>
+        </a>
+      </div>
+    </div>
+    <div class="iq-menu-horizontal" (click)="hideProfileMenuHead()">
+      <nav class="iq-sidebar-menu">
+        <ul id="iq-sidebar-toggle" class="iq-menu d-flex">
+          <li routerLinkActive="active">
+            <a href="javascript:void(0);" routerLink="dashboard" class="iq-waves-effect">
+              <span translate>header.Dashboard</span>
+            </a></li>
+          <li routerLinkActive="active" *ngIf="departureView">
+            <a href="javascript:void(0);" routerLink="/departure-table" class="iq-waves-effect">
+              <span translate>header.Departures</span>
+            </a></li>
+          <li routerLinkActive="active" *ngIf="poiView">
+            <a href="javascript:void(0);" routerLink="/poi" class="iq-waves-effect">
+              <span translate>header.Point of Interest</span>
+            </a>
+          </li>
+          <li routerLinkActive="active" *ngIf="optionalDepartureView">
+            <a href="javascript:void(0);" routerLink="/upcoming-tours" class="iq-waves-effect">
+              <span translate>header.Upcoming Tours</span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a href="javascript:void(0);" routerLink="/travellers" class="iq-waves-effect">
+              <span translate>header.App Users</span>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a href="javascript:void(0);" routerLink="/setting" class="iq-waves-effect">
+              <span translate>header.Settings</span></a></li>
+          <li>
+            <a href="javascript:void(0);" routerLink="/add-credit" class="btn btn-primary text-white menuRechargeBtn">
+              <span translate>header.Recharge</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light p-0">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="ri-menu-3-line"></i>
+      </button>
+      <div class="iq-menu-bt align-self-center" (click)="openMenu()" >
+        <div class="wrapper-menu">
+          <div class="main-circle"><i class="ri-arrow-left-s-line"></i></div>
+          <div class="hover-circle"><i class="ri-arrow-right-s-line"></i></div>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" (click)="hideProfileMenuHead()"> 
+        <select [(ngModel)]="selectedLanguage" (change)="changeLang($event)" name="" id="">
+          <option value="en">English</option>
+          <option value="ru" >Russian</option>
+        </select>
+      </div>
+      <ul class="navbar-list">
+        <li>
+          <a href="javascript:void(0);" class="search-toggle iq-waves-effect d-flex align-items-center" id="usersMenu" (click)="openProfileMenu($event)">
+            <img src="{{logo}}" class="img-fluid rounded mr-3" alt="user">
+          </a>
+          <div class="iq-sub-dropdown iq-user-dropdown">
+            <div class="iq-card shadow-none m-0">
+              <div class="iq-card-body p-0">
+                <div class="bg-primary p-3">
+                  <h5 class="mb-0 text-white line-height">{{TravellersName}}</h5>
+                  <span class="text-white font-size-12">{{userName}}</span>
+                </div>
+                <a class="iq-sub-card iq-bg-primary-hover" routerLink="/billing">
+                  <div class="media align-items-center">
+                    <div class="rounded iq-card-icon iq-bg-primary">
+                      <i class="ri-bill-line"></i>
+                    </div>
+                    <div class="media-body ml-3"><h6 class="mb-0" translate> header.Billing </h6></div>
+                  </div>
+                </a>
+                <a class="iq-sub-card iq-bg-primary-hover" routerLink="/users">
+                  <div class="media align-items-center">
+                    <div class="rounded iq-card-icon iq-bg-primary">
+                      <i class="ri-user-fill"></i>
+                    </div>
+                    <div class="media-body ml-3">
+                      <h6 class="mb-0" translate> header.Users </h6>
+                    </div>
+                  </div>
+                </a>
+                <a class="iq-sub-card iq-bg-primary-hover" routerLink="/roles" *ngIf="roleView">
+                  <div class="media align-items-center">
+                    <div class="rounded iq-card-icon iq-bg-primary">
+                      <i class="ri-shield-user-line"></i>
+                    </div>
+                    <div class="media-body ml-3"><h6 class="mb-0" translate> header.Role </h6></div>
+                  </div>
+                </a>
+                <a class="iq-sub-card iq-bg-primary-hover" routerLink="/change-password" >
+                  <div class="media align-items-center">
+                    <div class="rounded iq-card-icon iq-bg-primary">
+                      <i class="ri-key-line"></i>
+                    </div>
+                    <div class="media-body ml-3"><h6 class="mb-0" translate> header.Change Password </h6></div>
+                  </div>
+                </a>
+                <div class="d-inline-block w-100 text-center p-3">
+                  <a class="bg-primary iq-sign-btn" href="javascript:void(0)" (click)="logout()" role="button" translate> header.Sign out <i class="ri-login-box-line ml-2"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

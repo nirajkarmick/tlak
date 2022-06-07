@@ -1,0 +1,26 @@
+#map {
+  height: 400px;
+  width: 100%;
+  overflow:hidden;
+  position: relative;
+}
+.poiSearch_field{
+  position: absolute;
+  top: 1rem;
+  z-index: 2;
+  width: calc(100% - 150px);
+  left: calc(150px - 75px);
+  background: #fff;
+}
+.auto-dest{
+  padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+.auto_dest{
+  position: absolute;
+  top: 100%;
+  z-index: 9;
+  background-color: #fff;
+  width: 100%;
+}

@@ -1,0 +1,76 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate> feedback.Feedback</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" [routerLink]="['/departure-table']" translate> feedback.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> feedback.App Feedback</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          feedback.Departure - Feedback</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Travel business is all about outstanding customer service. It’s important to know how satisfied your travelers are and TLAK helps you in this.</p>
+                        <p class="">The TLAK App gives travelers an option to write feedback about the tour and your services. The feedback thus shared over the app is displayed here.</p>
+                        <p><strong class="text-warning">NOTE:</strong> While giving feedback, the traveler will use his/her contact information. Make sure you take feedback seriously and act accordingly.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height min-vh-50" id="feedback">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="headings">
+                        <h5 translate> feedback.Departure - Feedback</h5>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-3" *ngFor="let item of feedback;">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="mb-2 d-flex align-items-center justify-content-between">
+                            <small class="text-cyan">{{item.package_name}}</small>
+                            <span class="feedbackRating" *ngIf="item.rating !== null && item.rating !== undefined"><i class="fas fa-star text-warning"></i> {{item.rating}}</span>
+                          </h5>
+                          <h4>{{item.traveler_name}}</h4>
+                          <p class="text-muted mb-1">{{item.email}}</p>
+                          <p class="text-primary">{{item.phone}}</p>
+                          <p>{{item.feedback}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

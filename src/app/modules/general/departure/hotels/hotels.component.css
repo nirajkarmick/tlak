@@ -1,0 +1,314 @@
+.sideamenities img {
+  width: 20px;
+  margin-right: 5px;
+}
+
+/* #amenitiesManually  .amenities-checkbox{padding-left:30px;}
+#amenitiesManually  .amenities-checkbox span{position:absolute;left:0;width:20px;height:20px;border:1px solid #ddd;border-radius:4px;}
+#amenitiesManually  .amenities-checkbox span:after{content: '';position: absolute;display:none;top: 50%;left: 50%;margin-left: -2px;margin-top: -6px;width: 5px;height: 10px;border:1px solid #fff;border-width: 0 2px 2px 0!important;transform: rotate(45deg);}
+#amenitiesManually  .amenities-checkbox>input:checked ~ span:after{display:block;}
+#amenitiesManually  .amenities-checkbox>input:checked ~ span{background-color: var(--iq-primary);border: none;} */
+.hotelLabel label {
+  position: absolute;
+  padding-left: 14px;
+  top: 2px;
+}
+
+.hotelLabel input {
+  padding: 28px 12px 6px;
+}
+
+#searchBarHotelDiv > .fa-search-location {
+  position: absolute;
+  top: 14px;
+  right: 15px;
+  font-size: 17px;
+}
+
+#customHotelImg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+#customHotelImgBg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, .7);
+}
+
+.starColor {
+  color: #DDDDDD;
+}
+
+.chooseHotelImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#full-stars-example .rating-group {
+  display: inline-flex;
+}
+
+#full-stars-example .rating__icon {
+  pointer-events: none;
+}
+
+#full-stars-example .rating__input {
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+#full-stars-example .rating__label {
+  cursor: pointer;
+  padding: 0 0.1em;
+  font-size: 1rem;
+}
+
+#full-stars-example .formStar .rating__label {
+  cursor: pointer;
+  padding: 0 0.1em;
+  font-size: 1.5rem;
+}
+
+#full-stars-example .rating__icon--star {
+  color: orange;
+}
+
+#full-stars-example .rating__icon--star.not_checked {
+  color: #ddd;
+}
+
+#full-stars-example .rating__icon--none {
+  color: #eee;
+}
+
+#full-stars-example .rating__input--none:checked + .rating__label .rating__icon--none {
+  color: red;
+}
+
+#full-stars-example .rating__input:checked ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
+
+#full-stars-example .rating-group:hover .rating__label .rating__icon--star {
+  color: orange;
+}
+
+#full-stars-example .rating__input:hover ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
+
+#full-stars-example .rating-group:hover .rating__input--none:not(:hover) + .rating__label .rating__icon--none {
+  color: #eee;
+}
+
+#full-stars-example .rating__input--none:hover + .rating__label .rating__icon--none {
+  color: red;
+}
+
+#half-stars-example .rating-group {
+  display: inline-flex;
+}
+
+#half-stars-example .rating__icon {
+  pointer-events: none;
+}
+
+#half-stars-example .rating__input {
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+#half-stars-example .rating__label {
+  cursor: pointer;
+  /* if you change the left/right padding, update the margin-right property of .rating__label--half as well. */
+  padding: 0 0.1em;
+  font-size: 2rem;
+}
+
+#half-stars-example .rating__label--half {
+  padding-right: 0;
+  margin-right: -0.6em;
+  z-index: 2;
+}
+
+#half-stars-example .rating__icon--star {
+  color: orange;
+}
+
+#half-stars-example .rating__icon--none {
+  color: #eee;
+}
+
+#half-stars-example .rating__input--none:checked + .rating__label .rating__icon--none {
+  color: red;
+}
+
+#half-stars-example .rating__input:checked ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
+
+#half-stars-example .rating-group:hover .rating__label .rating__icon--star, #half-stars-example .rating-group:hover .rating__label--half .rating__icon--star {
+  color: orange;
+}
+
+#half-stars-example .rating__input:hover ~ .rating__label .rating__icon--star, #half-stars-example .rating__input:hover ~ .rating__label--half .rating__icon--star {
+  color: #ddd;
+}
+
+#half-stars-example .rating-group:hover .rating__input--none:not(:hover) + .rating__label .rating__icon--none {
+  color: #eee;
+}
+
+#half-stars-example .rating__input--none:hover + .rating__label .rating__icon--none {
+  color: red;
+}
+
+#full-stars-example-two .rating-group {
+  display: inline-flex;
+}
+
+#full-stars-example-two .rating__icon {
+  pointer-events: none;
+}
+
+#full-stars-example-two .rating__input {
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+#full-stars-example-two .rating__input--none {
+  display: none;
+}
+
+#full-stars-example-two .formStar .rating__label {
+  font-size: 1.5rem;
+}
+
+#full-stars-example-two .rating__label {
+  cursor: pointer;
+  padding: .2rem 0 0;
+  font-size: 1rem;
+  line-height: 1;
+  margin: 0;
+}
+
+#full-stars-example-two .rating__icon--star {
+  color: orange;
+}
+
+#full-stars-example-two .rating__input:checked ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
+
+#full-stars-example-two .rating-group:hover .rating__label .rating__icon--star {
+  color: orange;
+}
+
+#full-stars-example-two .rating__input:hover ~ .rating__label .rating__icon--star {
+  color: #ddd;
+}
+.hotelBox {
+  box-shadow: 0 1px 7px 0 #ddd;
+  padding: 10px;
+  border-radius: 7px;
+  margin-bottom: 15px;
+}
+
+.hotelAddress {
+  margin-bottom: .2rem;
+  color: #999;
+}
+.Accommodation .custom-control-label::before {
+  top: 3px
+}
+
+.Accommodation .custom-control-label::after {
+  top: 3px
+}
+.HotelStar {
+  margin: .3rem 0
+}
+
+.hotelDiss {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.hover_overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: right;
+  height: 50px;
+  background: linear-gradient(0deg, #000, transparent);
+  padding: 15px;
+  color: #fff;
+}
+
+.hover_overlay a {
+  color: #fff;
+}
+
+.htl-brder {
+  border: 2px solid #f63131
+}
+
+.selectHotelimgCheckbox {
+  position: relative;
+  margin-right: 10px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.hotelImgcheck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.selectHotelimgCheckbox-container {
+  width: 100px;
+  height: 75px;
+  overflow: hidden;
+}
+
+.selectHotelimgCheckbox-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.selectHotelimgCheckbox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0
+}
+
+.selectHotelimgCheckbox input[type="radio"]:checked + label {
+  border: 4px solid #000;
+  z-index: 2;
+  padding: 1px;
+}
+
+textarea.form-control {
+  line-height: 1
+}

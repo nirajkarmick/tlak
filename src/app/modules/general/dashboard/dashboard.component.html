@@ -1,0 +1,569 @@
+<!-- <div id="loading"  *ngIf="isLoading">
+   <div id="loading-center">
+   </div>
+</div> -->
+<article id="content-page" class="content-page dashboard">
+  <div class="dash-tlakk">
+    <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+      <div class="container-fluid">
+        <div class="subheader-main">
+          <h3 class="subheader-title" translate>dashboard.DASHBOARD</h3>
+          <div class="subheader-breadcrumbs">
+            <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+            <!--<span class="subheader-breadcrumbs-separator"></span>-->
+            <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate>dashboard.DASHBOARD </a>
+          </div>
+        </div>
+        <div class="dashboard-switcher text-center">
+          <p class="m-0 text-white" translate>dashboard.Dashboard Switcher</p>
+          <ul class="nav nav-pills mb-3" role="tablist" id="SwitchDashboardUl">
+            <li class="nav-item firsts active" id="lives">
+              <a class="nav-link a lived active" data-toggle="tab" href="#live_content" id="lived" role="tab" aria-selected="true">
+                <strong translate>dashboard.Live Data</strong>
+              </a>
+            </li>
+            <li class="nav-item seconds" id="dummys">
+              <a class="nav-link a dummyd" data-toggle="tab" href="#dummy_content" id="dummyd" role="tab" aria-selected="false">
+                <strong translate>dashboard.Dummy Data</strong>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+        <div class="subheader-toolbar" *ngIf="dashboardData">
+          <div class="subheader-wrapper">
+            <a href="javascript:void(0);" class="btn btn-success" translate>dashboard.Total Credit<span>
+              : {{dashboardData.total_credit}}</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div id="switched" class="tab-content">
+        <div class="tab-pane fade active show" aria-labelledby="lived" id="live_content">
+          <div class="row">
+            <div class="col-md-6 col-lg-7">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height overflow-hidden">
+                <div class="iq-card-header d-flex justify-content-between">
+                  <div class="iq-header-title d-flex">
+                    <h4 class="card-title" translate>dashboard.Real-time tracking</h4>
+                    <button type="button" class="btn btn-light btn-sm btn-icon ml-2" mat-raised-button
+                        matTooltipPosition="above"
+                        matTooltip="A live tour is updated every hour and can be tracked at any given time. However, the location of the tour gets updated when a traveller opens the app during the journey. Once the app is active, the location of the tour gets registered in the database, offering an insight into the trip’s status"
+                        data-original-title="" title=""><i class="fas fa-question-circle m-0"
+                          aria-hidden="true"></i></button>
+                  </div>
+                  <div class="iq-card-header-toolbar d-flex align-items-center">
+                    <div class="dropdown" id="liveDeparture">
+                     <span class="dropdown-toggle btn selectDeparture" id="dropdownMenuButton" data-toggle="dropdown" translate *ngIf="tracking_package==''">
+                      dashboard.Select Departure
+                     </span>
+                     <!-- <button type="button" class="btn btn-light btn-sm btn-icon" mat-raised-button
+                        matTooltipPosition="above"
+                        matTooltip="A live tour is updated every hour and can be tracked at any given time. However, the location of the tour gets updated when a traveller opens the app during the journey. Once the app is active, the location of the tour gets registered in the database, offering an insight into the trip’s status"
+                        data-original-title="" title=""><i class="fas fa-question-circle"
+                          aria-hidden="true"></i></button> -->
+                     <span class="dropdown-toggle btn selectDeparture" id="dropdownMenuButton" data-toggle="dropdown"  *ngIf="tracking_package">{{tracking_package}}
+                     </span>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="" *ngIf="dashboardData && dashboardData.current_departure_details && dashboardData.current_departure_details.length>0">
+                        <a class="dropdown-item" (click)="realTimeTracking(ss.id,ss.pname)" href="javascript:void(0);" *ngFor="let ss of dashboardData.current_departure_details">
+                          <i class="ri-eye-fill mr-2"></i>
+                          {{ss.pname}}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="iq-card-body pt-0">
+                  <agm-map [latitude]="tracking_latitude" [longitude]="tracking_longitude" [zoom]="zoom" id="map" *ngIf="tracking_found">
+                      <agm-marker [latitude]="tracking_latitude" [longitude]="tracking_longitude" >
+                        <agm-info-window [disableAutoPan]="true" *ngIf="tracking_data && tracking_data.name!=undefined">
+                           <h4 class="mb-1">{{tracking_data.name}}</h4>
+                           <p>{{tracking_data.adress}}</p>
+                        </agm-info-window>
+                     </agm-marker>
+                  </agm-map>   
+                  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" id="map" *ngIf="!tracking_found">
+                      <agm-marker [latitude]="latitude" [longitude]="longitude" ></agm-marker>
+                  </agm-map>   
+                  <!-- <div *ngIf="tracking_latitude==0">No Tracking</div> -->
+                <!--   <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14008.056276229156!2d77.2160905813843!3d28.629340434079975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1614767806598!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-5" *ngIf="dashboardData && dashboardData.upcoming_departure_details.length>0">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-header d-flex justify-content-between">
+                  <div class="iq-header-title">
+                    <h4 class="card-title" translate>dashboard.Departures</h4>
+                  </div>
+                  <div class="iq-card-header-toolbar d-flex align-items-center">
+                    <ul class="nav nav-tabs" id="myTab-1" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" translate>dashboard.Upcoming</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true" translate>dashboard.Past</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="iq-card-body">
+                  <div class="tab-content" id="myTabContent-2">
+                    <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      <ul class="iq-timeline" *ngIf="dashboardData && dashboardData.upcoming_departure_details">
+                        <li *ngFor="let upd of dashboardData.upcoming_departure_details">
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">{{upd.pname}}</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">{{upd.total_people}} Pax</p>
+                            </div>
+                          </div>
+                        </li>
+
+                      </ul>
+                    </div>
+                    <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                      <ul class="iq-timeline" *ngIf="dashboardData && dashboardData.past_departure_details">
+                        <li *ngFor="let past_d of dashboardData.past_departure_details">
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">{{past_d.pname}}</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">{{past_d.total_people}} Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div>
+              <div class="subheader-toolbar">
+                <div class="subheader-wrapper">
+                  <a href="javascript:void(0)" [routerLink]="['/departure-create']" class="btn btn-warning" translate><i
+                    class="la la-plus"></i>departure-table.Create New Departure</a>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <ul class="list-inline row" *ngIf="dashboardData">
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-primary rounded">
+                <div class="media-support-info">
+                  <h6 translate> dashboard.Completed Departures</h6>
+                  <p class="mb-0 font-size-12" translate> dashboard.Total No. of Completed Departures</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-primary">{{dashboardData.totalCompletedDeparture}}</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-success rounded">
+                <div class="media-support-info">
+                  <h6 translate> dashboard.Completed Departure Users</h6>
+                  <p class="mb-0 font-size-12" translate> dashboard.Total No. of Users Completed Departures</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-success">{{dashboardData.completedDepartureUser}}</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-info rounded">
+                <div class="media-support-info">
+                  <h6 translate> dashboard.Total POIs</h6>
+                  <p class="mb-0 font-size-12" translate> dashboard.Total No. of POIs Created</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-info">{{dashboardData.totalPOIs}}</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-dark rounded">
+                <div class="media-support-info">
+                  <h6 translate> dashboard.Domestic Users</h6>
+                  <p class="mb-0 font-size-12" translate> dashboard.Total No. of Domestic Tour Users</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-dark">{{dashboardData.complete_domestic_pax}}</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-danger rounded">
+                <div class="media-support-info">
+                  <h6 translate> dashboard.International Users</h6>
+                  <p class="mb-0 font-size-12" translate> dashboard.Total No. of International (Inbound, Outbound) Users</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-danger">{{dashboardData.complete_int_out_pax}}</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-secondary rounded">
+                <div class="media-support-info">
+                  <h6 translate> dashboard.Total Feedbacks</h6>
+                  <p class="mb-0 font-size-12" translate> dashboard.Total No. Of Feedbacks Received</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-secondary" translate>{{dashboardData.totalfeadbak}}</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+        <div class="tab-pane fade" aria-labelledby="dummyd" id="dummy_content">
+
+          <div class="row">
+            <div class="col-md-6 col-lg-7">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height overflow-hidden">
+                <div class="iq-card-header d-flex justify-content-between">
+                  <div class="iq-header-title">
+                    <h4 class="card-title" translate>dashboard.Real-time tracking</h4>
+                  </div>
+                  <div class="iq-card-header-toolbar d-flex align-items-center">
+                    <div class="dropdown">
+                      <span class="dropdown-toggle btn selectDeparture" id="dropdownMenuButton" data-toggle="dropdown" translate *ngIf="tracking_package_dummy==''">
+                      dashboard.Select Departure
+                      </span>
+                     <span class="dropdown-toggle btn selectDeparture" id="dropdownMenuButton" data-toggle="dropdown"  *ngIf="tracking_package_dummy">{{tracking_package_dummy}}
+                     </span>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="">
+                        <a class="dropdown-item" href="javascript:void(0)" (click)="realTimeTracking_dummy('Moscow Tour 5th Feb 4N/5D')"><i class="ri-eye-fill mr-2"></i>Moscow Tour 5th Feb 4N/5D</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="iq-card-body pt-0">
+                  <agm-map [latitude]="tracking_latitude" [longitude]="tracking_longitude" [zoom]="zoom" id="map"  >
+                      <agm-marker [latitude]="tracking_latitude" [longitude]="tracking_longitude" >
+                        <agm-info-window [disableAutoPan]="true"  >
+                           <h4 class="mb-1">Jhons</h4>
+                           <p>ul. Vosdvizhenka d.1 Moscow 121019 Russia</p>
+                        </agm-info-window>
+                     </agm-marker>
+                  </agm-map>   
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-5">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-header d-flex justify-content-between">
+                  <div class="iq-header-title">
+                    <h4 class="card-title" translate>dashboard.Departures</h4>
+                  </div>
+                  <div class="iq-card-header-toolbar d-flex align-items-center">
+                    <ul class="nav nav-tabs" id="myTab-1" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" translate>dashboard.Upcoming</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true" translate>dashboard.Past</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="iq-card-body">
+                  <div class="tab-content" id="myTabContent-2">
+                    <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      <ul class="iq-timeline">
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">KULLU MANALI TOUR 4N/5D Tour</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">43 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Moscow Tour 4N/5D</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">240 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Moscow Tour 4N/5D</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Baku 4D / 5N</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Delhi to Srilanka</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">4 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">8 Days - Singapore Malaysia</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">13 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                      <ul class="iq-timeline">
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Moscow Tour 4N/5D - 23rd May</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Himachal 6d/5n</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">1 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">luxurious shimla-manali 5days package</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">luxurious shimla-manali 5days package</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">luxurious shimla-manali 5days package</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Ahamdabad to Bali 6 Days</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">21 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">South India Tour</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">2 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Moscow Tour 4N/5D</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">8 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Delhi Tour</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Next month tour</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">India-Russia-Tour</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Delhi-Shimla</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Delhi-Nepal-ShriLanka</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">2 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Delhi-Himanchal</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-dots"></div>
+                          <div class="d-flex">
+                            <h6 class="float-left mb-1 w-50">Test Departure</h6>
+                            <div class="d-inline-block w-50 text-right">
+                              <p class="mb-0">0 Pax</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="list-inline row">
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-primary rounded">
+                <div class="media-support-info">
+                  <h6 translate>dashboard.Completed Departures</h6>
+                  
+                  <p class="mb-0 font-size-12" translate>dashboard.Total No. of Completed Departures</p>
+                  
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-primary">15</div>
+                </div>
+                
+              </div>
+            </li>
+            
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-success rounded">
+                <div class="media-support-info">
+                  <h6 translate>dashboard.Completed Departure Users</h6>
+                  <p class="mb-0 font-size-12" translate>dashboard.Total No. of Users Completed Departures</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-success">23</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-info rounded">
+                <div class="media-support-info">
+                  <h6 translate>dashboard.Total POIs</h6>
+                  <p class="mb-0 font-size-12" translate>dashboard.Total No. of POIs Created</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-info">102</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-dark rounded">
+                <div class="media-support-info">
+                  <h6 translate>dashboard.Domestic Users</h6>
+                  <p class="mb-0 font-size-12" translate>dashboard.Total No. of Domestic Tour Users</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-dark">105</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-danger rounded">
+                <div class="media-support-info">
+                  <h6 translate>dashboard.International Users</h6>
+                  <p class="mb-0 font-size-12" translate>dashboard.Total No. of International (Inbound, Outbound) Users</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-danger">177</div>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item col-md-4 col-lg-3 mr-0">
+              <div class="d-flex mb-3 bg-white align-items-center p-3 sell-list border-secondary rounded">
+                <div class="media-support-info">
+                  <h6 translate>dashboard.Total Feedbacks</h6>
+                  <p class="mb-0 font-size-12" translate>dashboard.Total No. Of Feedbacks Received</p>
+                </div>
+                <div class="iq-card-header-toolbar d-flex align-items-center">
+                  <div class="badge badge-pill badge-secondary">10</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div>
+            <!-- <google-chart #chart  
+   [title]="title"  
+   [type]="type"  
+   [data]="data"  
+   [columnNames]="columnNames"  
+   [options]="options"  
+   [width]="500"  
+   [height]="300"
+   >  
+</google-chart> -->
+<!-- <google-chart [type]="type1" [data]="data221" [columns]="columnNames221" [options]="options"
+		(select)="onSelect($event)"></google-chart> -->
+    <!-- <google-chart [data]="pieChart"></google-chart> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

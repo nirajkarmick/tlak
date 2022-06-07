@@ -1,0 +1,681 @@
+<article id="content-page" class="content-page sidebar-main">
+  <app-departure-sidebar></app-departure-sidebar>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-page">
+          <div class="pagebreadcrumbs" id="pagebreadcrumbs">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="subheader-main">
+                  <h3 class="subheader-title" translate> communication.Communication</h3>
+                  <div class="subheader-breadcrumbs">
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-home subheader-breadcrumbs-separator"><i class="ri-home-7-line"></i></a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> communication.Departure</a>
+                    <a href="javascript:void(0);" class="subheader-breadcrumbs-link subheader-breadcrumbs-separator" translate> communication.Communication Information</a>
+                  </div>
+                </div>
+                <div class="subheader-toolbar">
+                  <div class="subheader-wrapper">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_6"><i class="fas fa-question"></i></button>
+                  </div>
+                </div>
+                <div class="modal fade mypopovermodal" id="modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-cobalt-blue text-skype" id="exampleModalLongTitle" translate>
+                          communication.Departure - Operations Team</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+                      </div>
+                      <div class="modal-body">
+                        <p translate> communication.p1 </p>
+                        <ul class="list-unstyled">
+                          <li translate> communication.Name </li>
+                          <li translate> communication.Phone </li>
+                          <li translate> communication.Email </li>
+                        </ul>
+                        <!-- <p><strong class="text-cyan">NOTE: </strong>Certain details about a flight (mainly the status of the flight) is made available not more than 3 days before the flight. TLAK will pull the data accordingly and show that on the app for your travelers. </p> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body" id="">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> <i class="fa fa-layer-group mr-1" aria-hidden="true"></i> communication.Add Tour Manager</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <form action="" [formGroup]="AddManager" (ngSubmit)="addManager()">
+                        <div class="row communicationadd">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="managername" translate> communication.Manager Name</label>
+                              <input type="text" name="managername" class="form-control" formControlName="name" id="managername">
+                              <div *ngIf="isSubmitted&&form.name.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.name.errors.required" translate> communication.Please add manager name.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="managerphone" translate> communication.Manager Phone</label>
+                              <input type="text" name="managerphone" class="form-control" formControlName="phone" id="managerphone">
+                              <div *ngIf="isSubmitted&&form.phone.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.phone.errors.required" translate> communication.Please add manager phone.</p>
+                                <p class="mb-0" *ngIf="form.phone.errors.pattern" translate> communication.Please enter 10 digit phone number.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="manageremail" translate> communication.Manager Email</label>
+                              <input type="text" name="manageremail" class="form-control" formControlName="email" id="manageremail">
+                              <div *ngIf="isSubmitted&&form.email.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form.email.errors.required" translate> 
+                                  communication.Please add manager email.</p>
+                                <p class="mb-0" *ngIf="form.email.errors.pattern" translate> 
+                                  communication.valid email req.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3 pd-withoutlabel">
+                            <button type="submit" class="btn btn-primary" translate><i class="fa fa-save"></i> 
+                              communication.Save</button>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                              <thead>
+                              <tr>
+                                <th translate> communication.Name</th>
+                                <th translate> communication.Phone</th>
+                                <th translate> communication.Email</th>
+                                <th translate> communication.Action</th>
+                              </tr>
+                              </thead>
+                              <tbody *ngIf="DepManagerlist">
+                              <tr *ngFor="let ml of DepManagerlist">
+                                <td title="Test Departure" class="table-td-ellipsis">{{ml.name}}</td>
+                                <td>{{ml.phone}}</td>
+                                <td>{{ml.email}}</td>
+                                <td>
+                                  <a href="javascript:void(0)" title="Edit manager" data-toggle="modal" data-target="#exampleModalCenter" (click)="openManagerEdit(ml.id)"><i class="ri-pencil-line upload-button"></i></a>
+                                  <a href="javascript:void(0)" data-target="#confirm-delete" data-toggle="modal" title="Delete manager" class="text-danger" (click)= "openDeleteTourManager(ml.id)"><i class="ri-delete-bin-2-line upload-button"></i></a>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- popup of edit tour manager-->
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <form [formGroup]="EditManager">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle" translate> communication.Edit Tour Manager</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                      <div class="modal-body">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="airline" translate> communication.Edit manager name</label>
+                            <input type="text" class="form-control"  value="{{EditManager.value.name}}" formControlName="name">
+                            <div *ngIf="isSubmittedEditGuide&&form1.name.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form1.name.errors.required" translate> communication.Please edit manager name.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="airline" translate> communication.Edit manager phone number</label>
+                            <input type="text" class="form-control" value="{{EditManager.value.phone}}" formControlName="phone">
+                            <div *ngIf="isSubmittedEditManager&&form1.phone.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form1.phone.errors.required" translate>
+                                communication.Please edit manager phone number.</p>
+                              <p class="mb-0" *ngIf="form1.phone.errors.pattern" translate>
+                                communication.Please enter 10 digit phone number.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="airline" translate> communication.Edit manager email</label>
+                            <input type="text" class="form-control" value="{{EditManager.value.email}}" formControlName="email">
+                            <div *ngIf="isSubmittedEditManager&&form1.email.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form1.email.errors.required" translate>
+                                communication.Please edit manager email.</p>
+                              <p class="mb-0" *ngIf="form1.email.errors.pattern" translate>
+                                communication.Please edit manager email.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" translate> 
+                          communication.Close</button>
+                        <button type="submit" class="btn btn-primary" (click)="edit_Manager()" translate> 
+                          communication.Save changes</button>
+                      </div>
+                  </div>
+                </form>
+                </div>
+              </div>
+              <!-- end popup -->
+              <!-- Delete popup-->
+              <div class="modal fade confirm-delete" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content modal-filled bg-danger">
+                    <div class="modal-body">
+                      <div class="text-center">
+                        <i class="dripicons-wrong h1 text-white"></i>
+              
+                        <p class="mt-3 text-white" translate> communication.Do you really want to delete <strong>{{DepManagerlistName}}</strong> <span translate> communication.from the list.</span> </p>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate> 
+                        communication.No</button>
+                      <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click) = "deleteTourManager()" translate>
+                        communication.Yes</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end delete popup -->
+            <div class="col-md-6">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> <i class="fa fa-network-wired  mr-1" aria-hidden="true"></i>communication.Add Tour Guide</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <form action="" [formGroup]="AddGuide" (ngSubmit)="addTourGuide()">
+                        <div class="row communicationadd">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="guidename" translate> communication.Guide Name</label>
+                              <input type="text" name="guidename" class="form-control" formControlName="guide_name" id="guidename">
+                              <div *ngIf="isSubmitted1&&form_g.guide_name.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form_g.guide_name.errors.required" translate>
+                                  communication.Please add Guide name.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="guidephone" translate> communication.Guide Phone</label>
+                              <input type="text" name="guidephone" class="form-control" formControlName="guide_phone" id="guidephone">
+                              <div *ngIf="isSubmitted1&&form_g.guide_phone.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form_g.guide_phone.errors.required" translate>
+                                  communication.Please add Guide phone.</p>
+                                <p class="mb-0" *ngIf="form_g.guide_phone.errors.pattern" translate>
+                                  communication.Please enter 10 phone.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="filter" translate> communication.Select Location</label>
+                              <select id="filter" class="form-control" formControlName="location">
+                                <option value="" disabled="" selected="" translate> communication.Select Location</option>
+                                <option  *ngFor="let l of locations" value="{{l.location_name}}">{{l.location_name}}</option>
+                              </select>
+                              <div *ngIf="isSubmitted1&&form_g.location.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form_g.location.errors.required" translate>
+                                  communication.Please add Guide location.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3 pd-withoutlabel">
+                            <button type="submit" class="btn btn-primary" translate><i class="fa fa-save"></i>
+                               communication.Save</button>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                              <thead>
+                              <tr>
+                                <th translate> communication.Name</th>
+                                <th translate> communication.Phone</th>
+                                <th translate> communication.Location</th>
+                                <th translate> communication.Action</th>
+                              </tr>
+                              </thead>
+                              <tbody *ngIf="DepDepGuidelist">
+                              <tr *ngFor="let tg of DepDepGuidelist">
+                                <td title="Test Departure" class="table-td-ellipsis">{{tg.name}}</td>
+                                <td>{{tg.phone}}</td>
+                                <td>{{tg.location}}</td>
+                                <td>
+                                  <a href="javascript:void(0)" title="Edit manager" data-toggle="modal" data-target="#exampleModalCenter1" (click)="editTourGuideForm(tg.id)"><i class="ri-pencil-line upload-button"></i></a>
+                                  <a href="javascript:void(0)" title="Delete manager" class="text-danger"><i class="ri-delete-bin-2-line upload-button" data-toggle="modal" data-target="#confirm-delete1" (click)="openDeleteTourGuide(tg.id)"></i></a>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <!-- Modal Tour Guide Edit  -->
+              <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <form [formGroup]="EditGuide">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle" translate> communication.Edit Tour guide</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="airline" translate> communication.Edit Tour guide name</label>
+                            <input type="text" class="form-control" value="{{EditGuide.value.name}}" formControlName="guide_name">
+                            <div *ngIf="isSubmittedEditGuide&&form2.guide_name.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form2.guide_name.errors.required" translate>
+                                communication.Please tour guide name.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="airline" translate> communication.Edit tour guide phone number</label>
+                            <input type="text" class="form-control" value="{{EditGuide.value.phone}}" formControlName="guide_phone">
+                            <div *ngIf="isSubmittedEditGuide&&form2.guide_phone.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form2.guide_phone.errors.required" translate>
+                                communication.Please edit tour guide phone number.</p>
+                              <p class="mb-0" *ngIf="form2.guide_phone.errors.pattern" translate>
+                                communication.Please enter 10 digit phone number.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="filter1" translate> communication.Edit tour guide email</label>
+                            <select id="filter1" class="form-control" formControlName="location">
+                              <option value="" disabled="" selected="" translate> communication.Select Location</option>
+                              <option  *ngFor="let l of locations" value="{{l.location_name}}">{{l.location_name}}</option>
+                            </select>
+                            <div *ngIf="isSubmittedEditGuide&&form2.location.errors" class="text-danger">
+                              <p class="mb-0" *ngIf="form2.location.errors.required" translate> 
+                                communication.Location required.</p> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" translate> 
+                          communication.Close</button>
+                        <button type="submit" class="btn btn-primary" (click)="editTourGuide()" translate>
+                           communication.Save changes</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- model end-->
+              <!-- Delete popup-->
+              <div class="modal fade confirm-delete" id="confirm-delete1" tabindex="-1" role="dialog1" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content modal-filled bg-danger">
+                    <div class="modal-body">
+                      <div class="text-center">
+                        <i class="dripicons-wrong h1 text-white"></i>
+              
+                        <p class="mt-3 text-white" translate> communication.Do you really want to delete <strong>{{DepGuidelistName}}</strong> <span translate> communication.from the list.</span></p>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate>No</button>
+                      <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click) ="deleteTourGuide()" translate>Yes</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end delete popup -->
+            <div class="col-md-6">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body" >
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5> <span style="color:#800080;"> <i class="fa fa-building mr-1" aria-hidden="true"></i>{{userName}}</span><span translate> communication.Contact</span> </h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <form action="" [formGroup]="AddContact" (ngSubmit)="addTourContact()">
+                        <div class="row communicationadd">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="contactperson" translate> communication.Contact Person</label>
+                              <input type="text" name="contactperson" class="form-control" formControlName="contact_name" id="contactperson">
+                              <div *ngIf="isSubmitted2&&form_tc.contact_name.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form_tc.contact_name.errors.required" translate>
+                                  communication.Please add contact name.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="contactnumber" translate> communication.Contact Number</label>
+                              <input type="text" name="contactnumber" class="form-control" formControlName="contact_phone" id="contactnumber">
+                              <div *ngIf="isSubmitted2&&form_tc.contact_phone.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form_tc.contact_phone.errors.required" translate>
+                                  communication.Please add contact number.</p>
+                                <p class="mb-0" *ngIf="form_tc.contact_phone.errors.pattern" translate>
+                                  communication.Please enter correct contact number.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="contactemail" translate> communication.Contact Email</label>
+                              <input type="text" name="contactemail" class="form-control" formControlName="contact_email" id="contactemail">
+                              <div *ngIf="isSubmitted2&&form_tc.contact_email.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form_tc.contact_email.errors.required" translate>
+                                  communication.Please add Contact email.</p>
+                                <p class="mb-0" *ngIf="form_tc.contact_email.errors.pattern" translate>
+                                  communication.Valid email required.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-3 pd-withoutlabel">
+                            <button type="submit" class="btn btn-primary" translate><i class="fa fa-save"></i> 
+                              communication.Save</button>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                              <thead>
+                              <tr>
+                                <th translate> communication.Name</th>
+                                <th translate> communication.Phone</th>
+                                <th translate> communication.Email</th>
+                                <th translate> communication.Action</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let c of DepContact">
+                                <td title="Test Departure" class="table-td-ellipsis">{{c.name}}</td>
+                                <td>{{c.phone}}</td>
+                                <td>{{c.email}}</td>
+                                <td>
+                                  <a href="javascript:void(0)" title="Edit manager" data-toggle="modal" data-target="#exampleModalCenter2" (click)="editContactForm(c.id)" ><i class="ri-pencil-line upload-button"></i></a>
+                                  <a href="javascript:void(0)" title="Delete manager" class="text-danger"><i class="ri-delete-bin-2-line upload-button" data-toggle="modal" data-target="#confirm-delete2" (click)="deleteEnmergencyContact(c.id)"></i></a>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Open model Contact -->
+            <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" translate> communication.Edit Contact</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form [formGroup]="EditContact">
+                  <div class="modal-body">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="airline" translate> communication.Edit manager name</label>
+                        <input type="text" class="form-control" value="{{EditContact.value.contact_name}}" formControlName="contact_name">
+                        <div *ngIf="isSubmittedEditContact&&formEditContact.contact_name.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="formEditContact.contact_name.errors.required" translate>
+                            communication.Please add Contact name.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="airline" translate> communication.Edit manager phone number</label>
+                        <input type="text" class="form-control" value="{{EditContact.value.contact_phone}}" formControlName="contact_phone">
+                        <div *ngIf="isSubmittedEditContact&&formEditContact.contact_phone.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="formEditContact.contact_phone.errors.required" translate>
+                            communication.Please add Contact number.</p>
+                          <p class="mb-0" *ngIf="formEditContact.contact_phone.errors.pattern" translate>
+                            communication.Please enter 10 digit number.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="airline" translate> communication.Edit manager email</label>
+                        <input type="text" class="form-control" value="{{EditContact.value.contact_email}}" formControlName="contact_email">
+                        <div *ngIf="isSubmittedEditContact&&formEditContact.contact_email.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="formEditContact.contact_email.errors.required" translate>
+                            communication.Please add Contact email.</p>
+                          <p class="mb-0" *ngIf="formEditContact.contact_email.errors.pattern" translate>
+                            communication.Valid email required.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" translate> 
+                      communication.Close</button>
+                    <button type="submit" class="btn btn-primary" (click)="editEnmergencyContact()" translate> 
+                      communication.Save changes</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+            <!-- popup close-->
+            <!-- Delete popup-->
+            <div class="modal fade confirm-delete" id="confirm-delete2" tabindex="-1" role="dialog1" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content modal-filled bg-danger">
+                  <div class="modal-body">
+                    <div class="text-center">
+                      <i class="dripicons-wrong h1 text-white"></i>
+            
+                      <p class="mt-3 text-white" translate> communication.Do you really want to delete <strong>{{editEnmergencyName}}</strong> <span> communication.from the list.</span></p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate>
+                      communication.No</button>
+                    <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="deleteEnmergencyContactPop()" translate>communication.Yes</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end delete popup -->
+            <div class="col-md-6">
+              <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                <div class="iq-card-body">
+                  <div class="row">
+                    <div class="col-md-12 ">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="headings">
+                          <h5 translate> <i class="fa fa-id-card-alt mr-1" aria-hidden="true"></i>communication.Add Placard</h5>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                    <div class="col-md-12">
+                      <form action="" [formGroup]="AddPlacard" (ngSubmit)="Placard()" >
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="guestgroupnames" translate> communication.Guest/Group Names</label>
+                              <input type="text" name="guestgroupnames" class="form-control" formControlName="placard" id="guestgroupnames">
+                              <div *ngIf="isSubmitted3&&form_pl.placard.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form_pl.placard.errors.required" translate>
+                                  communication.Please add Placard Group name.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="placarddetials" translate> communication.Placard Details</label>
+                              <input type="text" name="placarddetials" class="form-control" formControlName="placard_detail" id="placarddetials">
+                              <div *ngIf="isSubmitted3&&form_pl.placard_detail.errors" class="text-danger">
+                                <p class="mb-0" *ngIf="form_pl.placard_detail.errors.required" translate>
+                                  communication.Please write Placard content.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-2 pd-withoutlabel">
+                            <button type="submit" class="btn btn-primary" translate> communication.Save</button>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                              <thead>
+                              <tr>
+                                <th translate> communication.Name</th>
+                                <th translate> communication.Placard details</th>
+                                <th translate> communication.Action</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr *ngFor="let pl of DepPlacard">
+                                <td title="Test Departure" class="table-td-ellipsis">{{pl.placard}}</td>
+                                <td>{{pl.placard_detail}}</td>
+                                <td>
+                                  <a href="javascript:void(0)" title="Edit placard" data-toggle="modal" data-target="#exampleModalCenter3" (click)="editPlaycardForm(pl.id)" ><i class="ri-pencil-line upload-button"></i></a>
+                                  <a href="javascript:void(0)" title="Delete placard" data-toggle="modal" data-target="#confirm-delete3" (click)="deletePlayCardPop(pl.id)" class="text-danger"><i class="ri-delete-bin-2-line upload-button"></i></a>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <!-- Open model Contact -->
+             <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" translate> communication.Edit Playcard</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form [formGroup]="EditPlacard">
+                  <div class="modal-body">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="airline" translate> communication.Edit Playcard name</label>
+                        <input type="text" class="form-control" value="{{EditPlacard.value.placard}}" formControlName="placard">
+                        <div *ngIf="isSubmittedEditPlaycard&&formPlaycard.placard.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="formPlaycard.placard.errors.required" translate>
+                            communication.Please edit Contact Playcard.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="airline" translate> communication.Edit manager phone number</label>
+                        <input type="text" class="form-control" value="{{EditPlacard.value.placard_detail}}" formControlName="placard_detail">
+                        <div *ngIf="isSubmittedEditPlaycard&&formPlaycard.placard_detail.errors" class="text-danger">
+                          <p class="mb-0" *ngIf="formPlaycard.placard_detail.errors.required" translate>
+                            communication.Please edit Contact Playcard meaasge.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" translate>
+                      communication.Close </button>
+                    <button type="submit" class="btn btn-primary" (click)="editPlaycard()" translate>
+                      communication.Save changes </button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+            <!-- popup close-->
+             <!-- Delete popup-->
+             <div class="modal fade confirm-delete" id="confirm-delete3" tabindex="-1" role="dialog1" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content modal-filled bg-danger">
+                  <div class="modal-body">
+                    <div class="text-center">
+                      <i class="dripicons-wrong h1 text-white"></i>
+            
+                      <p class="mt-3 text-white" translate> communication.Do you really want to delete <strong>{{editplacard}}</strong> 
+                        <span translate> communication.from the list. </span></p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal" translate>
+                      communication.No </button>
+                    <a class="btn btn-light btn-ok text-danger" data-dismiss="modal" (click)="deletePlycard()" translate>
+                      communication.Yes </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end delete popup -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
